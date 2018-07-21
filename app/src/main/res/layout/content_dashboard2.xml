@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.Dashboard"
+    tools:showIn="@layout/app_bar_dashboard2">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:id="@+id/layout_credit"
+        android:background="@drawable/whitishgreylayout"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/credit"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/credit_history"/>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Credit History"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/credit"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:id="@+id/layout_debit"
+        android:layout_below="@+id/layout_credit"
+        android:background="@drawable/whitishgreylayout"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/debit"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/debit_history"/>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="Debit History"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/debit"
+            android:background="@color/darkblue"
+            android:textColor="@color/white"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:textSize="20dp"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

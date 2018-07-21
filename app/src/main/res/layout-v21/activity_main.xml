@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#15000000"
+    tools:context=".Activities.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/landingblue">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/logo"
+            android:id="@+id/logo"
+           />
+
+    </android.support.v7.widget.Toolbar>
+
+   <!-- <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/logo"
+        android:id="@+id/logo"
+        android:layout_marginTop="60dp"
+        />-->
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="155dp"
+        android:id="@+id/relativelayout"
+        android:layout_centerHorizontal="true">
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter Name"
+            android:drawableLeft="@drawable/ic_person_blue"
+            android:drawablePadding="5dp"
+            android:paddingLeft="15dp"
+            android:singleLine="true"
+            android:background="@drawable/registerscreen"
+            android:id="@+id/nameID"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/nameID"
+            android:id="@+id/emailID"
+            android:drawablePadding="15dp"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@drawable/ic_mail"
+            android:background="@drawable/registerscreen"
+            android:singleLine="true"
+            android:layout_marginTop="10dp"
+            android:inputType="textEmailAddress"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter Email"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/emailID"
+            android:hint="Mobile Number"
+            android:drawablePadding="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/registerscreen"
+            android:drawableLeft="@drawable/ic_call"
+            android:inputType="number"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/mobileID"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/mobileID"
+            android:hint="Enter Password"
+            android:drawablePadding="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_lock"
+            android:background="@drawable/registerscreen"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/password"
+            android:singleLine="true"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:hint="Enter Confirm Password"
+            android:background="@drawable/registerscreen"
+            android:layout_below="@+id/password"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="15dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/confirm_pass"/>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Register Now"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:background="@drawable/button"
+        android:id="@+id/registerbtn"
+        android:layout_below="@+id/relativelayout"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/loginHere"
+        android:text="Already a member? Login Here!"/>
+
+
+</RelativeLayout>

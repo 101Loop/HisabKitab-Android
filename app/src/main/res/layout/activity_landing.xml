@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.LandingActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/landingblue">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_share"
+            android:layout_gravity="end"
+        />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginPerson"
+            android:background="@drawable/ic_person"/>
+    </android.support.v7.widget.Toolbar>
+
+<!--Scroll View-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:scrollbars="none">
+
+        <!--Parent Relative layout for scrollview-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--First layer Layout - Money Flow-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/layout1"
+                android:background="@color/landingblue">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/landingpage_title"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/txttitle"
+                    />
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:text="Family/Homes"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/txtb1"
+                    android:layout_below="@+id/txttitle"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/roundbutton"
+                    />
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:text="Individual"
+                    android:gravity="center"
+                    android:id="@+id/txtb2"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/txtb1"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/roundbutton"
+                    />
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:text="Business/Corporate"
+                    android:gravity="center"
+                    android:id="@+id/txtb3"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/txtb2"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/roundbutton"
+                    />
+            </RelativeLayout>
+
+            <!--Second card layout - Family/Homes-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="500dp"
+                android:paddingTop="25dp"
+                android:layout_below="@+id/layout1"
+                android:id="@+id/layout2"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/whitishgreylayout">
+
+                <TextView
+                    android:id="@+id/txt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Family/Homes"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="105dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/txt1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lightOrange" />
+
+                <ImageView
+                    android:id="@+id/calcimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/calculator" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calcimg"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"
+                    android:text="Easy to Use"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/calc_contID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calcimg"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="30dp"
+                    android:text="@string/calc_content"
+                    />
+
+                <ImageView
+                    android:id="@+id/moneymanageID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calc_contID"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/money_manage" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/moneymanageID"
+                    android:text="Budget Management"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to manage budget"
+                    android:layout_below="@+id/moneymanageID"
+                    android:paddingTop="25dp"
+                    android:id="@+id/budgetcontentid"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/payment_method"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/expendID"
+                    android:layout_below="@+id/budgetcontentid"
+                    android:layout_marginTop="30dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/expendID"
+                    android:text="Control Expenditure"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to control your expenditure"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/expendID"
+                    android:paddingTop="25dp"/>
+
+            </RelativeLayout>
+
+            <!--Third card layout - Individual -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout2"
+                android:paddingTop="25dp"
+                android:id="@+id/layout3"
+                android:background="@drawable/whitishgreylayout"
+                android:layout_height="500dp">
+
+                <TextView
+                    android:id="@+id/txt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Individual"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="105dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/txt2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lightOrange" />
+
+                <ImageView
+                    android:id="@+id/calcimg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/calculator" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calcimg2"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"
+                    android:text="Easy to Use"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/calc_contID2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calcimg2"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="30dp"
+                    android:text="@string/calc_content"
+                     />
+
+                <ImageView
+                    android:id="@+id/pocketmanageID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/calc_contID2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/wallet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pocketmanageID"
+                    android:text="Pocket Management"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to manage your pocket money"
+                    android:layout_below="@+id/pocketmanageID"
+                    android:paddingTop="25dp"
+                    android:id="@+id/pocketcontentid"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/piggy_bank"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/savemoney"
+                    android:layout_below="@+id/pocketcontentid"
+                    android:layout_marginTop="30dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/savemoney"
+                    android:text="Save Money"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to save money"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/savemoney"
+                    android:paddingTop="25dp"/>
+
+            </RelativeLayout>
+
+            <!--Fourth Layout - Business/Corporate-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout3"
+                android:paddingTop="25dp"
+                android:id="@+id/layout4"
+                android:background="@drawable/whitishgreylayout"
+                android:layout_height="500dp">
+
+                <TextView
+                    android:id="@+id/txt3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Business/Corporate"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="105dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/txt3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/lightOrange" />
+
+                <ImageView
+                    android:id="@+id/trackimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/trackimg"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"
+                    android:text="Track Money Flow"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/track_contID2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/trackimg"
+                    android:layout_centerHorizontal="true"
+                    android:paddingTop="30dp"
+                    android:text="It is easy to track your transaction"
+                     />
+
+                <ImageView
+                    android:id="@+id/manageID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/track_contID2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/money" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/manageID"
+                    android:text="Money Management"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to manage money"
+                    android:layout_below="@+id/manageID"
+                    android:paddingTop="25dp"
+                    android:id="@+id/Managecontentid"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bars"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/grow"
+                    android:layout_below="@+id/Managecontentid"
+                    android:layout_marginTop="30dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/grow"
+                    android:text="Grow Business"
+                    android:textSize="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="It is easy to grow your business"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/grow"
+                    android:paddingTop="25dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout4"
+                android:layout_height="120dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/call"
+                    android:layout_centerHorizontal="true"
+                    android:text="Call Us: +91 1204545647"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textSize="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/follow"
+                    android:layout_marginTop="25dp"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/call"
+                    android:text="Follow us on:"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/follow"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/fbID"
+                    android:background="@drawable/facebook"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/follow"
+                    android:layout_marginLeft="210dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/twitter"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/follow"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/google_plus"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
