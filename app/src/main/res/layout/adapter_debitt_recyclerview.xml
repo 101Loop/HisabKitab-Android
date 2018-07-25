@@ -17,7 +17,6 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@drawable/whitishgreylayout"
             android:layout_height="match_parent">
 
             <!--Name view-->
@@ -26,10 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Name:  "
-                android:textColor="@color/landingblue"
                 android:textStyle="bold"
                 android:id="@+id/nameid"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body2"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:paddingLeft="10dp" />
 
@@ -42,8 +39,7 @@
                 android:id="@+id/namedetail"
                 android:layout_toRightOf="@+id/nameid"
                 android:layout_marginTop="30dp"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body1"
-
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 />
             <!--Amount view-->
             <TextView
@@ -53,7 +49,7 @@
                 android:paddingLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/nameid"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body2"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:id="@+id/amount"
                 />
 
@@ -64,7 +60,7 @@
                 android:layout_toRightOf="@id/amount"
                 android:layout_below="@id/nameid"
                 android:text="200"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body1"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textStyle="italic"
                 android:id="@+id/amountdetail"
                 android:layout_marginTop="5dp"/>
@@ -76,7 +72,7 @@
                 android:layout_below="@+id/amount"
                 android:paddingLeft="10dp"
                 android:id="@+id/mode"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body2"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:text="Mode: "/>
 
             <!--Mode detail-->
@@ -87,7 +83,7 @@
                 android:layout_below="@id/amount"
                 android:textStyle="italic"
                 android:id="@+id/modedetail"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body1"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:text="Cash"/>
 
             <!--Comment view-->
@@ -97,7 +93,7 @@
                 android:layout_below="@+id/mode"
                 android:paddingLeft="10dp"
                 android:id="@+id/comment"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body2"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:text="Comment(s): "/>
 
             <!--Comment detail-->
@@ -108,7 +104,7 @@
                 android:layout_below="@id/mode"
                 android:textStyle="italic"
                 android:id="@+id/commentdetail"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body1"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:text="This is a test comment"/>
 
             <!--Transaction date view-->
@@ -119,7 +115,7 @@
                 android:layout_below="@+id/comment"
                 android:paddingLeft="10dp"
                 android:id="@+id/transaction"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body2"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:text="Transaction Date: "/>
 
             <!--Transaction date detail-->
@@ -130,7 +126,7 @@
                 android:layout_below="@id/comment"
                 android:id="@+id/transactiondetail"
                 android:textStyle="italic"
-                android:theme="@style/Base.TextAppearance.AppCompat.Body1"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:text="20-07-2018"/>
 
             <!--Delete button-->

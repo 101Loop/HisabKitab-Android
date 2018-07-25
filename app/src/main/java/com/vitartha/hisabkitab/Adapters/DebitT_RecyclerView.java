@@ -18,22 +18,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerView.MyViewHolder> implements View.OnClickListener{
-    private static ArrayList<DebitHistory> debitDetails;
+    private List<DebitDetails> debitDetailsList;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+      public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView uname, amnt, pmode, pdate, pcomment;
         Button delbtn;
+
         public MyViewHolder(View view) {
             super(view);
-            uname = view.findViewById(R.id.namedetail);
-            amnt = view.findViewById(R.id.amountdetail);
-            pmode = view.findViewById(R.id.modedetail);
-            pdate = view.findViewById(R.id.transactiondetail);
-            pcomment = view.findViewById(R.id.commentdetail);
+            uname = (TextView) view.findViewById(R.id.namedetail);
+            amnt = (TextView)view.findViewById(R.id.amountdetail);
+            pmode = (TextView)view.findViewById(R.id.modedetail);
+            pdate = (TextView)view.findViewById(R.id.transactiondetail);
+            pcomment = (TextView) view.findViewById(R.id.commentdetail);
 
             view.setOnClickListener(this);
 
         }
+
 
         @Override
         public void onClick(View v) {
@@ -48,13 +50,12 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
     }
 
-    public DebitT_RecyclerView(ArrayList<DebitHistory> Debitdetails) {
-        this.debitDetails = Debitdetails;
+    public DebitT_RecyclerView(List<DebitDetails> Debitdetails) {
+        this.debitDetailsList = Debitdetails;
     }
 
-    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DebitT_RecyclerView.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_debitt_recyclerview, parent, false);
 
@@ -63,15 +64,19 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(DebitT_RecyclerView.MyViewHolder holder, int position) {
+        DebitDetails details = debitDetailsList.get(position);
+        holder.uname.setText(details.getName());
+        holder.pcomment.setText(details.getComment());
+        holder.pdate.setText(details.getDate());
+        holder.pmode.setText(details.getMode());
+        holder.amnt.setText(details.getAmount());
     }
 
     @Override
     public int getItemCount() {
-        return this.debitDetails.size();
+        return this.debitDetailsList.size();
     }
-
     @Override
     public void onClick(View v) {
 

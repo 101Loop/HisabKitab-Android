@@ -10,9 +10,10 @@ import com.android.volley.VolleyError;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HisabKitabErrorListener implements Response.ErrorListener {
+public class HisabKitabErrorListener implements Response.ErrorListener{
     private ProgressDialog progressDialog;
     private Activity act;
+
 
     /**
      * Customized ErrorListener to handle errors from Django REST API.
@@ -34,7 +35,6 @@ public class HisabKitabErrorListener implements Response.ErrorListener {
 
         // Error Status Code
         int errorStatusCode = error.networkResponse.statusCode;
-        Toast.makeText(this.act, errorStatusCode, Toast.LENGTH_SHORT).show();
         try {
             JSONObject jObj = new JSONObject(errorResponse);
             JSONObject objError = jObj.getJSONObject("data");

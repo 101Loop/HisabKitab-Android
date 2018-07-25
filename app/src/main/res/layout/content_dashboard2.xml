@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="60dp"
         android:id="@+id/layout_credit"
         android:background="@drawable/whitishgreylayout"
         android:layout_centerHorizontal="true">

@@ -1,13 +1,16 @@
 package com.vitartha.hisabkitab.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,8 +25,10 @@ import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
+import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +41,7 @@ public class DebitHistory extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DebitT_RecyclerView debitT_recyclerView;
-    private ArrayList<DebitHistory> debitHistories = new ArrayList<>();
+    private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
@@ -45,7 +50,7 @@ public class DebitHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_debithistory);
+        setContentView(R.layout.debithistory_content);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Debit Transactions History");
@@ -54,21 +59,26 @@ public class DebitHistory extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        debitT_recyclerView = new DebitT_RecyclerView(debitHistories);
-        // recyclerView.setHasFixedSize(true);
+        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(debitT_recyclerView);
         progressDialog = new ProgressDialog(this);
 
 
-        JSONObject jsonObject = new JSONObject();
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DebitHistory.this, AddDebit.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
         try {
-            jsonObject.put(key.server.key_paginator, 0);
-            fetchtransaction(jsonObject);
-        } catch (JSONException e) {
+            fetchtransaction(key.transactions.show_url);
+        } catch (Exception e) {
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
 
@@ -89,10 +99,24 @@ public class DebitHistory extends AppCompatActivity {
             }
         });
 
-    }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-    /**Hitting to show transactions url**/
-    public void fetchtransaction(JSONObject jsonObject) {
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(debitT_recyclerView);
+
+            }
+/*
+    public void  preparedata() {
+        DebitDetails debitDetails = new DebitDetails("divya", "cash", "metro", "12july", "account", 120000);
+        debitHistorieslist.add(debitDetails);
+        debitT_recyclerView.notifyDataSetChanged();
+        Toast.makeText(this, "heyyy", Toast.LENGTH_SHORT).show();
+    }*/
+
+    /** to show transactions url**/
+    public void fetchtransaction(String jsonObject) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
         HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
@@ -104,7 +128,7 @@ public class DebitHistory extends AppCompatActivity {
                     Toast.makeText(DebitHistory.this, "get method", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(DebitHistory.this, "Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DebitHistory.this, "Error!"+ e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         },new HisabKitabErrorListener(progressDialog, this), this);
@@ -112,11 +136,19 @@ public class DebitHistory extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void checkingstatus(JSONObject object) throws Exception {
+    public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
-        if(object.optInt(key.server.key_status) == 200) {
+        JSONArray array = response.optJSONArray("results");
 
+
+        for(int i=0; i<array.length(); i++) {
+            JSONObject obj = array.optJSONObject(i);
+                DebitDetails debitDetails = new DebitDetails(obj);
+                debitHistorieslist.add(debitDetails);
+            }
+            int count = debitT_recyclerView.getItemCount();
+        Toast.makeText(this, "count:" + count, Toast.LENGTH_SHORT).show();
+            debitT_recyclerView.notifyDataSetChanged();
             Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
-        }
     }
 }

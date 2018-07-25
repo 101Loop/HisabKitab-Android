@@ -19,7 +19,7 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:label="Hisab-Kitab(हिसाब-किताब)‌"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.LandingActivity"
             android:label="Hisab-Kitab(हिसाब-किताब)‌"
@@ -37,7 +37,10 @@
             android:name=".Activities.Dashboard"
             android:label="Dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ForgotPwd"
+        <activity
+            android:name=".Activities.ForgotPwd"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activities.AddDebit"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

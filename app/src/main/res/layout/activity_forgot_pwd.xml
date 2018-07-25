@@ -32,7 +32,7 @@
         android:layout_below="@+id/toolbar"
         style="@style/Base.TextAppearance.AppCompat.Body2"
         android:text="Forgot Password"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         />
     <EditText
         android:layout_width="300dp"

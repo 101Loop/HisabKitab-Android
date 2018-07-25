@@ -28,6 +28,11 @@ public interface key {
     }
 
     interface transactions {
+        String key_category = "category";
+        String key_amount = "amount";
+        String key_mode = "mode";
+        String Key_contact = "contact";
+        String key_date = "transaction_date";
         String transaction_endpoint = "transactions/";
         String show_url = server.rooturl + transaction_endpoint + "show/";
         String add_url = server.rooturl + transaction_endpoint + "add/";
