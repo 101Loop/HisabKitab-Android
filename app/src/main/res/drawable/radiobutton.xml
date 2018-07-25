@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true"><shape>
-        <solid android:color="@color/landingblue" />
 
-        <stroke android:width="0.3dp" android:color="#ccc" />
-    </shape></item>
+    <item android:state_checked="true">
+        <shape android:shape= "rectangle">
+            <solid android:color="@color/whitishblue" />
+            <stroke android:width="0.3dp" android:color="#ccc" />
+        </shape>
+    </item>
 
-    <item android:state_checked="false"><shape android:shape= "rectangle">
-        <solid android:color="#ffffff" />
-
-        <stroke android:width="0.3dp" android:color="#ccc" />
-    </shape></item>
-
+    <item android:state_checked="false">
+        <shape android:shape= "rectangle">
+            <solid android:color="#ffffff" />
+            <stroke android:width="0.3dp" android:color="#ccc" />
+        </shape>
+    </item>
 
 </selector>

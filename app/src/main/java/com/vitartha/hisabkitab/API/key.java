@@ -3,7 +3,7 @@ package com.vitartha.hisabkitab.API;
 public interface key {
 
     interface server {
-        String rooturl = "http://local.hisabkitab.in/api/";
+        String rooturl = "https://y5sa0ot8y4.execute-api.ap-south-1.amazonaws.com/production/api/";
         String key_status = "status_code";
         String key_token = "token";
         String key_data = "data";

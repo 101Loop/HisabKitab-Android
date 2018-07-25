@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ public class DebitHistory extends AppCompatActivity {
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     SharedPreference spAdap;
+    String url;
+    String category_value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,20 @@ public class DebitHistory extends AppCompatActivity {
         recyclerView.setAdapter(debitT_recyclerView);
         progressDialog = new ProgressDialog(this);
 
+        /**For back button**/
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            category_value = extras.getString("category");
+            //The key argument here must match that used in the other activity
+        }
+
+        url = key.transactions.show_url + "?&category=" + category_value;
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +94,7 @@ public class DebitHistory extends AppCompatActivity {
         });
 
         try {
-            fetchtransaction(key.transactions.show_url);
+            fetchtransaction(url);
         } catch (Exception e) {
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
@@ -106,21 +123,14 @@ public class DebitHistory extends AppCompatActivity {
 
         recyclerView.setAdapter(debitT_recyclerView);
 
-            }
-/*
-    public void  preparedata() {
-        DebitDetails debitDetails = new DebitDetails("divya", "cash", "metro", "12july", "account", 120000);
-        debitHistorieslist.add(debitDetails);
-        debitT_recyclerView.notifyDataSetChanged();
-        Toast.makeText(this, "heyyy", Toast.LENGTH_SHORT).show();
-    }*/
+    }
 
     /** to show transactions url**/
     public void fetchtransaction(String jsonObject) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
         HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
-                key.transactions.show_url, null, new Response.Listener<JSONObject>() {
+                url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -143,12 +153,20 @@ public class DebitHistory extends AppCompatActivity {
 
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
-                DebitDetails debitDetails = new DebitDetails(obj);
-                debitHistorieslist.add(debitDetails);
-            }
-            int count = debitT_recyclerView.getItemCount();
+            DebitDetails debitDetails = new DebitDetails(obj);
+            debitHistorieslist.add(debitDetails);
+        }
+        int count = debitT_recyclerView.getItemCount();
         Toast.makeText(this, "count:" + count, Toast.LENGTH_SHORT).show();
-            debitT_recyclerView.notifyDataSetChanged();
-            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+        debitT_recyclerView.notifyDataSetChanged();
+        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        finish();
+        return true;
     }
 }

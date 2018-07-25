@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,7 +52,7 @@ public class AddDebit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_debit);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Debit Transactions History");
+        toolbar.setTitle("Add Debit Transaction");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
@@ -90,7 +91,6 @@ public class AddDebit extends AppCompatActivity {
                     isname = true;
             }
         });
-
 
         amt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -237,5 +237,13 @@ public class AddDebit extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        finish();
+        return true;
     }
 }

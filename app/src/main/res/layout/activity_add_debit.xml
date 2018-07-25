@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/lightblueback"
     android:layout_height="match_parent"
     tools:context=".Activities.AddDebit">
 
@@ -26,88 +27,118 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbar"
         android:layout_marginTop="50dp">
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:id="@+id/contactname"
-        android:drawableRight="@drawable/ic_contact"
-        android:layout_centerHorizontal="true"/>
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:hint="Name"
+            android:background="@drawable/edittextbackground"
+            android:id="@+id/contactname"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:drawableRight="@drawable/ic_contact"
+            android:layout_centerHorizontal="true"/>
 
         <EditText
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_below="@+id/contactname"
             android:layout_centerHorizontal="true"
             android:inputType="number"
+            android:layout_marginTop="10dp"
             android:id="@+id/amount"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edittextbackground"
             android:drawableLeft="@drawable/rupee_indian"
             android:drawablePadding="5dp"
             android:hint="Amount"
             />
         <EditText
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint="Comments"
+            android:layout_height="45dp"
+            android:hint="Comment(s)"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edittextbackground"
             android:id="@+id/comment"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/amount"
             android:layout_centerHorizontal="true"/>
         <EditText
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_below="@+id/comment"
             android:hint="Date"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextbackground"
             android:layout_centerHorizontal="true"
             android:drawableRight="@drawable/ic_calendar"
+            android:paddingRight="5dp"
             android:id="@+id/date"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mode of Payment"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/modetxt"
+            style="@style/Base.TextAppearance.AppCompat.Body2"
+            android:layout_below="@+id/date"
+            android:layout_marginTop="20dp"/>
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/date"
+            android:layout_below="@+id/modetxt"
             android:id="@+id/radiogroup"
-
             android:weightSum="1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
             <RadioButton
-                android:layout_width="45dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:checked="false"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:id="@+id/cash"
-                android:button="null"
+                android:button="@null"
+                android:drawableLeft="@drawable/cash"
+                android:drawablePadding="5dp"
                 android:background="@drawable/radiobutton"
                 android:text="Cash"/>
             <RadioButton
-                android:layout_width="55dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:checked="false"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
+                android:button="@null"
                 android:id="@+id/cheque"
-                android:button="null"
+                android:drawableLeft="@drawable/cheque"
+                android:drawablePadding="5dp"
                 android:background="@drawable/radiobutton"
                 android:text="Cheque"/>
             <RadioButton
-                android:layout_width="115dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:checked="false"
                 android:id="@+id/acct"
-                android:button="null"
+                android:button="@null"
+                android:drawableLeft="@drawable/transfer"
+                android:drawablePadding="5dp"
                 android:background="@drawable/radiobutton"
                 android:text="Account Transfer"/>
             <RadioButton
-                android:layout_width="45dp"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="Card"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:button="null"
+                android:button="@null"
+                android:drawableLeft="@drawable/card"
+                android:drawablePadding="5dp"
                 android:background="@drawable/radiobutton"
                 android:id="@+id/card"
                 android:checked="false"/>
@@ -120,8 +151,9 @@
             android:text="Submit"
             android:background="@drawable/button"
             android:layout_below="@+id/radiogroup"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:id="@+id/submit"
+            android:textColor="@color/black"
             android:layout_centerHorizontal="true"
             />
     </RelativeLayout>

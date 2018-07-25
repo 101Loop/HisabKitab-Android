@@ -139,10 +139,12 @@ public class LoginActivity extends SampleClass{
     public void verify_login(JSONObject response) throws Exception {
         progressDialog.dismiss();
         if(response.optInt(key.server.key_status) == 200) {
-            Toast.makeText(this, "token:"+ response.getJSONObject(key.server.key_data).optString(key.server.key_token), Toast.LENGTH_SHORT).show();
             spAdap.saveData(key.server.key_token, response.getJSONObject(key.server.key_data).optString(key.server.key_token));
+           // spAdap.saveData(key.user_api.key_fullname, response.getJSONObject(key.server.key_data).optString(key.server))
             Toast.makeText(this, "LoggedIn successful!", Toast.LENGTH_SHORT).show();
+            //JWT jwt = new JWT(spAdap.getString(key.server.key_token));
             Intent i = new Intent(LoginActivity.this, Dashboard.class);
+           // i.putExtra("jwt", jwt);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             Toast.makeText(this, response.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();
