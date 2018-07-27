@@ -17,7 +17,7 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
     private List<DebitDetails> debitDetailsList;
 
       public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        public TextView uname, amnt, pmode, pdate, pcomment;
+        public TextView uname, amnt, pmode, pdate, pcomment, nameHint;
         Button delbtn;
 
         public MyViewHolder(View view) {
@@ -27,6 +27,7 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
             pmode = (TextView)view.findViewById(R.id.modedetail);
             pdate = (TextView)view.findViewById(R.id.transactiondetail);
             pcomment = (TextView) view.findViewById(R.id.commentdetail);
+            nameHint = view.findViewById(R.id.namehint);
 
             view.setOnClickListener(this);
 
@@ -66,6 +67,7 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
         holder.pcomment.setText(details.getComment());
         holder.pdate.setText(details.getDate());
         holder.pmode.setText(details.getMode());
+        holder.nameHint.setText(details.getName());
         holder.amnt.setText(details.getAmount());
     }
 
