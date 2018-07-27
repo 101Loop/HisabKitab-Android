@@ -19,13 +19,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
@@ -206,7 +204,7 @@ public class AddDebit extends AppCompatActivity {
     public void verifytransactiondata(JSONObject resp) throws Exception {
         progressDialog.dismiss();
         Toast.makeText(this, "Transaction Added Successfully", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(AddDebit.this, DebitHistory.class);
+        Intent i = new Intent(AddDebit.this, TransactionHistory.class);
         startActivity(i);
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }

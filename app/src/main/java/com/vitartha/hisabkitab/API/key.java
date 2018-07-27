@@ -19,6 +19,7 @@ public interface key {
         String key_mail = "email";
         String key_otp = "value";
         String key_otpvalue = "otp";
+        String key_msg = "message";
         String key_newpwd = "new_password";
         String login_endpoint = server.rooturl + user_endpoint + "login/";
         String registration_endpoint = server.rooturl + user_endpoint + "register/";

@@ -6,10 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,21 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.vitartha.hisabkitab.API.key;
-import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.R;
-
-import org.json.JSONObject;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -79,11 +68,22 @@ public class Dashboard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Dashboard.this, UpdateProfile.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
 
         debithistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, DebitHistory.class);
+                Intent i = new Intent(Dashboard.this, TransactionHistory.class);
                 i.putExtra("category", "D");
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -93,7 +93,7 @@ public class Dashboard extends AppCompatActivity
         credithistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, DebitHistory.class);
+                Intent i = new Intent(Dashboard.this, TransactionHistory.class);
                 i.putExtra("category", "C");
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -150,9 +150,15 @@ public class Dashboard extends AppCompatActivity
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_credit) {
-
+            Intent i = new Intent(Dashboard.this, TransactionHistory.class);
+            i.putExtra("category", "C");
+            startActivity(i);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_debit) {
-
+            Intent i = new Intent(Dashboard.this, TransactionHistory.class);
+            i.putExtra("category", "D");
+            startActivity(i);
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_logout) {
@@ -200,7 +206,7 @@ public class Dashboard extends AppCompatActivity
         four_selected.setOnClickListener(this);
         five_selected.setOnClickListener(this);
 
-        feedbacksbmt.setOnClickListener(new View.OnClickListener() {
+      /*  feedbacksbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(feedbackmsg.getText().length()<0) {
@@ -208,7 +214,7 @@ public class Dashboard extends AppCompatActivity
                 } else {
                 }
             }
-        });
+        });*/
 
     }
 

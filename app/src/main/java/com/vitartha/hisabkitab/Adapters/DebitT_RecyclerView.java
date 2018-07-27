@@ -1,6 +1,5 @@
 package com.vitartha.hisabkitab.Adapters;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vitartha.hisabkitab.Activities.DebitHistory;
 import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerView.MyViewHolder> implements View.OnClickListener{
