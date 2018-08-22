@@ -30,13 +30,20 @@
             </android.support.design.widget.AppBarLayout>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarlayout"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/edittextbackground"
             android:hint="Search by Name"
             android:id="@+id/searchName"
-            android:layout_below="@+id/toolbarlayout"
             android:singleLine="true"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
@@ -55,6 +62,8 @@
             android:background="@drawable/edittextbackground"
             android:hint="Search by Amount"
             android:gravity="center"
+            android:paddingLeft="10dp"
+            android:drawableLeft="@drawable/rupee_indian"
             android:inputType="numberDecimal"
             android:layout_centerHorizontal="true"
             android:id="@+id/searchAmount"
@@ -102,10 +111,11 @@
                 android:id="@+id/minRange"
                 android:gravity="center"
                 android:paddingStart="10dp"
+                android:drawableLeft="@drawable/rupee_indian"
                 android:paddingEnd="10dp"
                 android:background="@drawable/edittextbackground"
                 android:hint="Minimum"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:layout_marginLeft="40dp" />
 
             <TextView
@@ -123,10 +133,12 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:gravity="center"
                 android:paddingStart="10dp"
+                android:drawableLeft="@drawable/rupee_indian"
                 android:paddingEnd="10dp"
+                android:id="@+id/maxRange"
                 android:layout_toRightOf="@+id/minRange"
                 android:background="@drawable/edittextbackground"
                 android:layout_below="@+id/searchRangetxt"
@@ -144,31 +156,38 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/checkcash"
             android:text="Cash"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/checkcheque"
             android:text="Cheque"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/checkacct"
             android:text="Account Transfer"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/checkcard"
             android:text="Card"/>
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="Filter"
             android:layout_below="@+id/checkbox"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:id="@+id/filterbtn"
             android:background="@drawable/button"
             />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

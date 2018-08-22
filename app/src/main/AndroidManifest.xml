@@ -3,6 +3,7 @@
     package="com.vitartha.hisabkitab">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".Adapters.HisabKitab"
@@ -50,7 +51,11 @@
             android:name=".Activities.UpdateProfile"
             android:label="UPDATE PROFILE"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Activities.FilterActivity"
+        <activity
+            android:name=".Activities.FilterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activities.ChangePassword"
+            android:label="Change Password"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

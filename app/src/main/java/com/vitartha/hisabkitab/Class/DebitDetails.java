@@ -15,6 +15,7 @@ public class DebitDetails {
         this.date = jsonObject.optString("transaction_date");
         this.category = jsonObject.optString("category");
         this.amount = jsonObject.optString("amount");
+        this.comment = jsonObject.optString("comments");
     }
 
    /* public DebitDetails(String name, String mode, String comment, String date, String category, long amount) {

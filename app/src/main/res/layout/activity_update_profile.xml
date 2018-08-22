@@ -36,7 +36,6 @@
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="45dp"
-                android:text="Divya Tiwari"
                 android:hint="Name"
                 android:singleLine="true"
                 android:paddingStart="10dp"
@@ -56,7 +55,6 @@
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="45dp"
-                android:text="9911369753"
                 android:hint="Mobile"
                 android:id="@+id/txtnumber"
                 android:singleLine="true"
@@ -76,7 +74,6 @@
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:id="@+id/txtmail"
-                android:text="me@divyatiwari.me"
                 android:paddingStart="10dp"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
@@ -113,6 +110,17 @@
         android:layout_below="@+id/relativelayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password?"
+        android:layout_below="@+id/updatebtn"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="30dp"
+        android:id="@+id/changepwd"
+        />
 
     <Button
         android:layout_width="match_parent"

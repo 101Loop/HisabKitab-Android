@@ -21,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
@@ -140,11 +141,9 @@ public class LoginActivity extends SampleClass{
         progressDialog.dismiss();
         if(response.optInt(key.server.key_status) == 200) {
             spAdap.saveData(key.server.key_token, response.getJSONObject(key.server.key_data).optString(key.server.key_token));
-           // spAdap.saveData(key.user_api.key_fullname, response.getJSONObject(key.server.key_data).optString(key.server))
             Toast.makeText(this, "LoggedIn successful!", Toast.LENGTH_SHORT).show();
-            //JWT jwt = new JWT(spAdap.getString(key.server.key_token));
+
             Intent i = new Intent(LoginActivity.this, Dashboard.class);
-           // i.putExtra("jwt", jwt);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             Toast.makeText(this, response.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();

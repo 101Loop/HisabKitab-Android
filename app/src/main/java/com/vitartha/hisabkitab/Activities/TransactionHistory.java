@@ -13,11 +13,16 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
@@ -29,9 +34,12 @@ import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransactionHistory extends AppCompatActivity {
 
@@ -42,14 +50,17 @@ public class TransactionHistory extends AppCompatActivity {
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     SharedPreference spAdap;
-    String url;
-    String category_value;
-    ImageView filter;
+    TextView morefilteroption, alpha_ascend, alpha_descend, noTransMsg;
+    String  filtered_url, url, sorturl;
+    ImageView filter, price_ascend, price_descend;
+    LinearLayout filter_layout;
+    public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
+    private boolean loading = true, filterscreenvisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.debithistory_content);
+        setContentView(R.layout.activity_transaction);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Debit Transactions");
@@ -59,7 +70,14 @@ public class TransactionHistory extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist);
+        filter_layout = findViewById(R.id.filterlayout);
+        morefilteroption = findViewById(R.id.morefilter);
+        price_ascend = findViewById(R.id.Pricesort_ascending);
+        price_descend = findViewById(R.id.Pricesort_descending);
+        alpha_ascend = findViewById(R.id.Alphasort_ascending);
+        alpha_descend = findViewById(R.id.Alphasort_descending);
+        noTransMsg = findViewById(R.id.notransaction);
+        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, TransactionHistory.this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setAdapter(debitT_recyclerView);
@@ -77,11 +95,50 @@ public class TransactionHistory extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            category_value = extras.getString("category");
+            filtered_url = extras.getString("filter_url");
+
             //The key argument here must match that used in the other activity
         }
+        url = key.transactions.show_url + "?&category=" + spAdap.getString("category");
 
-        url = key.transactions.show_url + "?&category=" + category_value;
+        if(!filtered_url.equals(""))
+            url = filtered_url;
+
+        price_descend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sorturl = url + "&ordering=-amount";
+                url = sorturl;
+                fetchtransaction(url);
+            }
+        });
+        price_ascend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sorturl = url +"&ordering=+amount";
+                url = sorturl;
+                fetchtransaction(url );
+            }
+        });
+        alpha_descend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sorturl = url + "&ordering=-contact_name";
+                url = sorturl;
+                fetchtransaction(url);
+            }
+        });
+        alpha_ascend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sorturl = url +"&ordering=+contact__name";
+                url = sorturl;
+                fetchtransaction(url);
+            }
+        });
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +152,7 @@ public class TransactionHistory extends AppCompatActivity {
 
         try {
             fetchtransaction(url);
-        } catch (Exception e) {
+        } catch (Exception e){
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
 
@@ -116,35 +173,73 @@ public class TransactionHistory extends AppCompatActivity {
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(debitT_recyclerView);
 
+        /***
+         * To make Filter options visible and invisible
+         */
         filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(filterscreenvisible){
+                    filter_layout.setVisibility(View.GONE);
+                    filterscreenvisible = false;
+                    overridePendingTransition(R.anim.slide_in_down, R.anim.stay_anim);
+                } else {
+                    filter_layout.setVisibility(View.VISIBLE);
+                    filterscreenvisible = true;
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.stay_anim);
+                }
+            }
+        });
+        /***
+         * Shows more filter options
+         */
+        morefilteroption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TransactionHistory.this, FilterActivity.class);
                 startActivity(i);
-                overridePendingTransition(R.anim.slide_in_up, R.anim.stay_anim);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0) {
+                    VisibleItemCount = linearLayoutManager.getChildCount();
+                    TotalItemCount = linearLayoutManager.getItemCount();
+                    PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                    if(loading) {
+                        if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
+                            count += 1;
+                            String u = url + "&page=" + count;
+                            fetchtransaction(u);
+                        }
+                    }
+                }
             }
         });
 
     }
 
     /** to show transactions url**/
-    public void fetchtransaction(String jsonObject) {
+    public void fetchtransaction(String urlobj) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
         HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
-                url, null, new Response.Listener<JSONObject>() {
+                urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     checkingstatus(response);
-                    Toast.makeText(TransactionHistory.this, "get method", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     progressDialog.dismiss();
                     Toast.makeText(TransactionHistory.this, "Error!"+ e.toString(), Toast.LENGTH_SHORT).show();
@@ -166,9 +261,11 @@ public class TransactionHistory extends AppCompatActivity {
             debitHistorieslist.add(debitDetails);
         }
         int count = debitT_recyclerView.getItemCount();
-        Toast.makeText(this, "count:" + count, Toast.LENGTH_SHORT).show();
         debitT_recyclerView.notifyDataSetChanged();
-        Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+        if(count <= 0)
+            noTransMsg.setVisibility(View.VISIBLE);
+         else
+            noTransMsg.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -185,4 +282,67 @@ public class TransactionHistory extends AppCompatActivity {
         return true;
     }
 
+    /** to delete transactions **/
+    public void deletefromAPI(String urlobj, final ProgressDialog pd) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
+                urlobj, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**To update transaction**/
+    public void updatetransaction(JSONObject jsonObject, String url) {
+        progressDialog.setMessage("Updating...");
+        progressDialog.show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    verifyupdatestatus(response);
+                } catch (Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(TransactionHistory.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(TransactionHistory.this, "Some error occured!", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**To show updation success message and reload activity***/
+    public void verifyupdatestatus(JSONObject response) throws  JSONException{
+        progressDialog.dismiss();
+        Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
+        /**To refresh activity after updating details**/
+        startActivity(getIntent());
+    }
 }

@@ -5,26 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.LandingActivity">
-
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:background="@color/landingblue">
-        <ImageView
-            android:layout_width="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_share"
-            android:layout_gravity="end"
-        />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginPerson"
-            android:background="@drawable/ic_person"/>
-    </android.support.v7.widget.Toolbar>
+            android:id="@+id/toolbar"
+            android:background="@color/landingblue">
+            <!-- <ImageView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/ic_share"
+                 android:layout_gravity="end"
+             />-->
+            <!-- <ImageView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/loginPerson"
+                 android:background="@drawable/ic_person"/>-->
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-<!--Scroll View-->
+    <!--Scroll View-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -255,7 +259,7 @@
                     android:layout_centerHorizontal="true"
                     android:paddingTop="30dp"
                     android:text="@string/calc_content"
-                     />
+                    />
 
                 <ImageView
                     android:id="@+id/pocketmanageID"
@@ -365,7 +369,7 @@
                     android:layout_centerHorizontal="true"
                     android:paddingTop="30dp"
                     android:text="It is easy to track your transaction"
-                     />
+                    />
 
                 <ImageView
                     android:id="@+id/manageID"

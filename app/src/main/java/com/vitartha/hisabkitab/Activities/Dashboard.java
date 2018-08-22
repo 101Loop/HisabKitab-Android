@@ -1,11 +1,16 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SearchRecentSuggestionsProvider;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +22,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.R;
+
+import java.net.URLDecoder;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -32,6 +43,7 @@ public class Dashboard extends AppCompatActivity
     TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected;
     EditText feedbackmsg;
     Button feedbacksbmt;
+    static String jwtName, jwtEmail, jwtContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +56,6 @@ public class Dashboard extends AppCompatActivity
         debithistory = findViewById(R.id.layout_debit);
         credithistory = findViewById(R.id.layout_credit);
         spAdap = new SharedPreference(Dashboard.this);
-
-      //  JWT jwt = (JWT) getIntent().getParcelableExtra("jwt");
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -80,11 +89,20 @@ public class Dashboard extends AppCompatActivity
         });
 
 
+        JWT jwt = new JWT(spAdap.getString("token"));
+        Claim claimEmail = jwt.getClaim("email");
+        Claim claimName = jwt.getClaim("name");
+        Claim claimContact = jwt.getClaim("mobile");
+        jwtName = claimName.asString();
+        jwtEmail = claimEmail.asString();
+        jwtContact = claimContact.asString();
+
         debithistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-                i.putExtra("category", "D");
+                i.putExtra("filter_url", "");
+                spAdap.saveData("category", "D");
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -94,7 +112,8 @@ public class Dashboard extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-                i.putExtra("category", "C");
+                i.putExtra("filter_url", "");
+                spAdap.saveData("category", "C");
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
@@ -151,22 +170,75 @@ public class Dashboard extends AppCompatActivity
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_credit) {
             Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-            i.putExtra("category", "C");
+            spAdap.saveData("category", "C");
+            i.putExtra("filter_url", "");
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_debit) {
             Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-            i.putExtra("category", "D");
+            spAdap.saveData("category", "D");
+            i.putExtra("filter_url", "");
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_call) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            LayoutInflater inflater = LayoutInflater.from(this);
+            final View dialogView = inflater.inflate(R.layout.contactus_alertbox, null);
+            alert.setView(dialogView);
+
+            ImageView call, mail;
+            call = dialogView.findViewById(R.id.callus);
+            mail = dialogView.findViewById(R.id.mailus);
+            call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:01204545647"));
+                    startActivity(intent);
+                }
+            });
+            mail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent email = new Intent(Intent.ACTION_SEND);
+                    email.putExtra(Intent.EXTRA_EMAIL, new String[]{ "info@vitartha.com"});
+                    email.putExtra(Intent.EXTRA_SUBJECT,"Regarding Hisab-Kitab");
+                    email.putExtra(Intent.EXTRA_TEXT, "Message:");
+                    //need this to prompt email client only
+                    email.setType("message/rfc822");
+                    startActivity(Intent.createChooser(email, "Open Email through :"));
+                }
+            });
+            alert.show();
+        }
+        else if (id == R.id.nav_share) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Hisab-Kitab");
+            String message = "\nLet me recommend you this application\n\n";
+            message = message + "https://hisabkitab.in\n\n";
+            i.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(i, "Share via:"));
 
         } else if (id == R.id.nav_logout) {
-            Intent i = new Intent(Dashboard.this, LandingActivity.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            spAdap.clearData();
-
+            final AlertDialog.Builder alertdialog = new AlertDialog.Builder(this);
+            alertdialog.setMessage("Are you sure?");
+            alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(Dashboard.this, LoginActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    spAdap.clearData();
+                }
+            });
+            alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                }
+            });
+            alertdialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,6 +28,7 @@ import com.android.volley.Response;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
+import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
 
@@ -35,13 +37,16 @@ import org.json.JSONObject;
 
 public class AddDebit extends AppCompatActivity {
 
-    EditText name, amt, comment, date;
+    EditText name, amt, comment;
+    TextView date;
     private int Year, Month, Day;
     Button submit;
     RadioGroup radioGroupmode;
     Boolean isname, isamt, isdate, ismode;
     int mode;
     ProgressDialog progressDialog;
+    String category_value;
+    SharedPreference spAdap;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
 
@@ -50,7 +55,7 @@ public class AddDebit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_debit);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Add Debit Transaction");
+        toolbar.setTitle("Add Transaction");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
@@ -65,7 +70,14 @@ public class AddDebit extends AppCompatActivity {
         name = findViewById(R.id.contactname);
         amt = findViewById(R.id.amount);
         comment = findViewById(R.id.comment);
+        spAdap = new SharedPreference(AddDebit.this);
         progressDialog = new ProgressDialog(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            category_value = extras.getString("category");
+            //The key argument here must match that used in the other activity
+        }
 
         radioListerner();
 
@@ -161,9 +173,10 @@ public class AddDebit extends AppCompatActivity {
                 if (isname && isdate && isamt) {
                     JSONObject object = new JSONObject();
                     try {
-                        object.put(key.transactions.key_category, "D");
+                        object.put(key.transactions.key_category, spAdap.getString("category"));
                         object.put(key.transactions.Key_contact, name.getText().toString());
                         object.put(key.transactions.key_amount, amt.getText().toString());
+                        object.put(key.transactions.key_comments, comment.getText().toString());
                         object.put(key.transactions.key_mode, mode);
                         object.put(key.transactions.key_date, date.getText().toString());
 
@@ -205,11 +218,13 @@ public class AddDebit extends AppCompatActivity {
         progressDialog.dismiss();
         Toast.makeText(this, "Transaction Added Successfully", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(AddDebit.this, TransactionHistory.class);
+        i.putExtra("filter_url", "");
         startActivity(i);
+        finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
 
-    /**Radio Group Listener*/
+    /**Radio Group Listener for Modes*/
     public void radioListerner() {
         radioGroupmode = findViewById(R.id.radiogroup);
         radioGroupmode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -218,19 +233,15 @@ public class AddDebit extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.cash:
                         mode = 1;
-                        Toast.makeText(AddDebit.this, "Cash:"+ mode, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.cheque:
                         mode = 2;
-                        Toast.makeText(AddDebit.this, "Cheque:"+ mode, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.acct:
                         mode = 3;
-                        Toast.makeText(AddDebit.this, "Account:"+mode, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.card:
-                        mode = 4;
-                        Toast.makeText(AddDebit.this, "Card:" + mode, Toast.LENGTH_SHORT).show();
+                        mode = 5;
                         break;
                 }
             }

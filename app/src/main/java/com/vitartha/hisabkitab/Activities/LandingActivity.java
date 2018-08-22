@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,16 +22,21 @@ public class LandingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Hisab-Kitab(हिसाब-किताब)");
         toolbar.setTitleTextColor(Color.WHITE);
-
-        person = findViewById(R.id.loginPerson);
-        person.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LandingActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
+        setSupportActionBar(toolbar);
+        /* For back button */
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        finish();
+        return true;
+    }
 }
+

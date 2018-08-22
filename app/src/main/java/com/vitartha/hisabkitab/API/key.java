@@ -34,8 +34,10 @@ public interface key {
         String key_mode = "mode";
         String Key_contact = "contact";
         String key_date = "transaction_date";
+        String key_comments = "comments";
         String transaction_endpoint = "transactions/";
         String show_url = server.rooturl + transaction_endpoint + "show/";
         String add_url = server.rooturl + transaction_endpoint + "add/";
+        String transaction_url = server.rooturl + transaction_endpoint;
     }
 }

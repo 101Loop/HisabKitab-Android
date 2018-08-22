@@ -24,7 +24,6 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
         this.progressDialog = pd;
         this.act = activity;
     }
-
     /**
      * Parses the error based on StatusCode
      * @param error A {@link VolleyError} object.

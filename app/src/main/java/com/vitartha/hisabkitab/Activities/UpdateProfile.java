@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,10 +30,15 @@ import com.vitartha.hisabkitab.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.vitartha.hisabkitab.Activities.Dashboard.jwtContact;
+import static com.vitartha.hisabkitab.Activities.Dashboard.jwtEmail;
+import static com.vitartha.hisabkitab.Activities.Dashboard.jwtName;
+
 public class UpdateProfile extends AppCompatActivity {
 
     EditText name, mob, mail, add;
     Button update, back;
+    TextView pwd;
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
@@ -50,11 +56,15 @@ public class UpdateProfile extends AppCompatActivity {
         mail = findViewById(R.id.txtmail);
         add = findViewById(R.id.txtaddress);
         back = findViewById(R.id.backbutton);
+        pwd = findViewById(R.id.changepwd);
 
         progressDialog = new ProgressDialog(this);
 
         setSupportActionBar(toolbar);
 
+        name.setText(jwtName);
+        mob.setText(jwtContact);
+        mail.setText(jwtEmail);
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +76,17 @@ public class UpdateProfile extends AppCompatActivity {
                     jsonObject.put(key.user_api.key_mail, mail.getText().toString());
                     senddata(jsonObject);
                 } catch (JSONException e) {
-
+                    Toast.makeText(UpdateProfile.this, "Some error occured!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        pwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UpdateProfile.this, ChangePassword.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
 
@@ -92,7 +111,7 @@ public class UpdateProfile extends AppCompatActivity {
                     verifystatus(response);
                 } catch (Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(UpdateProfile.this, "Error while upda data!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateProfile.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, this), this);

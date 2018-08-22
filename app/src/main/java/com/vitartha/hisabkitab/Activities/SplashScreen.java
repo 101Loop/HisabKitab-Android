@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.auth0.android.jwt.JWT;
+import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.R;
 
@@ -24,8 +27,8 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (spAdap.isLoggedIn() != null) {
-                    Intent i = new Intent(SplashScreen.this, LandingActivity.class);
+                if (spAdap.getString(key.server.key_token) == null) {
+                    Intent i = new Intent(SplashScreen.this, LoginActivity.class);
                     startActivity(i);
                     finish();
                 } else {

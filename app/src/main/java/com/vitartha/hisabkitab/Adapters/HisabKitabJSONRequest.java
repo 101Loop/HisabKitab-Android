@@ -36,7 +36,6 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
         super(method, url, jsonRequest, listener, errorListener);
         this.act = activity;
     }
-
     /**
      * Constructor which defaults to <code>GET</code> if <code>jsonRequest</code> is
      * <code>null</code>, <code>POST</code> otherwise.
