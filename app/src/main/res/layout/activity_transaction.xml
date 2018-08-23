@@ -10,6 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/appbar"
         android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
@@ -26,8 +27,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp" />
         </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
 
+    </android.support.design.widget.AppBarLayout>
 
 
     <include layout="@layout/activity_debithistory"></include>

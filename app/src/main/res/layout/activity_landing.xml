@@ -43,7 +43,7 @@
             <!--First layer Layout - Money Flow-->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/layout1"
                 android:background="@color/landingblue">
                 <TextView
@@ -88,6 +88,7 @@
                     android:id="@+id/txtb3"
                     android:textColor="@color/white"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_below="@+id/txtb2"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/roundbutton"
@@ -97,7 +98,7 @@
             <!--Second card layout - Family/Homes-->
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="500dp"
+                android:layout_height="wrap_content"
                 android:paddingTop="25dp"
                 android:layout_below="@+id/layout1"
                 android:id="@+id/layout2"
@@ -198,6 +199,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:text="It is easy to control your expenditure"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/expendID"
@@ -212,7 +214,7 @@
                 android:paddingTop="25dp"
                 android:id="@+id/layout3"
                 android:background="@drawable/whitishgreylayout"
-                android:layout_height="500dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt2"
@@ -311,7 +313,8 @@
                     android:text="It is easy to save money"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/savemoney"
-                    android:paddingTop="25dp"/>
+                    android:paddingTop="25dp"
+                    android:layout_marginBottom="20dp"/>
 
             </RelativeLayout>
 
@@ -322,7 +325,7 @@
                 android:paddingTop="25dp"
                 android:id="@+id/layout4"
                 android:background="@drawable/whitishgreylayout"
-                android:layout_height="500dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt3"
@@ -421,6 +424,7 @@
                     android:text="It is easy to grow your business"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/grow"
+                    android:layout_marginBottom="20dp"
                     android:paddingTop="25dp"/>
 
             </RelativeLayout>
@@ -428,7 +432,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_below="@+id/layout4"
-                android:layout_height="120dp">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -441,11 +446,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/follow"
+                    android:id="@+id/privacy"
                     android:layout_marginTop="25dp"
                     style="@style/Base.TextAppearance.AppCompat.Body1"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/call"
+                    android:text="Privacy Policy"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/follow"
+                    android:layout_marginTop="25dp"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/privacy"
                     android:text="Follow us on:"/>
                 <ImageView
                     android:layout_width="wrap_content"
@@ -460,6 +474,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/follow"
                     android:layout_marginLeft="210dp"
+                    android:id="@+id/twitID"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/twitter"
                     />
@@ -468,6 +483,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/follow"
                     android:layout_marginLeft="130dp"
+                    android:id="@+id/GPLusID"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/google_plus"/>
             </RelativeLayout>

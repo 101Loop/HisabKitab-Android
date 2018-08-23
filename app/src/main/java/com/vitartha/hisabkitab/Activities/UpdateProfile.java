@@ -1,6 +1,8 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,9 +23,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
+import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
 
@@ -40,6 +45,7 @@ public class UpdateProfile extends AppCompatActivity {
     Button update, back;
     TextView pwd;
     ProgressDialog progressDialog;
+    SharedPreference spAdap;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
 
@@ -57,6 +63,8 @@ public class UpdateProfile extends AppCompatActivity {
         add = findViewById(R.id.txtaddress);
         back = findViewById(R.id.backbutton);
         pwd = findViewById(R.id.changepwd);
+        spAdap = new SharedPreference(UpdateProfile.this);
+
 
         progressDialog = new ProgressDialog(this);
 
@@ -122,9 +130,19 @@ public class UpdateProfile extends AppCompatActivity {
         progressDialog.dismiss();
         if(response.optInt(key.server.key_status) == 202) {
             Toast.makeText(this, "Your Profile has been updated successfully!", Toast.LENGTH_SHORT).show();
-            name.setText(response.optJSONObject("data").optString("name"));
-            mob.setText(response.optJSONObject("data").optString("mobile"));
-            mail.setText(response.optJSONObject("data").optString("email"));
+            AlertDialog.Builder alert = new AlertDialog.Builder(UpdateProfile.this);
+            alert.setMessage("Login Again!");
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(UpdateProfile.this, LoginActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.back_in, R.anim.back_out);
+                    spAdap.clearData();
+                }
+            });
+
+            alert.show();
         }
     }
 

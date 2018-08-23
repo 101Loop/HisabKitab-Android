@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.SampleClass;
 import com.vitartha.hisabkitab.R;
@@ -30,6 +31,7 @@ public class ForgotPwd extends SampleClass {
     Button verify, getOTP;
     ProgressDialog progressDialog;
     Boolean isOTP;
+    SharedPreference spAdap;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
 
@@ -47,6 +49,7 @@ public class ForgotPwd extends SampleClass {
         mail = findViewById(R.id.emailID);
         verify = findViewById(R.id.verify);
         getOTP = findViewById(R.id.getOtp);
+        spAdap = new SharedPreference(this);
         progressDialog = new ProgressDialog(this);
 
         /**For back button**/
@@ -96,6 +99,56 @@ public class ForgotPwd extends SampleClass {
         });
     }
 
+    /**Sending mail/mobile i.e user input to otp API to receive OTP**/
+    public void getotp(JSONObject object) {
+        if(isOTP)
+            progressDialog.setMessage("Verifying OTP...");
+        else
+            progressDialog.setMessage("Sending OTP...");
+        progressDialog.show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, key.user_api.otp_endpoint, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if (isOTP) {
+                    try {
+                        verifyOTP(response);
+                    } catch (JSONException e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPwd.this, "Error!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    try {
+                        checkstatusOTP(response);
+                    } catch (JSONException e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ForgotPwd.this, "Error!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String erroobj = new String(error.networkResponse.data);
+                try {
+                    JSONObject jObj = new JSONObject(erroobj);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    if(isOTP){
+                        Toast.makeText(ForgotPwd.this, erroobj, Toast.LENGTH_SHORT).show();
+                        otp.setError(objError.optString("OTP"));
+                    } else {
+                        mail.setError(objError.optString("message"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
     /**Sending Received OTP & Mail/mobile**/
    /* public void receivedOTP(JSONObject object) {
         progressDialog.setMessage("Sending OTP...");
@@ -130,52 +183,7 @@ public class ForgotPwd extends SampleClass {
         requestQueue.add(jsonObjectRequest);
 }*/
 
-    /**Sending mail/mobile i.e user input to otp API to receive OTP**/
-    public void getotp(JSONObject object) {
-        progressDialog.setMessage("Sending OTP...");
-        progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, key.user_api.otp_endpoint, object, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                if (isOTP) {
-                    try {
-                        verifyOTP(response);
-                    } catch (JSONException e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(ForgotPwd.this, "Error!!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    try {
-                        checkstatusOTP(response);
-                    } catch (JSONException e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(ForgotPwd.this, "Error!!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String erroobj = new String(error.networkResponse.data);
-                try {
-                    JSONObject jObj = new JSONObject(erroobj);
-                    // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
-                    if(isOTP){
-                    Toast.makeText(ForgotPwd.this, erroobj, Toast.LENGTH_SHORT).show();
-                    otp.setError(objError.optString("OTP"));
-                    } else {
-                        mail.setError(objError.optString("message"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        requestQueue.add(jsonObjectRequest);
-    }
+
     /**Checking status whether otp has been sent or not**/
     public void checkstatusOTP(JSONObject jsonObject) throws JSONException {
         progressDialog.dismiss();
@@ -196,6 +204,7 @@ public class ForgotPwd extends SampleClass {
         if(jsonObject.optInt(key.server.key_status)==200){
             Intent i = new Intent(ForgotPwd.this, Dashboard.class);
             startActivity(i);
+            spAdap.saveData(key.server.key_token, jsonObject.getJSONObject(key.server.key_data).optString(key.server.key_token));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             Toast.makeText(this, "Logged In Successfully!", Toast.LENGTH_SHORT).show();
         } else if(jsonObject.optInt(key.server.key_status)==401){

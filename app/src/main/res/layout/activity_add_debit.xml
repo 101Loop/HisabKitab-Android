@@ -22,12 +22,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:scrollbars="none"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/appbar"
+        android:layout_marginTop="40dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,6 +39,7 @@
                 android:layout_width="300dp"
                 android:layout_height="45dp"
                 android:hint="Name"
+                android:singleLine="true"
                 android:background="@drawable/edittextbackground"
                 android:id="@+id/contactname"
                 android:paddingLeft="10dp"
@@ -166,6 +169,9 @@
                 android:layout_centerHorizontal="true"
                 />
         </RelativeLayout>
+
+        </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.vitartha.hisabkitab.R.*;
+
 public class TransactionHistory extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -61,22 +63,25 @@ public class TransactionHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Debit Transactions");
-        toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(toolbar);
         spAdap = new SharedPreference(TransactionHistory.this);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        Toolbar toolbar = findViewById(id.toolbar);
+        if(spAdap.getString("category").equals("C"))
+            toolbar.setTitle("Credit Transactions");
+        else if(spAdap.getString("category").equals("D"))
+            toolbar.setTitle("Debit Transactions");
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
 
-        filter_layout = findViewById(R.id.filterlayout);
-        morefilteroption = findViewById(R.id.morefilter);
-        price_ascend = findViewById(R.id.Pricesort_ascending);
-        price_descend = findViewById(R.id.Pricesort_descending);
-        alpha_ascend = findViewById(R.id.Alphasort_ascending);
-        alpha_descend = findViewById(R.id.Alphasort_descending);
-        noTransMsg = findViewById(R.id.notransaction);
+        recyclerView = findViewById(id.recyclerView);
+
+        filter_layout = findViewById(id.filterlayout);
+        morefilteroption = findViewById(id.morefilter);
+        price_ascend = findViewById(id.Pricesort_ascending);
+        price_descend = findViewById(id.Pricesort_descending);
+        alpha_ascend = findViewById(id.Alphasort_ascending);
+        alpha_descend = findViewById(id.Alphasort_descending);
+        noTransMsg = findViewById(id.notransaction);
         debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, TransactionHistory.this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
@@ -84,7 +89,7 @@ public class TransactionHistory extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
 
-        filter = toolbar.findViewById(R.id.filterid);
+        filter = toolbar.findViewById(id.filterid);
 
         /**For back button**/
         if (getSupportActionBar() != null) {
@@ -107,46 +112,73 @@ public class TransactionHistory extends AppCompatActivity {
         price_descend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                price_descend.setBackgroundResource(drawable.ic_incoming_black);
+                price_ascend.setBackgroundResource(drawable.ic_outgoing);
+                alpha_descend.setTextColor(Color.parseColor("#1295c9"));
+                alpha_ascend.setTextColor(Color.parseColor("#1295c9"));
+
                 sorturl = url + "&ordering=-amount";
                 url = sorturl;
+                debitHistorieslist.clear();
                 fetchtransaction(url);
             }
         });
         price_ascend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                price_ascend.setBackgroundResource(drawable.ic_outgoing_black);
+                price_descend.setBackgroundResource(drawable.ic_incoming);
+                alpha_descend.setTextColor(Color.parseColor("#1295c9"));
+                alpha_ascend.setTextColor(Color.parseColor("#1295c9"));
+
                 sorturl = url +"&ordering=+amount";
                 url = sorturl;
+                debitHistorieslist.clear();
                 fetchtransaction(url );
             }
         });
         alpha_descend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alpha_descend.setTextColor(Color.BLACK);
+                price_descend.setBackgroundResource(drawable.ic_incoming);
+                price_ascend.setBackgroundResource(drawable.ic_outgoing);
+                alpha_ascend.setTextColor(Color.parseColor("#1295c9"));
+
                 sorturl = url + "&ordering=-contact_name";
                 url = sorturl;
+                debitHistorieslist.clear();
                 fetchtransaction(url);
             }
         });
         alpha_ascend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alpha_ascend.setTextColor(Color.BLACK);
+                price_descend.setBackgroundResource(drawable.ic_incoming);
+                price_ascend.setBackgroundResource(drawable.ic_outgoing);
+                alpha_descend.setTextColor(Color.parseColor("#1295c9"));
+
                 sorturl = url +"&ordering=+contact__name";
                 url = sorturl;
+                debitHistorieslist.clear();
                 fetchtransaction(url);
+
             }
         });
 
 
 
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TransactionHistory.this, AddDebit.class);
                 startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                overridePendingTransition(anim.slide_in, anim.slide_out);
             }
         });
 
@@ -189,15 +221,15 @@ public class TransactionHistory extends AppCompatActivity {
                 if(filterscreenvisible){
                     filter_layout.setVisibility(View.GONE);
                     filterscreenvisible = false;
-                    overridePendingTransition(R.anim.slide_in_down, R.anim.stay_anim);
+                    overridePendingTransition(anim.slide_in_down, anim.stay_anim);
                 } else {
                     filter_layout.setVisibility(View.VISIBLE);
                     filterscreenvisible = true;
-                    overridePendingTransition(R.anim.slide_in_up, R.anim.stay_anim);
+                    overridePendingTransition(anim.slide_in_up, anim.stay_anim);
                 }
             }
         });
-        /***
+        /*
          * Shows more filter options
          */
         morefilteroption.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +237,7 @@ public class TransactionHistory extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(TransactionHistory.this, FilterActivity.class);
                 startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                overridePendingTransition(anim.slide_in, anim.slide_out);
             }
         });
 
@@ -264,20 +296,20 @@ public class TransactionHistory extends AppCompatActivity {
         debitT_recyclerView.notifyDataSetChanged();
         if(count <= 0)
             noTransMsg.setVisibility(View.VISIBLE);
-         else
+        else
             noTransMsg.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        overridePendingTransition(anim.back_in, anim.back_out);
         finish();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        overridePendingTransition(anim.back_in, anim.back_out);
         finish();
         return true;
     }

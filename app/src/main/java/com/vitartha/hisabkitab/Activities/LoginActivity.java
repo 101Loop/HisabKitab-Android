@@ -115,6 +115,10 @@ public class LoginActivity extends SampleClass{
         });
     }
 
+    /***
+     * Sending login data i.e. username and password through POST Method
+     * @param jsonObject
+     */
     public void send_logindata(JSONObject jsonObject) {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -122,7 +126,7 @@ public class LoginActivity extends SampleClass{
         // Clear data before log-in (just in case)
         spAdap.clearData();
 
-        HisabKitabJSONRequest request = new HisabKitabJSONRequest(Request.Method.POST,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
                 key.user_api.login_endpoint, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -133,33 +137,41 @@ public class LoginActivity extends SampleClass{
                     Toast.makeText(LoginActivity.this, "Error while sending data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, this), this);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    Toast.makeText(LoginActivity.this, objError.optString("non_field_errors"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(LoginActivity.this, "Error while Login!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         requestQueue.add(request);
     }
 
+    /***
+     * Parsing Response, if status is 200 then user is redirected to Next Page
+     * @param response
+     * @throws Exception
+     */
     public void verify_login(JSONObject response) throws Exception {
         progressDialog.dismiss();
         if(response.optInt(key.server.key_status) == 200) {
             spAdap.saveData(key.server.key_token, response.getJSONObject(key.server.key_data).optString(key.server.key_token));
-            Toast.makeText(this, "LoggedIn successful!", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(this, "LoggedIn successfully!", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(LoginActivity.this, Dashboard.class);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            Toast.makeText(this, response.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, "Server Error Occured!", Toast.LENGTH_SHORT).show();
         }
-
-      /*  loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, LandingActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });*/
     }
 
 }

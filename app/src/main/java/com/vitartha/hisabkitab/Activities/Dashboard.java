@@ -1,5 +1,6 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SearchRecentSuggestionsProvider;
@@ -28,10 +29,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
+import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
+import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URLDecoder;
 
@@ -44,6 +55,9 @@ public class Dashboard extends AppCompatActivity
     EditText feedbackmsg;
     Button feedbacksbmt;
     static String jwtName, jwtEmail, jwtContact;
+    ProgressDialog progressDialog;
+    private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
+    private RequestQueue requestQueue = volleySingleton.getRequestQueue();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +70,20 @@ public class Dashboard extends AppCompatActivity
         debithistory = findViewById(R.id.layout_debit);
         credithistory = findViewById(R.id.layout_credit);
         spAdap = new SharedPreference(Dashboard.this);
+        progressDialog = new ProgressDialog(this);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /**Feed back API is not working, so, commenting Feedback FAB icon **/
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Feedback Form!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        .setAction("Feedback", null).show();
 
                 FeedbackForm();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -246,6 +262,7 @@ public class Dashboard extends AppCompatActivity
         return true;
     }
 
+    /**Feedback Alert Box**/
     public void FeedbackForm() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.feedback_form_layout, null);
@@ -278,16 +295,57 @@ public class Dashboard extends AppCompatActivity
         four_selected.setOnClickListener(this);
         five_selected.setOnClickListener(this);
 
-      /*  feedbacksbmt.setOnClickListener(new View.OnClickListener() {
+        feedbacksbmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(feedbackmsg.getText().length()<0) {
                     feedbackmsg.setError("Enter your feedback");
                 } else {
+                    JSONObject jsonObject = new JSONObject();
+                    try{
+                        jsonObject.put(key.user_api.key_fullname, jwtName);
+                        jsonObject.put(key.user_api.key_mail, jwtEmail);
+                        jsonObject.put(key.user_api.key_mob, jwtContact);
+                        jsonObject.put(key.user_api.key_msg, feedbackmsg.getText().toString());
+                        sendfeedbackdata(jsonObject);
+
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                        Toast.makeText(Dashboard.this, "Some error occured!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-        });*/
+        });
 
+    }
+
+    /**Sending feedback data using POST Method**/
+    public void  sendfeedbackdata(JSONObject object) {
+        progressDialog.setMessage("Sending Feedback...");
+        progressDialog.show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, key.user_api.feedback_endpoint, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    verifydata(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(Dashboard.this, "Some error occured!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**Showing success message of sending feedback successfully**/
+    public void verifydata(JSONObject object) throws  JSONException {
+        progressDialog.dismiss();
+        Toast.makeText(this, "Thank you for your feedback :) Your feedback has been sent successfully!", Toast.LENGTH_SHORT).show();
     }
 
     /**On Click Listener of 5 stars of Feedback**/

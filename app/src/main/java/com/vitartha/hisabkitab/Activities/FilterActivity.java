@@ -109,7 +109,7 @@ public class FilterActivity extends AppCompatActivity {
                 if(acct.isChecked())
                     filterurl.append("&mode=").append("3");
                 if(card.isChecked())
-                    filterurl.append("&mode=").append("4");
+                    filterurl.append("&mode=").append("5");
 
                 Intent i = new Intent(FilterActivity.this, TransactionHistory.class);
                 i.putExtra("filter_url", String.valueOf(filterurl));

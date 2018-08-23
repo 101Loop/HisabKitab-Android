@@ -26,6 +26,7 @@ public interface key {
         String otp_endpoint = server.rooturl + user_endpoint + "loginotp/";
         String change_pwd_endpoint = server.rooturl + user_endpoint + "changepassword/";
         String update_profile_endpoint = server.rooturl + user_endpoint + "updateprofile/";
+        String feedback_endpoint = server.rooturl + "feedback/";
     }
 
     interface transactions {

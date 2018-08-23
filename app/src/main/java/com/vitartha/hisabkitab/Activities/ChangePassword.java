@@ -84,7 +84,7 @@ public class ChangePassword extends AppCompatActivity {
     public void senddata(JSONObject object) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, key.user_api.update_profile_endpoint, object, new Response.Listener<JSONObject>() {
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, key.user_api.change_pwd_endpoint, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

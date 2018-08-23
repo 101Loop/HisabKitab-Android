@@ -1,5 +1,6 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,9 +23,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
@@ -35,6 +39,9 @@ import com.vitartha.hisabkitab.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddDebit extends AppCompatActivity {
 
     EditText name, amt, comment;
@@ -42,7 +49,7 @@ public class AddDebit extends AppCompatActivity {
     private int Year, Month, Day;
     Button submit;
     RadioGroup radioGroupmode;
-    Boolean isname, isamt, isdate, ismode;
+    Boolean isname =false, isamt = false, isdate = false, ismode = false;
     int mode;
     ProgressDialog progressDialog;
     String category_value;
@@ -59,6 +66,8 @@ public class AddDebit extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
+        spAdap = new SharedPreference(AddDebit.this);
+
         /**For back button**/
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,14 +79,7 @@ public class AddDebit extends AppCompatActivity {
         name = findViewById(R.id.contactname);
         amt = findViewById(R.id.amount);
         comment = findViewById(R.id.comment);
-        spAdap = new SharedPreference(AddDebit.this);
         progressDialog = new ProgressDialog(this);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            category_value = extras.getString("category");
-            //The key argument here must match that used in the other activity
-        }
 
         radioListerner();
 
@@ -94,7 +96,8 @@ public class AddDebit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (name.getText().toString().length() < 0) {
+                String nametxt = name.getText().toString();
+                if (nametxt.length() == 0) {
                     name.setError("Enter name");
                     isname = false;
                 } else
@@ -115,7 +118,8 @@ public class AddDebit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (amt.length() < 0) {
+                String amttxt = amt.getText().toString();
+                if (amttxt.length() == 0) {
                     amt.setError("Enter amount");
                     isamt = false;
                 } else
@@ -136,7 +140,8 @@ public class AddDebit extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (date.length() < 0) {
+                String datetxt = date.getText().toString();
+                if (datetxt.length() == 0) {
                     date.setError("Specify Date");
                     isdate = false;
                 } else
@@ -170,7 +175,10 @@ public class AddDebit extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isname && isdate && isamt) {
+                if(!ismode){
+                    Toast.makeText(AddDebit.this, "Select Transaction Mode", Toast.LENGTH_SHORT).show();
+                }
+                 else if (isname && isdate && isamt && ismode) {
                     JSONObject object = new JSONObject();
                     try {
                         object.put(key.transactions.key_category, spAdap.getString("category"));
@@ -179,7 +187,6 @@ public class AddDebit extends AppCompatActivity {
                         object.put(key.transactions.key_comments, comment.getText().toString());
                         object.put(key.transactions.key_mode, mode);
                         object.put(key.transactions.key_date, date.getText().toString());
-
                         senddata(object);
 
                     } catch (JSONException e) {
@@ -199,7 +206,7 @@ public class AddDebit extends AppCompatActivity {
     public void senddata(JSONObject jsonObject) {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        HisabKitabJSONRequest request = new HisabKitabJSONRequest(Request.Method.POST,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
                 key.transactions.add_url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -210,7 +217,30 @@ public class AddDebit extends AppCompatActivity {
                     Toast.makeText(AddDebit.this, "Error while sending data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, this), this);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    Toast.makeText(AddDebit.this, objError.toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(AddDebit.this, "Error while Adding Transaction!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
         requestQueue.add(request);
     }
 
@@ -233,16 +263,21 @@ public class AddDebit extends AppCompatActivity {
                 switch (checkedId) {
                     case R.id.cash:
                         mode = 1;
+                        ismode = true;
                         break;
                     case R.id.cheque:
                         mode = 2;
+                        ismode = true;
                         break;
                     case R.id.acct:
                         mode = 3;
+                        ismode = true;
                         break;
                     case R.id.card:
                         mode = 5;
+                        ismode = true;
                         break;
+                    default: ismode = false;
                 }
             }
         });

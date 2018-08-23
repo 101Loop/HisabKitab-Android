@@ -199,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
                         jsonObject.put(key.user_api.key_mob, mobile.getText().toString());
                         jsonObject.put(key.user_api.key_pwd, pwd.getText().toString());
 
-                        Toast.makeText(MainActivity.this, "INfo: " + jsonObject, Toast.LENGTH_LONG).show();
-
                         send_registrationdetails(jsonObject);
                     } catch(JSONException e) {
                         Toast.makeText(MainActivity.this, "Error while doing Registration!", Toast.LENGTH_SHORT).show();
@@ -268,7 +266,11 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.dismiss();
      if(object.optInt(key.server.key_status) == 201) {
          Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-         Toast.makeText(this, object.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();
+         Intent i = new Intent(MainActivity.this, LoginActivity.class);
+         startActivity(i);
+         overridePendingTransition(R.anim.back_in, R.anim.back_out);
+         finish();
+         // Toast.makeText(this, object.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();
      } else {
          email.setError("Server Error occured!");
      }
