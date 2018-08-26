@@ -62,11 +62,15 @@ public class AddDebit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_debit);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Add Transaction");
+        spAdap = new SharedPreference(AddDebit.this);
+
+        if(spAdap.getString("category").equals("C"))
+            toolbar.setTitle("Add Credit Transaction");
+        else
+            toolbar.setTitle("Add Debit Transaction");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
-        spAdap = new SharedPreference(AddDebit.this);
 
         /**For back button**/
         if (getSupportActionBar() != null) {
@@ -141,7 +145,7 @@ public class AddDebit extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String datetxt = date.getText().toString();
-                if (datetxt.length() == 0) {
+                if (datetxt.length() <= 0) {
                     date.setError("Specify Date");
                     isdate = false;
                 } else
@@ -228,7 +232,7 @@ public class AddDebit extends AppCompatActivity {
                     JSONObject objError = jObj.getJSONObject("data");
                     Toast.makeText(AddDebit.this, objError.toString(), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e){
-                    Toast.makeText(AddDebit.this, "Error while Adding Transaction!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDebit.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
         }){

@@ -52,7 +52,7 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView uname, amnt, pmode, pdate, pcomment, nameHint;
-        ImageView delbtn;
+        ImageView delbtn, trans_icon;
 
         public MyViewHolder(View view) {
             super(view);
@@ -61,7 +61,8 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
             pmode = (TextView) view.findViewById(R.id.modedetail);
             pdate = (TextView) view.findViewById(R.id.transactiondetail);
             pcomment = (TextView) view.findViewById(R.id.commentdetail);
-            nameHint = view.findViewById(R.id.namehint);
+            trans_icon = view.findViewById(R.id.namehint);
+           // nameHint = view.findViewById(R.id.namehint);
             delbtn = view.findViewById(R.id.delbtn);
 
             view.setOnClickListener(this);
@@ -104,8 +105,14 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
         holder.pcomment.setText(details.getComment());
         holder.pdate.setText(details.getDate());
         holder.pmode.setText(details.getMode());
-        holder.nameHint.setText(details.getName().substring(0,1));
+       // holder.nameHint.setText(details.getName().substring(0,1));
         holder.amnt.setText(details.getAmount());
+        if(details.getCategory().equals("C"))
+            holder.trans_icon.setImageResource(R.drawable.money_credit);
+        else
+            holder.trans_icon.setImageResource(R.drawable.money_debit);
+
+
         spAdap = new SharedPreference(mcontext);
 
 

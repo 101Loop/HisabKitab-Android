@@ -14,16 +14,29 @@
         android:backgroundTintMode="screen"
         android:layout_height="140dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/namehint1"
             android:background="@drawable/ic_circle"
-            android:layout_toLeftOf="@+id/amount"
-            android:layout_toStartOf="@+id/amount"
+            android:backgroundTint="@color/opaquelightblue"
+     />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:id="@+id/namehint"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_marginTop="30dp"/>
+
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

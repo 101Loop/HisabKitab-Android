@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.R;
@@ -15,6 +16,7 @@ public class SplashScreen extends AppCompatActivity {
 
     private int SPLASH_OUT_TIME = 3000;
     SharedPreference spAdap;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
@@ -23,6 +25,9 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         spAdap = new SharedPreference(this);
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -4,6 +4,7 @@ public interface key {
 
     interface server {
         String rooturl = "https://y5sa0ot8y4.execute-api.ap-south-1.amazonaws.com/production/api/";
+       // String rooturl = "http://192.168.1.8:8000/api/";
         String key_status = "status_code";
         String key_token = "token";
         String key_data = "data";

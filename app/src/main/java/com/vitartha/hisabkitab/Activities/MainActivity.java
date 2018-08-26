@@ -263,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**Checking status received from server**/
     public void verify_register(JSONObject object) throws Exception {
-        progressDialog.dismiss();
      if(object.optInt(key.server.key_status) == 201) {
+         progressDialog.dismiss();
          Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
          Intent i = new Intent(MainActivity.this, LoginActivity.class);
          startActivity(i);

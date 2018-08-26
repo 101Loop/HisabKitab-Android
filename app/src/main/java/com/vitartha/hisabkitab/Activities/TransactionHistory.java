@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,10 +53,11 @@ public class TransactionHistory extends AppCompatActivity {
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     SharedPreference spAdap;
-    TextView morefilteroption, alpha_ascend, alpha_descend, noTransMsg;
+    TextView morefilteroption, alpha_ascend, alpha_descend, noTransMsg, TotalTransaction, TotalAmount;
     String  filtered_url, url, sorturl;
     ImageView filter, price_ascend, price_descend;
     LinearLayout filter_layout;
+    RelativeLayout trasactiondetails;
     public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
     private boolean loading = true, filterscreenvisible = false;
 
@@ -76,7 +78,10 @@ public class TransactionHistory extends AppCompatActivity {
         recyclerView = findViewById(id.recyclerView);
 
         filter_layout = findViewById(id.filterlayout);
+        trasactiondetails = findViewById(R.id.transactiondetaillayout);
         morefilteroption = findViewById(id.morefilter);
+        TotalAmount = findViewById(id.TotalamtValue);
+        TotalTransaction = findViewById(id.TotattransValue);
         price_ascend = findViewById(id.Pricesort_ascending);
         price_descend = findViewById(id.Pricesort_descending);
         alpha_ascend = findViewById(id.Alphasort_ascending);
@@ -282,6 +287,7 @@ public class TransactionHistory extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    /**Getting list of transactions from server and setting it to Recyclerview **/
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
@@ -294,10 +300,19 @@ public class TransactionHistory extends AppCompatActivity {
         }
         int count = debitT_recyclerView.getItemCount();
         debitT_recyclerView.notifyDataSetChanged();
-        if(count <= 0)
+
+       // TotalTransaction.setText(count);
+        if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
-        else
+            trasactiondetails.setVisibility(View.INVISIBLE);
+        }
+        else {
             noTransMsg.setVisibility(View.INVISIBLE);
+            String amt = response.optString("total_amount");
+            TotalAmount.setText(amt);
+            TotalTransaction.setText(response.optString("count"));
+            trasactiondetails.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

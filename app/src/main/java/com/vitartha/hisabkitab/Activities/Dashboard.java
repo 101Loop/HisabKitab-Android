@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +25,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,27 +43,43 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
+import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
+import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     RelativeLayout debithistory, credithistory;
     SharedPreference spAdap;
-    TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected;
+    TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected, noTransMsg;
     EditText feedbackmsg;
     Button feedbacksbmt;
+    String url;
+    FloatingActionButton addfab, creditfab, debitfab;
+    private Boolean isFabOpen = false;
+    private Animation show_fab1, hide_fab1;
     static String jwtName, jwtEmail, jwtContact;
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
+    public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
+    private boolean loading = true;
+    RecyclerView recyclerView;
+    DebitT_RecyclerView debitT_recyclerView;
+    private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +89,29 @@ public class Dashboard extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        debithistory = findViewById(R.id.layout_debit);
-        credithistory = findViewById(R.id.layout_credit);
+        url = key.transactions.show_url;
+        // debithistory = findViewById(R.id.layout_debit);
+        // credithistory = findViewById(R.id.layout_credit);
+        noTransMsg = findViewById(R.id.notransaction);
+        show_fab1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_show);
+        hide_fab1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_hide);
+
         spAdap = new SharedPreference(Dashboard.this);
         progressDialog = new ProgressDialog(this);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        addfab = findViewById(R.id.addfab);
+        creditfab = findViewById(R.id.fabcredit);
+        debitfab = findViewById(R.id.fabdebit);
 
 
-        /**Feed back API is not working, so, commenting Feedback FAB icon **/
+        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, Dashboard.this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(true);
+        recyclerView.setAdapter(debitT_recyclerView);
+        recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
+
+        /* Feed back API is not working, so, commenting Feedback FAB icon **/
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +122,39 @@ public class Dashboard extends AppCompatActivity
                 FeedbackForm();
             }
         });*/
+
+
+        addfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateFab();
+            }
+        });
+
+        creditfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Dashboard.this, AddDebit.class);
+                spAdap.saveData("category", "C");
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
+
+        debitfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Dashboard.this, AddDebit.class);
+                spAdap.saveData("category", "D");
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -113,7 +184,7 @@ public class Dashboard extends AppCompatActivity
         jwtEmail = claimEmail.asString();
         jwtContact = claimContact.asString();
 
-        debithistory.setOnClickListener(new View.OnClickListener() {
+        /*debithistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Dashboard.this, TransactionHistory.class);
@@ -132,6 +203,54 @@ public class Dashboard extends AppCompatActivity
                 spAdap.saveData("category", "C");
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        });*/
+
+        try {
+            fetchtransaction(url);
+        } catch (Exception e){
+            Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
+        }
+
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(debitT_recyclerView);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy > 0) {
+                    VisibleItemCount = linearLayoutManager.getChildCount();
+                    TotalItemCount = linearLayoutManager.getItemCount();
+                    PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                    if(loading) {
+                        if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
+                            count += 1;
+                            String u = url + "?page=" + count;
+                            fetchtransaction(u);
+                        }
+                    }
+                }
             }
         });
     }
@@ -251,7 +370,7 @@ public class Dashboard extends AppCompatActivity
             alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                    dialog.dismiss();
                 }
             });
             alertdialog.show();
@@ -260,6 +379,50 @@ public class Dashboard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /** to show transactions url**/
+    public void fetchtransaction(String urlobj) {
+        progressDialog.setMessage("Fetching History...");
+        progressDialog.show();
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
+                urlobj, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    checkingstatus(response);
+                } catch (Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(Dashboard.this, "Error!"+ e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        },new HisabKitabErrorListener(progressDialog, this), this);
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**Getting list of transactions from server and setting it to Recyclerview **/
+    public void checkingstatus(JSONObject response) throws Exception {
+        progressDialog.dismiss();
+        JSONArray array = response.optJSONArray("results");
+
+
+        for(int i=0; i<array.length(); i++) {
+            JSONObject obj = array.optJSONObject(i);
+            DebitDetails debitDetails = new DebitDetails(obj);
+            debitHistorieslist.add(debitDetails);
+        }
+        int count = debitT_recyclerView.getItemCount();
+        debitT_recyclerView.notifyDataSetChanged();
+
+        // TotalTransaction.setText(count);
+        if(count <= 0) {
+            noTransMsg.setVisibility(View.VISIBLE);
+        }
+        else {
+            noTransMsg.setVisibility(View.INVISIBLE);
+            String amt = response.optString("total_amount");
+        }
     }
 
     /**Feedback Alert Box**/
@@ -506,6 +669,27 @@ public class Dashboard extends AppCompatActivity
                 feedbackmsg.setText("Loved it ^_^");
 
                 break;
+        }
+    }
+
+    /*Animates credit and debit fab icon*/
+    public void animateFab() {
+        if (isFabOpen) {
+            creditfab.startAnimation(hide_fab1);
+            debitfab.startAnimation(hide_fab1);
+            creditfab.setClickable(false);
+            debitfab.setClickable(false);
+            isFabOpen = false;
+            Log.d("close", "close");
+        } else {
+            creditfab.startAnimation(show_fab1);
+            debitfab.startAnimation(show_fab1);
+            creditfab.setClickable(true);
+            debitfab.setClickable(true);
+            isFabOpen = true;
+            Log.d("open", "open");
+
+
         }
     }
 }

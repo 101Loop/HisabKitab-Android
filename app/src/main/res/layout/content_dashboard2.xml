@@ -8,7 +8,7 @@
     tools:context=".Activities.Dashboard"
     tools:showIn="@layout/app_bar_dashboard2">
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
@@ -34,36 +34,55 @@
             style="@style/Base.TextAppearance.AppCompat.Body2"
             android:textSize="20dp"
             />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 
-    <RelativeLayout
+    <!--  <RelativeLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="60dp"
+          android:id="@+id/layout_debit"
+          android:layout_below="@+id/layout_credit"
+          android:background="@drawable/whitishgreylayout"
+          android:layout_centerHorizontal="true">
+          <ImageView
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:id="@+id/debit"
+              android:layout_marginTop="20dp"
+              android:layout_centerHorizontal="true"
+              android:background="@drawable/debit_history"/>
+          <TextView
+              android:layout_width="200dp"
+              android:layout_height="60dp"
+              android:text="Debit History"
+              android:gravity="center"
+              android:layout_marginTop="10dp"
+              android:layout_below="@+id/debit"
+              android:background="@color/darkblue"
+              android:textColor="@color/white"
+              style="@style/Base.TextAppearance.AppCompat.Body2"
+              android:textSize="20dp"
+              />
+      </RelativeLayout>-->
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:id="@+id/layout_debit"
-        android:layout_below="@+id/layout_credit"
-        android:background="@drawable/whitishgreylayout"
-        android:layout_centerHorizontal="true">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/debit"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/debit_history"/>
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:text="Debit History"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/debit"
-            android:background="@color/darkblue"
-            android:textColor="@color/white"
-            style="@style/Base.TextAppearance.AppCompat.Body2"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+        android:text="No Transactions Found!"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:id="@+id/notransaction"
+        android:visibility="invisible"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/filterlayout"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

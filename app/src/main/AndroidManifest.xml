@@ -3,14 +3,14 @@
     package="com.vitartha.hisabkitab">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".Adapters.HisabKitab"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/hk512"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/hk512"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -43,6 +43,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ForgotPwd"
+            android:label="‌"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.AddDebit"
@@ -54,8 +55,11 @@
         <activity
             android:name=".Activities.FilterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Activities.ChangePassword"
+        <activity
+            android:name=".Activities.ChangePassword"
             android:label="Change Password"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Activities.NewLoginscreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

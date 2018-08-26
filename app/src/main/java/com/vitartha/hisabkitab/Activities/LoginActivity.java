@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.auth0.android.jwt.JWT;
+import com.crashlytics.android.Crashlytics;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
@@ -55,13 +56,13 @@ public class LoginActivity extends SampleClass{
         setContentView(R.layout.activity_login);
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Login");
+        toolbar.setTitle("");
         toolbar.setTitleTextColor(Color.WHITE);
 
         setSupportActionBar(toolbar);
         /**For toolbar logo button**/
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setIcon(R.drawable.logo);
+            getSupportActionBar().setIcon(R.drawable.hisabkitab512);
 
         }
 
@@ -96,7 +97,7 @@ public class LoginActivity extends SampleClass{
             public void onClick(View v) {
                 user_Email = email.getText().toString();
                 user_pwd = pwd.getText().toString();
-                if(user_Email.matches(emailPattern) && user_pwd.length()>0) {
+                if(user_Email.length()>0 && user_pwd.length()>0) {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put(key.user_api.key_username, email.getText().toString());
@@ -106,8 +107,8 @@ public class LoginActivity extends SampleClass{
                     } catch (JSONException e) {
                         Toast.makeText(LoginActivity.this, "error!!!!", Toast.LENGTH_SHORT).show();
                     }
-                } else if(!user_Email.matches(emailPattern)) {
-                    email.setError("Enter valid Email-ID");
+                } else if(user_Email.length() == 0) {
+                    email.setError("This field is required");
                 } else if(user_pwd.length() == 0) {
                     pwd.setError("Password can not be null");
                 }
@@ -148,7 +149,7 @@ public class LoginActivity extends SampleClass{
                     JSONObject objError = jObj.getJSONObject("data");
                     Toast.makeText(LoginActivity.this, objError.optString("non_field_errors"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e){
-                    Toast.makeText(LoginActivity.this, "Error while Login!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Server Error Occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
