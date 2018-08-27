@@ -217,6 +217,7 @@ public class TransactionHistory extends AppCompatActivity {
 
         recyclerView.setAdapter(debitT_recyclerView);
 
+
         /***
          * To make Filter options visible and invisible
          */
@@ -318,19 +319,23 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
+        startActivity(i);
         overridePendingTransition(anim.back_in, anim.back_out);
         finish();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
+        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
+        startActivity(i);
         overridePendingTransition(anim.back_in, anim.back_out);
         finish();
         return true;
     }
 
     /** to delete transactions **/
-    public void deletefromAPI(String urlobj, final ProgressDialog pd) {
+    public void deletefromAPI(final String urlobj, final ProgressDialog pd) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
@@ -389,7 +394,7 @@ public class TransactionHistory extends AppCompatActivity {
     public void verifyupdatestatus(JSONObject response) throws  JSONException{
         progressDialog.dismiss();
         Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
-        /**To refresh activity after updating details**/
-        startActivity(getIntent());
+        debitHistorieslist.clear();
+        fetchtransaction(url);
     }
 }

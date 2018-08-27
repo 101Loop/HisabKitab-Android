@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,16 +59,20 @@ import org.json.JSONObject;
 
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     RelativeLayout debithistory, credithistory;
     SharedPreference spAdap;
-    TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected, noTransMsg;
+    TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected, noTransMsg,
+            TotalTransaction, TotalAmount;
     EditText feedbackmsg;
     Button feedbacksbmt;
     String url;
+    RelativeLayout trasactiondetails;
     FloatingActionButton addfab, creditfab, debitfab;
     private Boolean isFabOpen = false;
     private Animation show_fab1, hide_fab1;
@@ -103,6 +108,9 @@ public class Dashboard extends AppCompatActivity
         addfab = findViewById(R.id.addfab);
         creditfab = findViewById(R.id.fabcredit);
         debitfab = findViewById(R.id.fabdebit);
+        TotalAmount = findViewById(R.id.TotalamtValue);
+        TotalTransaction = findViewById(R.id.TotattransValue);
+        trasactiondetails = findViewById(R.id.transactiondetaillayout);
 
 
         debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, Dashboard.this);
@@ -154,8 +162,6 @@ public class Dashboard extends AppCompatActivity
             }
         });
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -165,6 +171,9 @@ public class Dashboard extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
+        //onNavigationItemSelected(navigationView.getMenu().getItem(0));
+       // navigationView.getMenu().getItem(0).setChecked(false);
+
 
         header.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,13 +303,9 @@ public class Dashboard extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_dashboard) {
+        } else if (id == R.id.nav_home) {
             Intent i = new Intent(Dashboard.this, LandingActivity.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            // Handle the camera action
-        } else if (id == R.id.nav_dashboard) {
-            Intent i = new Intent(Dashboard.this, Dashboard.class);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         } else if (id == R.id.nav_credit) {
@@ -351,7 +356,7 @@ public class Dashboard extends AppCompatActivity
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_SUBJECT, "Hisab-Kitab");
             String message = "\nLet me recommend you this application\n\n";
-            message = message + "https://hisabkitab.in\n\n";
+            message = message + "https://play.google.com/store/apps/details?id=com.vitartha.hisabkitab";
             i.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(i, "Share via:"));
 
@@ -418,11 +423,81 @@ public class Dashboard extends AppCompatActivity
         // TotalTransaction.setText(count);
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
+            trasactiondetails.setVisibility(View.INVISIBLE);
+
         }
         else {
             noTransMsg.setVisibility(View.INVISIBLE);
             String amt = response.optString("total_amount");
+            TotalAmount.setText(amt);
+            TotalTransaction.setText(response.optString("count"));
+            trasactiondetails.setVisibility(View.VISIBLE);
         }
+
+    }
+
+    /** to delete transactions **/
+    public void deletefromAPI(String urlobj, final ProgressDialog pd) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
+                urlobj, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**To update transaction**/
+    public void updatetransaction(JSONObject jsonObject, String url) {
+        progressDialog.setMessage("Updating...");
+        progressDialog.show();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    verifyupdatestatus(response);
+                } catch (Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(Dashboard.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(Dashboard.this, "Some error occured!", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    /**To show updation success message and reload activity***/
+    public void verifyupdatestatus(JSONObject response) throws  JSONException{
+        progressDialog.dismiss();
+        Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
+        debitHistorieslist.clear();
+        fetchtransaction(url);
     }
 
     /**Feedback Alert Box**/
@@ -680,16 +755,12 @@ public class Dashboard extends AppCompatActivity
             creditfab.setClickable(false);
             debitfab.setClickable(false);
             isFabOpen = false;
-            Log.d("close", "close");
         } else {
             creditfab.startAnimation(show_fab1);
             debitfab.startAnimation(show_fab1);
             creditfab.setClickable(true);
             debitfab.setClickable(true);
             isFabOpen = true;
-            Log.d("open", "open");
-
-
         }
     }
 }

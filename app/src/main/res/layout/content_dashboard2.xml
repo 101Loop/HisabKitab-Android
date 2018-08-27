@@ -76,10 +76,52 @@
         android:id="@+id/notransaction"
         android:visibility="invisible"/>
 
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
+        android:id="@+id/transactiondetaillayout"
+        android:layout_centerHorizontal="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Transaction(s): "
+            android:id="@+id/Totattrans"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/TotattransValue"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Totattrans"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:layout_toRightOf="@+id/TotattransValue"
+            android:background="@color/black" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Totalamt"
+            android:layout_toRightOf="@+id/TotattransValue"
+            android:text=" Total Amount: ₹"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/Totalamt"
+            android:id="@+id/TotalamtValue"/>
+
+
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_below="@+id/filterlayout"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/transactiondetaillayout"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerView">
 

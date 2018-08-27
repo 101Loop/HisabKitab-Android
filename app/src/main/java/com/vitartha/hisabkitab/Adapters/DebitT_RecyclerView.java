@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Activities.Dashboard;
 import com.vitartha.hisabkitab.Activities.FilterActivity;
 import com.vitartha.hisabkitab.Activities.TransactionHistory;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -48,7 +49,6 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
     public int TransactionId;
     SharedPreference spAdap;
     private int Year, Month, Day, mode;
-
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView uname, amnt, pmode, pdate, pcomment, nameHint;
@@ -214,7 +214,12 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
                             String urlobj = key.transactions.transaction_url + TransactionId + "/update/";
 
-                            ((TransactionHistory) mcontext).updatetransaction(object, urlobj);
+                            if(mcontext instanceof TransactionHistory)
+                                ((TransactionHistory) mcontext).updatetransaction(object, urlobj);
+                            else if(mcontext instanceof Dashboard)
+                                ((Dashboard)mcontext).updatetransaction(object, urlobj);
+                            notifyItemRangeChanged(position, debitDetailsList.size());
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -228,13 +233,25 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
         holder.delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                progressDialog.setMessage("Deleting...");
-                progressDialog.show();
-                TransactionId = debitDetailsList.get(position).getId();
-                Toast.makeText(v.getContext(), "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
-                removeAt(position, TransactionId);
-
+            public void onClick(final View v) {
+                final AlertDialog.Builder alertdialog = new AlertDialog.Builder(mcontext);
+                alertdialog.setMessage("Delete Transaction?");
+                alertdialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.setMessage("Deleting...");
+                        progressDialog.show();
+                        TransactionId = debitDetailsList.get(position).getId();
+                        removeAt(position, TransactionId, v);
+                    }
+                });
+                alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alertdialog.show();
             }
         });
     }
@@ -249,15 +266,23 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
     }
 
-    public void removeAt(int position, int Trans_ID) {
+    public void removeAt(int position, int Trans_ID, View view) {
         debitDetailsList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, debitDetailsList.size());
         String urlobj = key.transactions.transaction_url + Trans_ID + "/delete/";
-        if(mcontext instanceof  TransactionHistory) {
+        if(mcontext instanceof  TransactionHistory){
             ((TransactionHistory)mcontext).deletefromAPI(urlobj, progressDialog);
+            ((TransactionHistory)mcontext).fetchtransaction(key.transactions.show_url + "?&category=" + spAdap.getString("category"));
+        }
+         else  if(mcontext instanceof Dashboard) {
+            ((Dashboard) mcontext).deletefromAPI(urlobj, progressDialog);
+            ((Dashboard)mcontext).fetchtransaction(key.transactions.show_url);
         }
         progressDialog.dismiss();
+        Toast.makeText(view.getContext(), "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
+
     }
+
 
 }
