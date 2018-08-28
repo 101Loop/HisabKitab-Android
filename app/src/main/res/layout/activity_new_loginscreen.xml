@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#664fc4f7"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.NewLoginscreen">
-
 
     <TextView
         style="@style/Widget.AppCompat.Button.Borderless"

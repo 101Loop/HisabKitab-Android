@@ -270,7 +270,6 @@ public class MainActivity extends AppCompatActivity {
          startActivity(i);
          overridePendingTransition(R.anim.back_in, R.anim.back_out);
          finish();
-         // Toast.makeText(this, object.optInt(key.server.key_status), Toast.LENGTH_SHORT).show();
      } else {
          email.setError("Server Error occured!");
      }

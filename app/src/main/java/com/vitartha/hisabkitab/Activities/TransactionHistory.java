@@ -319,17 +319,13 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
-        startActivity(i);
-        overridePendingTransition(anim.back_in, anim.back_out);
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
-        startActivity(i);
-        overridePendingTransition(anim.back_in, anim.back_out);
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
         return true;
     }

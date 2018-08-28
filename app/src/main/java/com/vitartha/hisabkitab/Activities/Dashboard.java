@@ -84,6 +84,7 @@ public class Dashboard extends AppCompatActivity
     private boolean loading = true;
     RecyclerView recyclerView;
     DebitT_RecyclerView debitT_recyclerView;
+    boolean doublepress = false;
     private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
 
     @Override
@@ -265,21 +266,32 @@ public class Dashboard extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.dashboard2, menu);
         return true;
     }
+
+    /***
+     * This function checks whether the back button is pressed once or twice.
+     * On pressing once, it gives warning
+     */
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (doublepress) {
+                super.onBackPressed();
+                overridePendingTransition(R.anim.back_in, R.anim.back_out);
+                return;
+            }
+            this.doublepress = true;
+            Toast.makeText(this, "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -298,6 +310,13 @@ public class Dashboard extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
 
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -370,6 +389,7 @@ public class Dashboard extends AppCompatActivity
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     spAdap.clearData();
+                    finish();
                 }
             });
             alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

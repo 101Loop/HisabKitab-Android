@@ -169,6 +169,7 @@ public class LoginActivity extends SampleClass{
             Intent i = new Intent(LoginActivity.this, Dashboard.class);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            finish();
 
         } else {
             Toast.makeText(this, "Server Error Occured!", Toast.LENGTH_SHORT).show();
