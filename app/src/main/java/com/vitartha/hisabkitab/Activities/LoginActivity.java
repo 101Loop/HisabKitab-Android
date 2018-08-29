@@ -55,17 +55,6 @@ public class LoginActivity extends SampleClass{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        toolbar.setTitleTextColor(Color.WHITE);
-
-        setSupportActionBar(toolbar);
-        /**For toolbar logo button**/
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setIcon(R.drawable.hisabkitab512);
-
-        }
-
         spAdap = new SharedPreference(LoginActivity.this);
         signup = findViewById(R.id.signUPId);
         loginbtn = findViewById(R.id.loginId);

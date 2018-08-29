@@ -58,7 +58,6 @@ public class ForgotPwd extends SampleClass {
         /**For back button**/
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setIcon(R.drawable.hisabkitab512);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 

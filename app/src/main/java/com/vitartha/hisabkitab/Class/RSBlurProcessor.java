@@ -121,7 +121,7 @@ public class RSBlurProcessor {
     }
 
     private static Bitmap getScreenshot(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_4444);
         Canvas c = new Canvas(b);
         v.draw(c);
         return b;

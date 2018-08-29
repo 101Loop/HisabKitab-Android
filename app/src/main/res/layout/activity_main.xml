@@ -4,24 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkblue"
     tools:context=".Activities.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="@color/landingblue">
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:layout_gravity="end"
-            android:layout_below="@+id/toolbar"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/hisabkitab512"
-            android:id="@+id/logo"
-            />
-
+        android:background="@color/darkblue">
     </android.support.v7.widget.Toolbar>
 
     <!-- <ImageView
@@ -64,8 +54,13 @@
                         android:drawablePadding="5dp"
                         android:paddingLeft="15dp"
                         android:singleLine="true"
-                        android:background="@drawable/registerscreen"
-                        android:id="@+id/nameID"/>
+                        android:id="@+id/nameID"
+                        android:background="@color/opaquelightblue"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableTint="@color/white"
+                        />
 
                     <EditText
                         android:layout_width="300dp"
@@ -75,8 +70,11 @@
                         android:drawablePadding="15dp"
                         android:paddingLeft="15dp"
                         android:drawableLeft="@drawable/ic_mail"
-                        android:background="@drawable/registerscreen"
-                        android:singleLine="true"
+                        android:background="@color/opaquelightblue"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableTint="@color/white"                        android:singleLine="true"
                         android:layout_marginTop="10dp"
                         android:inputType="textEmailAddress"
                         android:layout_centerHorizontal="true"
@@ -90,8 +88,11 @@
                         android:drawablePadding="15dp"
                         android:paddingLeft="15dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/registerscreen"
-                        android:drawableLeft="@drawable/ic_call"
+                        android:background="@color/opaquelightblue"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableTint="@color/white"                        android:drawableLeft="@drawable/ic_call"
                         android:inputType="number"
                         android:singleLine="true"
                         android:layout_centerHorizontal="true"
@@ -106,8 +107,11 @@
                         android:paddingLeft="15dp"
                         android:layout_marginTop="10dp"
                         android:drawableLeft="@drawable/ic_lock"
-                        android:background="@drawable/registerscreen"
-                        android:layout_centerHorizontal="true"
+                        android:background="@color/opaquelightblue"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableTint="@color/white"                        android:layout_centerHorizontal="true"
                         android:id="@+id/password"
                         android:singleLine="true"
                         android:inputType="textPassword" />
@@ -116,8 +120,11 @@
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:hint="Enter Confirm Password"
-                        android:background="@drawable/registerscreen"
-                        android:layout_below="@+id/password"
+                        android:background="@color/opaquelightblue"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableTint="@color/white"                        android:layout_below="@+id/password"
                         android:singleLine="true"
                         android:drawableLeft="@drawable/ic_lock"
                         android:drawablePadding="15dp"
@@ -134,9 +141,11 @@
                     android:text="Register Now"
                     android:layout_marginTop="30dp"
                     android:layout_centerHorizontal="true"
-                    android:textColor="@color/white"
-                    android:background="@drawable/button"
+                    android:textStyle="italic"
+                    android:background="@drawable/opaquebutton"
                     android:id="@+id/registerbtn"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
                     android:layout_below="@+id/relativelayout"/>
 
                 <TextView
@@ -145,6 +154,7 @@
                     android:layout_below="@+id/registerbtn"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
+                    android:textColor="@color/white"
                     android:id="@+id/loginHere"
                     android:text="Already a member? Login Here!"/>
 

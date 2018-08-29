@@ -28,7 +28,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.LoginActivity"
-            android:label="Hisab-Kitab(हिसाब-किताब)‌"
+            android:label="‌"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.LandingActivity"

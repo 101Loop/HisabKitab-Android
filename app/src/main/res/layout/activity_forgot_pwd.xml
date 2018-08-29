@@ -4,29 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkblue"
     tools:context=".Activities.ForgotPwd">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="@color/landingblue">
-
-        <!--   <ImageView
-               android:layout_width="100dp"
-               android:layout_height="40dp"
-               android:layout_gravity="end"
-               android:layout_below="@+id/toolbar"
-               android:layout_centerHorizontal="true"
-               android:background="@drawable/logo"
-               android:id="@+id/logo"
-               />-->
+        android:background="@color/darkblue">
     </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/headbar"
+        android:layout_below="@id/toolbar">
+        <TextView
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Login with OTP"
+            android:layout_marginTop="20dp"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:id="@+id/appname"
+            app:fontFamily="cursive" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_below="@+id/appname"
+            android:src="@drawable/hk512"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/headbar"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,17 +55,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
 
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/forgottext"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:text="Login with OTP"
-                    android:layout_marginTop="20dp"
-                    />
 
                 <EditText
                     android:layout_width="300dp"
@@ -55,12 +62,15 @@
                     android:hint="Email/Mobile"
                     android:singleLine="true"
                     android:id="@+id/emailID"
-                    android:background="@drawable/registerscreen"
+                    android:background="@color/opaquelightblue"
                     android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:textColorHint="@color/white"
                     android:paddingLeft="10dp"
-                    android:layout_below="@+id/forgottext"
+                    android:drawableTint="@color/white"
                     android:layout_centerHorizontal="true"
-                    android:drawableLeft="@drawable/ic_mail"
+                    android:drawableLeft="@drawable/ic_person_blue"
                     android:layout_marginTop="40dp"
                     />
 
@@ -71,38 +81,45 @@
                     android:layout_below="@+id/emailID"
                     android:id="@+id/otp"
                     android:drawablePadding="15dp"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
+                    android:textColorHint="@color/white"
+                    android:drawableTint="@color/white"
                     android:paddingLeft="10dp"
                     android:layout_marginTop="30dp"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:drawableLeft="@drawable/ic_lock"
-                    android:background="@drawable/registerscreen"
-                    android:layout_centerHorizontal="true"
+                    android:background="@color/opaquelightblue"                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
 
                 <Button
                     android:layout_width="300dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/button"
                     android:text="Get OTP"
                     android:id="@+id/getOtp"
                     android:textColor="@color/white"
                     android:layout_below="@+id/otp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"/>
+                    android:backgroundTint="@color/white"
+                    android:layout_marginTop="30dp"
+                    android:textStyle="italic"
+                    android:background="@drawable/opaquebutton"/>
 
                 <Button
                     android:layout_width="300dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/button"
+                    android:background="@drawable/opaquebutton"
                     android:text="Verify"
                     android:visibility="invisible"
+                    android:backgroundTint="@color/white"
                     android:id="@+id/verify"
                     android:textColor="@color/white"
                     android:layout_below="@+id/otp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"/>
             </RelativeLayout>
 
         </LinearLayout>

@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#15000000"
-    tools:context=".Activities.LoginActivity">
+    android:id="@+id/blurlayout1"
+    android:background="@color/darkblue"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activities.NewLoginscreen">
 
-    <android.support.v7.widget.Toolbar
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/landingblue"
-        android:id="@+id/toolbar">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content"
+        android:id="@+id/headbar">
+        <TextView
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Hisab-Kitab"
+            android:layout_marginTop="20dp"
+            android:textSize="30dp"
+            android:textColor="@color/white"
+            android:id="@+id/appname"
+            app:fontFamily="cursive" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_below="@+id/appname"
+            android:src="@drawable/hk512"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/headbar">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,36 +44,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center">
-                <TextView
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logintext"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="20dp"
-                    android:layout_marginTop="40dp"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
-                    android:text="Login"
-                    />
 
                 <RelativeLayout
-                    android:layout_width="300dp"
-                    android:layout_height="130dp"
-                    android:layout_below="@+id/logintext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/relativelayout"
                     android:layout_marginTop="20dp"
-                    android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true">
+
                     <EditText
                         android:layout_width="300dp"
                         android:layout_height="50dp"
                         android:hint="Email-ID/Mobile"
+                        android:background="@color/opaquelightblue"
                         android:layout_centerHorizontal="true"
                         android:singleLine="true"
-                        android:drawableLeft="@drawable/ic_mail"
-                        android:background="@drawable/registerscreen"
-                        android:drawablePadding="5dp"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:drawableLeft="@drawable/ic_person_blue"
+                        android:drawablePadding="20dp"
                         android:paddingLeft="15dp"
                         android:id="@+id/emailID"
+                        android:drawableTint="@color/white"
                         />
                     <EditText
                         android:layout_width="300dp"
@@ -63,10 +74,14 @@
                         android:layout_below="@+id/emailID"
                         android:hint="Password"
                         android:singleLine="true"
+                        android:textColorHint="@color/white"
+                        android:backgroundTint="@color/white"
+                        android:textColor="@color/white"
                         android:inputType="textPassword"
-                        android:drawableLeft="@drawable/ic_person_blue"
-                        android:drawablePadding="5dp"
-                        android:background="@drawable/registerscreen"
+                        android:background="@color/opaquelightblue"
+                        android:drawableLeft="@drawable/ic_lock"
+                        android:drawablePadding="20dp"
+                        android:drawableTint="@color/white"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="15dp"
                         android:layout_centerHorizontal="true"
@@ -78,10 +93,13 @@
                     android:layout_height="wrap_content"
                     android:text="Login"
                     android:id="@+id/loginId"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/white"
                     android:layout_below="@id/relativelayout"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/button"
-                    android:textColor="@color/white"
+                    android:layout_marginTop="40dp"
+                    android:textStyle="italic"
+                    android:background="@drawable/opaquebutton"
                     />
 
                 <TextView
@@ -91,6 +109,7 @@
                     android:layout_below="@id/loginId"
                     android:layout_centerHorizontal="true"
                     android:textSize="14dp"
+                    android:textColor="@color/white"
                     android:layout_marginTop="30dp"
                     android:paddingBottom="10dp"
                     android:id="@+id/forgot"/>
@@ -102,12 +121,11 @@
                     android:text="New Member? SignUp Here!"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/signUPId"
+                    android:textColor="@color/white"
                     android:singleLine="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="5dp"/>
             </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
-
-
 </RelativeLayout>
