@@ -55,6 +55,7 @@ public class ChangePassword extends AppCompatActivity {
                 Intent i = new Intent(ChangePassword.this, UpdateProfile.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.back_in, R.anim.back_out);
+                finish();
             }
         });
 
@@ -103,5 +104,12 @@ public class ChangePassword extends AppCompatActivity {
         if(response.optInt(key.server.key_status) == 202) {
             Toast.makeText(this, "Your password has been updated successfully!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        finish();
     }
 }

@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
+import java.util.Calendar;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
@@ -178,7 +178,6 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
                 });
 
                 date.setOnClickListener(new View.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(View v) {
                         final Calendar calendar = Calendar.getInstance();

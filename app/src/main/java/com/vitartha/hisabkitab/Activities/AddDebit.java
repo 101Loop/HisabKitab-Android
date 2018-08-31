@@ -5,7 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.icu.util.Calendar;
+import java.util.Calendar;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -154,7 +154,6 @@ public class AddDebit extends AppCompatActivity {
         });
 
         date.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();

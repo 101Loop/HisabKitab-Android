@@ -104,6 +104,7 @@ public class UpdateProfile extends AppCompatActivity {
                 Intent i = new Intent(UpdateProfile.this, Dashboard.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.back_in, R.anim.back_out);
+                finish();
             }
         });
 
@@ -144,6 +145,13 @@ public class UpdateProfile extends AppCompatActivity {
 
             alert.show();
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        finish();
     }
 
 }
