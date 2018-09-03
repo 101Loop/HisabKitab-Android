@@ -27,8 +27,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
-import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
-import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -58,6 +56,7 @@ public class TransactionHistory extends AppCompatActivity {
     ImageView filter, price_ascend, price_descend;
     LinearLayout filter_layout;
     RelativeLayout trasactiondetails;
+    Boolean loading_url = true;
     public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
     private boolean loading = true, filterscreenvisible = false;
 
@@ -96,7 +95,7 @@ public class TransactionHistory extends AppCompatActivity {
 
         filter = toolbar.findViewById(id.filterid);
 
-        /**For back button**/
+        //For back button
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -247,6 +246,7 @@ public class TransactionHistory extends AppCompatActivity {
             }
         });
 
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -261,7 +261,8 @@ public class TransactionHistory extends AppCompatActivity {
                             String u = url + "&page=" + count;
                             fetchtransaction(u);
                         }
-                    }
+                    } else
+                        Toast.makeText(TransactionHistory.this, "no more transactions found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -272,7 +273,7 @@ public class TransactionHistory extends AppCompatActivity {
     public void fetchtransaction(String urlobj) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -280,10 +281,24 @@ public class TransactionHistory extends AppCompatActivity {
                     checkingstatus(response);
                 } catch (Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(TransactionHistory.this, "Error!"+ e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TransactionHistory.this, "Error!" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        },new HisabKitabErrorListener(progressDialog, this), this);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
 
         requestQueue.add(jsonObjectRequest);
     }
@@ -292,6 +307,7 @@ public class TransactionHistory extends AppCompatActivity {
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
+         debitHistorieslist.clear();
 
 
         for(int i=0; i<array.length(); i++) {
@@ -313,6 +329,14 @@ public class TransactionHistory extends AppCompatActivity {
             TotalAmount.setText(amt);
             TotalTransaction.setText(response.optString("count"));
             trasactiondetails.setVisibility(View.VISIBLE);
+        }
+
+        if(!response.optString("next").equals("null")) {
+            loading = true;
+        } else {
+            loading = false;
+            progressDialog.dismiss();
+            Toast.makeText(this, "No more transactions found!", Toast.LENGTH_SHORT).show();
         }
     }
 

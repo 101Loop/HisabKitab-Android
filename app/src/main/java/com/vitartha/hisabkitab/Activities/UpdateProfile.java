@@ -5,35 +5,33 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.auth0.android.jwt.Claim;
-import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
-import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
-import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.vitartha.hisabkitab.Activities.Dashboard.jwtContact;
 import static com.vitartha.hisabkitab.Activities.Dashboard.jwtEmail;
@@ -113,7 +111,7 @@ public class UpdateProfile extends AppCompatActivity {
     public void senddata(JSONObject object) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, key.user_api.update_profile_endpoint, object, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, key.user_api.update_profile_endpoint, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -123,7 +121,31 @@ public class UpdateProfile extends AppCompatActivity {
                     Toast.makeText(UpdateProfile.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, this), this);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    Toast.makeText(UpdateProfile.this, objError.toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(UpdateProfile.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
+
         requestQueue.add(jsonObjectRequest);
     }
 

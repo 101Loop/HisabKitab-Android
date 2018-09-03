@@ -11,18 +11,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.google.gson.JsonObject;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
-import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
-import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
+
+import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChangePassword extends AppCompatActivity {
 
@@ -31,6 +36,7 @@ public class ChangePassword extends AppCompatActivity {
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
+    SharedPreference spAdap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class ChangePassword extends AppCompatActivity {
         newpwd = findViewById(R.id.newpwdtxt);
         confpwd = findViewById(R.id.confirmpwdtxt);
         progressDialog = new ProgressDialog(this);
+        spAdap = new SharedPreference(this);
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +92,7 @@ public class ChangePassword extends AppCompatActivity {
     public void senddata(JSONObject object) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, key.user_api.change_pwd_endpoint, object, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, key.user_api.change_pwd_endpoint, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -95,8 +102,32 @@ public class ChangePassword extends AppCompatActivity {
                     Toast.makeText(ChangePassword.this, "Error while updating password!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, this), this);
-        requestQueue.add(jsonObjectRequest);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    Toast.makeText(ChangePassword.this, objError.toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(ChangePassword.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
+
+            }
+        };
+                requestQueue.add(jsonObjectRequest);
     }
 
     public  void verifystatus(JSONObject response) throws JSONException{

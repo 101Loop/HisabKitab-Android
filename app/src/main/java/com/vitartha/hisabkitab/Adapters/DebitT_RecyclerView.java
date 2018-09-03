@@ -84,7 +84,7 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
     }
 
     public DebitT_RecyclerView(List<DebitDetails> Debitdetails, Context context) {
-        this.debitDetailsList = Debitdetails;
+        debitDetailsList = Debitdetails;
         this.mcontext = context;
     }
 
@@ -253,6 +253,11 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
                 alertdialog.show();
             }
         });
+    }
+
+    public void reloadData(List<DebitDetails> ddetails) {
+        debitDetailsList = ddetails;
+        this.notifyDataSetChanged();
     }
 
     @Override

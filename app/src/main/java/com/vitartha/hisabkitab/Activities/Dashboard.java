@@ -8,12 +8,10 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,8 +44,6 @@ import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
-import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
-import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -57,7 +53,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,13 +60,12 @@ import java.util.Map;
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    RelativeLayout debithistory, credithistory;
     SharedPreference spAdap;
     TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected, noTransMsg,
             TotalTransaction, TotalAmount;
     EditText feedbackmsg;
     Button feedbacksbmt;
-    String url;
+    String show_url;
     RelativeLayout trasactiondetails;
     FloatingActionButton addfab, creditfab, debitfab;
     private Boolean isFabOpen = false;
@@ -95,9 +89,7 @@ public class Dashboard extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
 
-        url = key.transactions.show_url;
-        // debithistory = findViewById(R.id.layout_debit);
-        // credithistory = findViewById(R.id.layout_credit);
+        show_url = key.transactions.show_url;
         noTransMsg = findViewById(R.id.notransaction);
         show_fab1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_show);
         hide_fab1 = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_hide);
@@ -194,30 +186,8 @@ public class Dashboard extends AppCompatActivity
         jwtEmail = claimEmail.asString();
         jwtContact = claimContact.asString();
 
-        /*debithistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-                i.putExtra("filter_url", "");
-                spAdap.saveData("category", "D");
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });
-
-        credithistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Dashboard.this, TransactionHistory.class);
-                i.putExtra("filter_url", "");
-                spAdap.saveData("category", "C");
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            }
-        });*/
-
         try {
-            fetchtransaction(url);
+            fetchtransaction(show_url);
         } catch (Exception e){
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
@@ -256,9 +226,11 @@ public class Dashboard extends AppCompatActivity
                     if(loading) {
                         if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
                             count += 1;
-                            String u = url + "?page=" + count;
+                            String u = show_url + "?page=" + count;
                             fetchtransaction(u);
                         }
+                    } else {
+                        Toast.makeText(Dashboard.this, "No more Transactions found!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -310,13 +282,6 @@ public class Dashboard extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-
-    public void onRestart()
-    {
-        super.onRestart();
-        finish();
-        startActivity(getIntent());
-    }
 
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -410,7 +375,7 @@ public class Dashboard extends AppCompatActivity
     public void fetchtransaction(String urlobj) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -418,27 +383,49 @@ public class Dashboard extends AppCompatActivity
                     checkingstatus(response);
                 } catch (Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(Dashboard.this, "Error!"+ e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dashboard.this, "Error!" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        },new HisabKitabErrorListener(progressDialog, this), this);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    JSONObject objError = jObj.getJSONObject("data");
+                    Toast.makeText(Dashboard.this, objError.toString(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(Dashboard.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                final Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", spAdap.getString(key.server.key_token));
+                return headers;
 
-        requestQueue.add(jsonObjectRequest);
+            }
+        };
+
+                requestQueue.add(jsonObjectRequest);
     }
 
     /**Getting list of transactions from server and setting it to Recyclerview **/
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
-
-
+        debitHistorieslist = new ArrayList<>();
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
             debitHistorieslist.add(debitDetails);
         }
         int count = debitT_recyclerView.getItemCount();
-        debitT_recyclerView.notifyDataSetChanged();
+        debitT_recyclerView.reloadData(debitHistorieslist);
 
         // TotalTransaction.setText(count);
         if(count <= 0) {
@@ -454,6 +441,12 @@ public class Dashboard extends AppCompatActivity
             trasactiondetails.setVisibility(View.VISIBLE);
         }
 
+        if(!response.optString("next").equals("null")) {
+            loading = true;
+        } else {
+            loading = false;
+            Toast.makeText(this, "No more transactions found!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /** to delete transactions **/
@@ -517,7 +510,7 @@ public class Dashboard extends AppCompatActivity
         progressDialog.dismiss();
         Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
         debitHistorieslist.clear();
-        fetchtransaction(url);
+        fetchtransaction(show_url);
     }
 
     /**Feedback Alert Box**/
@@ -783,4 +776,10 @@ public class Dashboard extends AppCompatActivity
             isFabOpen = true;
         }
     }
+
+    public void onResume(){
+        super.onResume();
+        fetchtransaction(show_url);
+    }
+
 }
