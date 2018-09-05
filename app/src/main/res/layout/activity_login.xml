@@ -12,16 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/headbar">
+
         <TextView
+            android:id="@+id/appname"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Hisab-Kitab"
             android:layout_marginTop="20dp"
-            android:textSize="30dp"
+            android:text="Hisab-Kitab"
             android:textColor="@color/white"
-            android:id="@+id/appname"
+            android:textSize="30dp"
             app:fontFamily="cursive" />
 
         <ImageView

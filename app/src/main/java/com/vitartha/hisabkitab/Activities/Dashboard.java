@@ -1,10 +1,12 @@
 package com.vitartha.hisabkitab.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SearchRecentSuggestionsProvider;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -44,6 +46,8 @@ import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
+import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -53,6 +57,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -375,7 +380,7 @@ public class Dashboard extends AppCompatActivity
     public void fetchtransaction(String urlobj) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -386,7 +391,8 @@ public class Dashboard extends AppCompatActivity
                     Toast.makeText(Dashboard.this, "Error!" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new HisabKitabErrorListener(progressDialog, Dashboard.this), this);
+        /*, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
@@ -394,31 +400,22 @@ public class Dashboard extends AppCompatActivity
                 try{
                     JSONObject jObj = new JSONObject(errorStr);
                     // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
-                    Toast.makeText(Dashboard.this, objError.toString(), Toast.LENGTH_SHORT).show();
+                    String objError = jObj.optString("detail");
+                    Toast.makeText(Dashboard.this, objError,  Toast.LENGTH_SHORT).show();
                 } catch (JSONException e){
-                    Toast.makeText(Dashboard.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Dashboard.this, "Some Error occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
-
-                requestQueue.add(jsonObjectRequest);
+        })*/
+        requestQueue.add(jsonObjectRequest);
     }
 
     /**Getting list of transactions from server and setting it to Recyclerview **/
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
-        debitHistorieslist = new ArrayList<>();
+       // debitHistorieslist = new ArrayList<>();
+        debitHistorieslist.clear();
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
@@ -426,8 +423,8 @@ public class Dashboard extends AppCompatActivity
         }
         int count = debitT_recyclerView.getItemCount();
         debitT_recyclerView.reloadData(debitHistorieslist);
+       // debitT_recyclerView.notifyDataSetChanged();
 
-        // TotalTransaction.setText(count);
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
             trasactiondetails.setVisibility(View.INVISIBLE);
@@ -441,12 +438,7 @@ public class Dashboard extends AppCompatActivity
             trasactiondetails.setVisibility(View.VISIBLE);
         }
 
-        if(!response.optString("next").equals("null")) {
-            loading = true;
-        } else {
-            loading = false;
-            Toast.makeText(this, "No more transactions found!", Toast.LENGTH_SHORT).show();
-        }
+        loading = !response.optString("next").equals("null");
     }
 
     /** to delete transactions **/
@@ -780,6 +772,13 @@ public class Dashboard extends AppCompatActivity
     public void onResume(){
         super.onResume();
         fetchtransaction(show_url);
+    }
+
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
+        return cm.getActiveNetworkInfo() != null;
     }
 
 }

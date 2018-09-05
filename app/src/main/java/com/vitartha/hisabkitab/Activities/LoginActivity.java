@@ -116,7 +116,7 @@ public class LoginActivity extends SampleClass{
         // Clear data before log-in (just in case)
         spAdap.clearData();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+        HisabKitabJSONRequest request = new HisabKitabJSONRequest(Request.Method.POST,
                 key.user_api.login_endpoint, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -127,21 +127,7 @@ public class LoginActivity extends SampleClass{
                     Toast.makeText(LoginActivity.this, "Error while sending data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String errorStr = new String(error.networkResponse.data);
-                try{
-                    JSONObject jObj = new JSONObject(errorStr);
-                    // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
-                    Toast.makeText(LoginActivity.this, objError.optString("non_field_errors"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e){
-                    Toast.makeText(LoginActivity.this, "Server Error Occurred!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        }, new HisabKitabErrorListener(progressDialog, LoginActivity.this), this);
         requestQueue.add(request);
     }
 

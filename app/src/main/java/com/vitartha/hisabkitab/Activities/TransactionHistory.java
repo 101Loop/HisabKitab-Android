@@ -247,6 +247,7 @@ public class TransactionHistory extends AppCompatActivity {
         });
 
 
+        /*Recyclerview onscroll listener*/
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -287,7 +288,17 @@ public class TransactionHistory extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                progressDialog.dismiss();
+                String errorStr = new String(error.networkResponse.data);
+                try{
+                    JSONObject jObj = new JSONObject(errorStr);
+                    // Getting error object
+                    String objError = jObj.optString("detail");
+                    loading = false;
+                    Toast.makeText(TransactionHistory.this, objError,  Toast.LENGTH_SHORT).show();
+                } catch (JSONException e){
+                    Toast.makeText(TransactionHistory.this, "Some Error occurred!", Toast.LENGTH_SHORT).show();
+                }
             }
         }){
             @Override
@@ -306,17 +317,17 @@ public class TransactionHistory extends AppCompatActivity {
     /**Getting list of transactions from server and setting it to Recyclerview **/
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
-        JSONArray array = response.optJSONArray("results");
          debitHistorieslist.clear();
 
-
+        JSONArray array = response.optJSONArray("results");
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
             debitHistorieslist.add(debitDetails);
         }
         int count = debitT_recyclerView.getItemCount();
-        debitT_recyclerView.notifyDataSetChanged();
+      //  debitT_recyclerView.reloadData(debitHistorieslist);
+      debitT_recyclerView.notifyDataSetChanged();
 
        // TotalTransaction.setText(count);
         if(count <= 0) {
@@ -336,13 +347,14 @@ public class TransactionHistory extends AppCompatActivity {
         } else {
             loading = false;
             progressDialog.dismiss();
-            Toast.makeText(this, "No more transactions found!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
+        startActivity(i);
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
     }

@@ -27,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
+import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
@@ -203,7 +205,7 @@ public class AddDebit extends AppCompatActivity {
     public void senddata(JSONObject jsonObject) {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+        HisabKitabJSONRequest request = new HisabKitabJSONRequest(Request.Method.POST,
                 key.transactions.add_url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -214,7 +216,7 @@ public class AddDebit extends AppCompatActivity {
                     Toast.makeText(AddDebit.this, "Error while sending data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new HisabKitabErrorListener(progressDialog, AddDebit.this), this);/*new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
@@ -228,16 +230,7 @@ public class AddDebit extends AppCompatActivity {
                     Toast.makeText(AddDebit.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
+        })*/
         requestQueue.add(request);
     }
 

@@ -1,6 +1,7 @@
 package com.vitartha.hisabkitab.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HisabKitabJSONRequest extends JsonObjectRequest {
-    private Activity act;
+    private Context act;
 
     /**
      * Creates a new request.
@@ -28,13 +29,13 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
      *   indicates no parameters will be posted along with request.
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
-     * @param activity A {@link Activity} to handle create {@link SharedPreference} object for token.
+     * @param context A {@link Activity} to handle create {@link SharedPreference} object for token.
      */
     public HisabKitabJSONRequest(int method, String url, JSONObject jsonRequest,
                                  Response.Listener<JSONObject> listener,
-                                 HisabKitabErrorListener errorListener, Activity activity) {
+                                 HisabKitabErrorListener errorListener, Context context) {
         super(method, url, jsonRequest, listener, errorListener);
-        this.act = activity;
+        this.act = context;
     }
     /**
      * Constructor which defaults to <code>GET</code> if <code>jsonRequest</code> is
@@ -42,9 +43,9 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
      *
      */
     public HisabKitabJSONRequest(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener,
-                                 HisabKitabErrorListener errorListener, Activity activity) {
+                                 HisabKitabErrorListener errorListener, Context context) {
         this(jsonRequest == null ? Method.GET : Method.POST, url, jsonRequest,
-                listener, errorListener, activity);
+                listener, errorListener, context);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
     public Map<String, String> getHeaders() throws AuthFailureError {
         SharedPreference shaPre;
         shaPre = new SharedPreference(this.act);
-        if(shaPre.isLoggedIn() != null){
+        if(shaPre.getString(key.server.key_token) != null){
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
             headers.put("Authorization", shaPre.getString(key.server.key_token));
