@@ -89,7 +89,7 @@
                     android:layout_marginTop="30dp"
                     android:inputType="number"
                     android:singleLine="true"
-                    android:visibility="visible"
+                    android:visibility="invisible"
                     android:drawableLeft="@drawable/ic_lock"
                     android:background="@color/opaquelightblue"                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>

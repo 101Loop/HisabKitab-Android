@@ -1,6 +1,8 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -185,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /**On click on registration button**/
+        /**On click of registration button**/
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,30 +239,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                String errorStr = new String(error.networkResponse.data);
-               // Toast.makeText(MainActivity.this, errorStr, Toast.LENGTH_SHORT).show();
-                try {
-                    JSONObject jObj = new JSONObject(errorStr);
-                    // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
+                if (error instanceof NetworkError) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                    alert.setTitle("Connection Error!");
+                    alert.setMessage("Please check your internet connection!");
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+                    alert.show();
+                } else {
+                    String errorStr = new String(error.networkResponse.data);
+                    try {
+                        JSONObject jObj = new JSONObject(errorStr);
+                        // Getting error object
+                        JSONObject objError = jObj.getJSONObject("data");
 
-                    if (!objError.isNull("email")) {
-                        email.setError("User with this Email-ID already exists");
+                        if (!objError.isNull("email")) {
+                            email.setError("User with this Email-ID already exists");
+                        }
+                        if (!objError.isNull("mobile")) {
+                            mobile.setError("User with this mobile number already exists");
+                        }
+                        if (!objError.isNull("username")) {
+                            mobile.setError("User with this mobile number already exists");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    if (!objError.isNull("mobile")) {
-                        mobile.setError("User with this mobile number already exists");
-                    }
-                    if (!objError.isNull("username")) {
-                        mobile.setError("User with this mobile number already exists");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         });
         requestQueue.add(request);
     }
-
 
     /**Checking status received from server**/
     public void verify_register(JSONObject object) throws Exception {

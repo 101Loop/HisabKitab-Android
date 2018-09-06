@@ -11,6 +11,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,9 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HisabKitabJSONRequest extends JsonObjectRequest {
-    private Context act;
-
+public class HisabKitabJSONRequest extends HisabKitabRequest<JSONObject> {
     /**
      * Creates a new request.
      * @param method the HTTP method to use
@@ -34,18 +33,19 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
     public HisabKitabJSONRequest(int method, String url, JSONObject jsonRequest,
                                  Response.Listener<JSONObject> listener,
                                  HisabKitabErrorListener errorListener, Context context) {
-        super(method, url, jsonRequest, listener, errorListener);
-        this.act = context;
+        super(method, url, jsonRequest, listener, errorListener, context);
     }
+
     /**
      * Constructor which defaults to <code>GET</code> if <code>jsonRequest</code> is
      * <code>null</code>, <code>POST</code> otherwise.
      *
      */
-    public HisabKitabJSONRequest(String url, JSONObject jsonRequest, Response.Listener<JSONObject> listener,
+    public HisabKitabJSONRequest(String url, JSONObject jsonRequest,
+                                 Response.Listener<JSONObject> listener,
                                  HisabKitabErrorListener errorListener, Context context) {
-        this(jsonRequest == null ? Method.GET : Method.POST, url, jsonRequest,
-                listener, errorListener, context);
+        this(jsonRequest == null ? Method.GET : Method.POST, url, jsonRequest, listener,
+                errorListener, context);
     }
 
     @Override
@@ -53,6 +53,7 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
         try {
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
+
             return Response.success(new JSONObject(jsonString),
                     HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
@@ -60,18 +61,5 @@ public class HisabKitabJSONRequest extends JsonObjectRequest {
         } catch (JSONException je) {
             return Response.error(new ParseError(je));
         }
-    }
-
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        SharedPreference shaPre;
-        shaPre = new SharedPreference(this.act);
-        if(shaPre.getString(key.server.key_token) != null){
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json");
-            headers.put("Authorization", shaPre.getString(key.server.key_token));
-            return headers;
-        }
-        return super.getHeaders();
     }
 }

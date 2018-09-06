@@ -35,17 +35,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.HisabKitabDeleteRequest;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
@@ -170,7 +171,7 @@ public class Dashboard extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         //onNavigationItemSelected(navigationView.getMenu().getItem(0));
-       // navigationView.getMenu().getItem(0).setChecked(false);
+        // navigationView.getMenu().getItem(0).setChecked(false);
 
 
         header.setOnClickListener(new View.OnClickListener() {
@@ -414,7 +415,7 @@ public class Dashboard extends AppCompatActivity
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
-       // debitHistorieslist = new ArrayList<>();
+        // debitHistorieslist = new ArrayList<>();
         debitHistorieslist.clear();
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
@@ -423,7 +424,7 @@ public class Dashboard extends AppCompatActivity
         }
         int count = debitT_recyclerView.getItemCount();
         debitT_recyclerView.reloadData(debitHistorieslist);
-       // debitT_recyclerView.notifyDataSetChanged();
+        // debitT_recyclerView.notifyDataSetChanged();
 
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
@@ -443,24 +444,14 @@ public class Dashboard extends AppCompatActivity
 
     /** to delete transactions **/
     public void deletefromAPI(String urlobj, final ProgressDialog pd) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
-                urlobj, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-            }
-        };
+        HisabKitabDeleteRequest jsonObjectRequest = new HisabKitabDeleteRequest(urlobj, null,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        pd.dismiss();
+                    }
+                },
+                new HisabKitabErrorListener(progressDialog, Dashboard.this), this);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -468,7 +459,7 @@ public class Dashboard extends AppCompatActivity
     public void updatetransaction(JSONObject jsonObject, String url) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -478,22 +469,7 @@ public class Dashboard extends AppCompatActivity
                     Toast.makeText(Dashboard.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(Dashboard.this, "Some error occured!", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
+        }, new HisabKitabErrorListener(progressDialog, Dashboard.this), this);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -566,7 +542,7 @@ public class Dashboard extends AppCompatActivity
     public void  sendfeedbackdata(JSONObject object) {
         progressDialog.setMessage("Sending Feedback...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, key.user_api.feedback_endpoint, object, new Response.Listener<JSONObject>() {
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.POST, key.user_api.feedback_endpoint, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -575,13 +551,7 @@ public class Dashboard extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(Dashboard.this, "Some error occured!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }, new HisabKitabErrorListener(progressDialog, Dashboard.this), this);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -772,13 +742,6 @@ public class Dashboard extends AppCompatActivity
     public void onResume(){
         super.onResume();
         fetchtransaction(show_url);
-    }
-
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
-        return cm.getActiveNetworkInfo() != null;
     }
 
 }

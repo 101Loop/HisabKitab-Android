@@ -27,6 +27,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
+import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -274,7 +276,7 @@ public class TransactionHistory extends AppCompatActivity {
     public void fetchtransaction(String urlobj) {
         progressDialog.setMessage("Fetching History...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.GET,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -285,7 +287,8 @@ public class TransactionHistory extends AppCompatActivity {
                     Toast.makeText(TransactionHistory.this, "Error!" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
+        /*new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
@@ -300,16 +303,7 @@ public class TransactionHistory extends AppCompatActivity {
                     Toast.makeText(TransactionHistory.this, "Some Error occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
+        })*/
 
         requestQueue.add(jsonObjectRequest);
     }
@@ -368,24 +362,12 @@ public class TransactionHistory extends AppCompatActivity {
 
     /** to delete transactions **/
     public void deletefromAPI(final String urlobj, final ProgressDialog pd) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.DELETE,
                 urlobj, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-            }
-        };
+        }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -393,7 +375,7 @@ public class TransactionHistory extends AppCompatActivity {
     public void updatetransaction(JSONObject jsonObject, String url) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -403,22 +385,7 @@ public class TransactionHistory extends AppCompatActivity {
                     Toast.makeText(TransactionHistory.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(TransactionHistory.this, "Some error occured!", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
+        }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
         requestQueue.add(jsonObjectRequest);
     }
 

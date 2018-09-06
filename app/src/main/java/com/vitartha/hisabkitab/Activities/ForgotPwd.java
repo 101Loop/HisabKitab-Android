@@ -1,6 +1,8 @@
 package com.vitartha.hisabkitab.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -132,19 +135,34 @@ public class ForgotPwd extends SampleClass {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                String erroobj = new String(error.networkResponse.data);
-                try {
-                    JSONObject jObj = new JSONObject(erroobj);
-                    // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
-                    if(isOTP){
-                        Toast.makeText(ForgotPwd.this, erroobj, Toast.LENGTH_SHORT).show();
-                        otp.setError(objError.optString("OTP"));
-                    } else {
-                        mail.setError(objError.optString("message"));
+                if (error instanceof NetworkError) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(ForgotPwd.this);
+                    alert.setTitle("Connection Error!");
+                    alert.setMessage("Please check your internet connection!");
+                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(ForgotPwd.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    });
+
+                    alert.show();
+                } else {
+                    String erroobj = new String(error.networkResponse.data);
+                    try {
+                        JSONObject jObj = new JSONObject(erroobj);
+                        // Getting error object
+                        JSONObject objError = jObj.getJSONObject("data");
+                        if (isOTP) {
+                            Toast.makeText(ForgotPwd.this, erroobj, Toast.LENGTH_SHORT).show();
+                            otp.setError(objError.optString("OTP"));
+                        } else {
+                            mail.setError(objError.optString("message"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
         });

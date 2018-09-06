@@ -16,22 +16,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
+import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.vitartha.hisabkitab.Activities.Dashboard.jwtContact;
 import static com.vitartha.hisabkitab.Activities.Dashboard.jwtEmail;
@@ -111,7 +107,7 @@ public class UpdateProfile extends AppCompatActivity {
     public void senddata(JSONObject object) {
         progressDialog.setMessage("Updating...");
         progressDialog.show();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, key.user_api.update_profile_endpoint, object, new Response.Listener<JSONObject>() {
+        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.PUT, key.user_api.update_profile_endpoint, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -121,7 +117,7 @@ public class UpdateProfile extends AppCompatActivity {
                     Toast.makeText(UpdateProfile.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new HisabKitabErrorListener(progressDialog, UpdateProfile.this), this);/* new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
@@ -135,17 +131,7 @@ public class UpdateProfile extends AppCompatActivity {
                     Toast.makeText(UpdateProfile.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                final Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("Authorization", spAdap.getString(key.server.key_token));
-                return headers;
-
-            }
-        };
-
+        })*/
         requestQueue.add(jsonObjectRequest);
     }
 
