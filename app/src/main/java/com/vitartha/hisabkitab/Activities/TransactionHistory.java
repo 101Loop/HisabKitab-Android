@@ -54,7 +54,7 @@ public class TransactionHistory extends AppCompatActivity {
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     SharedPreference spAdap;
     TextView morefilteroption, alpha_ascend, alpha_descend, noTransMsg, TotalTransaction, TotalAmount;
-    String  filtered_url, url, sorturl;
+    String  filtered_url, url, sorturl, nextpage;
     ImageView filter, price_ascend, price_descend;
     LinearLayout filter_layout;
     RelativeLayout trasactiondetails;
@@ -202,7 +202,6 @@ public class TransactionHistory extends AppCompatActivity {
 
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-                Toast.makeText(TransactionHistory.this, "Touch event!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -217,6 +216,8 @@ public class TransactionHistory extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setAdapter(debitT_recyclerView);
+        debitT_recyclerView.notifyDataSetChanged();
+
 
 
         /***
@@ -258,14 +259,12 @@ public class TransactionHistory extends AppCompatActivity {
                     VisibleItemCount = linearLayoutManager.getChildCount();
                     TotalItemCount = linearLayoutManager.getItemCount();
                     PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
-                    if(loading) {
+                    if(!nextpage.equals("null")) {
                         if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                            count += 1;
-                            String u = url + "&page=" + count;
-                            fetchtransaction(u);
-                        }
+                            fetchtransaction(nextpage);
+                       }
                     } else
-                        Toast.makeText(TransactionHistory.this, "no more transactions found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TransactionHistory.this, "No more transactions in this list!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -311,19 +310,24 @@ public class TransactionHistory extends AppCompatActivity {
     /**Getting list of transactions from server and setting it to Recyclerview **/
     public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
-         debitHistorieslist.clear();
 
+        if(!filtered_url.equals("")) {
+            debitHistorieslist.clear();
+        }
+        nextpage = response.optString("next");
         JSONArray array = response.optJSONArray("results");
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
             debitHistorieslist.add(debitDetails);
-        }
-        int count = debitT_recyclerView.getItemCount();
-      //  debitT_recyclerView.reloadData(debitHistorieslist);
-      debitT_recyclerView.notifyDataSetChanged();
+            debitT_recyclerView.notifyDataSetChanged();
 
-       // TotalTransaction.setText(count);
+        }
+
+        int count = debitT_recyclerView.getItemCount();
+
+        // debitT_recyclerView.reloadData(debitHistorieslist);
+
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
             trasactiondetails.setVisibility(View.INVISIBLE);
@@ -334,13 +338,6 @@ public class TransactionHistory extends AppCompatActivity {
             TotalAmount.setText(amt);
             TotalTransaction.setText(response.optString("count"));
             trasactiondetails.setVisibility(View.VISIBLE);
-        }
-
-        if(!response.optString("next").equals("null")) {
-            loading = true;
-        } else {
-            loading = false;
-            progressDialog.dismiss();
         }
     }
 
@@ -355,6 +352,8 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
+        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
+        startActivity(i);
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
         return true;
@@ -394,11 +393,6 @@ public class TransactionHistory extends AppCompatActivity {
         progressDialog.dismiss();
         Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
         debitHistorieslist.clear();
-        fetchtransaction(url);
-    }
-
-    public void onResume(){
-        super.onResume();
         fetchtransaction(url);
     }
 }

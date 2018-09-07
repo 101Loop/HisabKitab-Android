@@ -20,114 +20,134 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/relativelayout"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="300dp"
+                        android:id="@+id/txtname1"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="300dp"
+                            android:layout_height="45dp"
+                            android:hint="Name"
+                            android:singleLine="true"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            android:id="@+id/txtname"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="300dp"
+                        android:id="@+id/txtnumber1"
+                        android:layout_below="@+id/txtname1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="300dp"
+                            android:layout_height="45dp"
+                            android:hint="Mobile"
+                            android:id="@+id/txtnumber"
+                            android:singleLine="true"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="300dp"
+                        android:id="@+id/txtmail1"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtnumber1"
+                        android:layout_marginTop="10dp"
+                        >
+                        <EditText
+                            android:layout_width="300dp"
+                            android:layout_height="45dp"
+                            android:id="@+id/txtmail"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            android:singleLine="true"
+                            android:hint="Email-ID"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="300dp"
+                        android:id="@+id/txtaddress1"
+                        android:layout_below="@+id/txtmail1"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="300dp"
+                            android:layout_height="45dp"
+                            android:hint="Address"
+                            android:id="@+id/txtaddress"
+                            android:maxLines="2"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp" />
+                    </android.support.design.widget.TextInputLayout>
+                </RelativeLayout>
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Update Profile"
+                    android:background="@drawable/button"
+                    android:textColor="@color/white"
+                    android:id="@+id/updatebtn"
+                    android:layout_below="@+id/relativelayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password?"
+                    android:layout_below="@+id/updatebtn"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40px"
+                    android:layout_marginTop="30dp"
+                    android:id="@+id/changepwd"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/relativelayout"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true">
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:id="@+id/txtname1"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:hint="Name"
-                android:singleLine="true"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:id="@+id/txtname"
-                />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:id="@+id/txtnumber1"
-            android:layout_below="@+id/txtname1"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:hint="Mobile"
-                android:id="@+id/txtnumber"
-                android:singleLine="true"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp" />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:id="@+id/txtmail1"
+        android:gravity="bottom">
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtnumber1"
-            android:layout_marginTop="10dp"
-            >
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:id="@+id/txtmail"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:singleLine="true"
-                android:hint="Email-ID"
-                />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:id="@+id/txtaddress1"
-            android:layout_below="@+id/txtmail1"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="45dp"
-                android:hint="Address"
-                android:id="@+id/txtaddress"
-                android:maxLines="2"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp" />
-        </android.support.design.widget.TextInputLayout>
+            android:id="@+id/backbutton"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rect_button"
+            android:drawableLeft="@drawable/ic_back"/>
     </RelativeLayout>
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Update Profile"
-        android:background="@drawable/button"
-        android:textColor="@color/white"
-        android:id="@+id/updatebtn"
-        android:layout_below="@+id/relativelayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Password?"
-        android:layout_below="@+id/updatebtn"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40px"
-        android:layout_marginTop="30dp"
-        android:id="@+id/changepwd"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/backbutton"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rect_button"
-        android:drawableLeft="@drawable/ic_back"/>
 
 </RelativeLayout>

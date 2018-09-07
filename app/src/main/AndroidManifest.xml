@@ -52,6 +52,7 @@
         <activity
             android:name=".Activities.UpdateProfile"
             android:label="UPDATE PROFILE"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.FilterActivity"

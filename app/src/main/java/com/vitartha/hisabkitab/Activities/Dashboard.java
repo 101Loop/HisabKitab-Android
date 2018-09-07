@@ -76,6 +76,7 @@ public class Dashboard extends AppCompatActivity
     FloatingActionButton addfab, creditfab, debitfab;
     private Boolean isFabOpen = false;
     private Animation show_fab1, hide_fab1;
+    String nextpage;
     static String jwtName, jwtEmail, jwtContact;
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
@@ -86,6 +87,7 @@ public class Dashboard extends AppCompatActivity
     DebitT_RecyclerView debitT_recyclerView;
     boolean doublepress = false;
     private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
+    private ArrayList<DebitDetails> newHistorieslist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,14 +231,14 @@ public class Dashboard extends AppCompatActivity
                     VisibleItemCount = linearLayoutManager.getChildCount();
                     TotalItemCount = linearLayoutManager.getItemCount();
                     PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
-                    if(loading) {
+                    if(!nextpage.equals("null")) {
                         if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                            count += 1;
-                            String u = show_url + "?page=" + count;
-                            fetchtransaction(u);
+                           // count += 1;
+                            //String u = show_url + "?page=" + count;
+                            fetchtransaction(nextpage);
                         }
                     } else {
-                        Toast.makeText(Dashboard.this, "No more Transactions found!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Dashboard.this, "No more Transactions found in your list!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -412,11 +414,13 @@ public class Dashboard extends AppCompatActivity
     }
 
     /**Getting list of transactions from server and setting it to Recyclerview **/
-    public void checkingstatus(JSONObject response) throws Exception {
+    public void checkingstatus(JSONObject response) throws Exception
+    {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
+        nextpage = response.optString("next");
         // debitHistorieslist = new ArrayList<>();
-        debitHistorieslist.clear();
+       debitHistorieslist.clear();
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
@@ -439,7 +443,6 @@ public class Dashboard extends AppCompatActivity
             trasactiondetails.setVisibility(View.VISIBLE);
         }
 
-        loading = !response.optString("next").equals("null");
     }
 
     /** to delete transactions **/
