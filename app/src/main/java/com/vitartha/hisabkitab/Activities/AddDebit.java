@@ -214,30 +214,13 @@ public class AddDebit extends AppCompatActivity {
                     Toast.makeText(AddDebit.this, "Error while sending data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, AddDebit.this), this);/*new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                String errorStr = new String(error.networkResponse.data);
-                try{
-                    JSONObject jObj = new JSONObject(errorStr);
-                    // Getting error object
-                    JSONObject objError = jObj.getJSONObject("data");
-                    Toast.makeText(AddDebit.this, objError.toString(), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e){
-                    Toast.makeText(AddDebit.this, "Server Error occurred!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        })*/
+        }, new HisabKitabErrorListener(progressDialog, AddDebit.this), this);
         requestQueue.add(request);
     }
 
     public void verifytransactiondata(JSONObject resp) throws Exception {
         progressDialog.dismiss();
         Toast.makeText(this, "Transaction Added Successfully", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(AddDebit.this, TransactionHistory.class);
-        i.putExtra("filter_url", "");
-        startActivity(i);
         finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }

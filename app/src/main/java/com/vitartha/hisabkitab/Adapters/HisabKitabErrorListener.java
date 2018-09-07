@@ -127,9 +127,19 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                         JSONObject objError;
                         while (keys.hasNext()) {
                             String curr = (String) keys.next();
-                            objError = jObj.getJSONObject(curr);
-                            Toast.makeText(act, objError.optString((String) keys.next()), Toast.LENGTH_SHORT).show();
+                            try {
+                                if ( jObj.get(curr) instanceof JSONObject ) {
+
+                                    JSONObject obj = new JSONObject(jObj.get(curr).toString());
+                                    String errorkey = obj.keys().next();
+                                    errorkey = obj.getJSONArray(errorkey).getString(0);
+                                    Toast.makeText(act, errorkey, Toast.LENGTH_SHORT).show();
+                                }
+                            }catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(act, "Some error occured while fetching key pair data!", Toast.LENGTH_SHORT).show();
                             }
+                        }
 
                     } catch (JSONException e) {
                         e.printStackTrace();

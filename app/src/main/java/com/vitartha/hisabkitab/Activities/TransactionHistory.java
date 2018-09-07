@@ -396,4 +396,9 @@ public class TransactionHistory extends AppCompatActivity {
         debitHistorieslist.clear();
         fetchtransaction(url);
     }
+
+    public void onResume(){
+        super.onResume();
+        fetchtransaction(url);
+    }
 }
