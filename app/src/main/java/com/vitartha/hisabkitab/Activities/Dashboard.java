@@ -1,12 +1,9 @@
 package com.vitartha.hisabkitab.Activities;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SearchRecentSuggestionsProvider;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -38,13 +35,10 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 import com.vitartha.hisabkitab.API.key;
-import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.Transactions_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.HisabKitabDeleteRequest;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
@@ -58,10 +52,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -84,9 +75,9 @@ public class Dashboard extends AppCompatActivity
     public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
     private boolean loading = true;
     RecyclerView recyclerView;
-    DebitT_RecyclerView debitT_recyclerView;
+    Transactions_RecyclerView Trans_recyclerView;
     boolean doublepress = false;
-    private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
+    private ArrayList<DebitDetails> Trans_HistoryList = new ArrayList<>();
     private ArrayList<DebitDetails> newHistorieslist = new ArrayList<>();
 
     @Override
@@ -114,10 +105,10 @@ public class Dashboard extends AppCompatActivity
         trasactiondetails = findViewById(R.id.transactiondetaillayout);
 
 
-        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, Dashboard.this);
+        Trans_recyclerView = new Transactions_RecyclerView(Trans_HistoryList, Dashboard.this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        recyclerView.setAdapter(debitT_recyclerView);
+        recyclerView.setAdapter(Trans_recyclerView);
         recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
 
         /* Feed back API is not working, so, commenting Feedback FAB icon **/
@@ -221,23 +212,19 @@ public class Dashboard extends AppCompatActivity
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setAdapter(debitT_recyclerView);
+        recyclerView.setAdapter(Trans_recyclerView);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(dy > 0) {
-                    VisibleItemCount = linearLayoutManager.getChildCount();
-                    TotalItemCount = linearLayoutManager.getItemCount();
-                    PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                VisibleItemCount = linearLayoutManager.getChildCount();
+                TotalItemCount = linearLayoutManager.getItemCount();
+                PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
                     if(!nextpage.equals("null")) {
-                        if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                           // count += 1;
-                            //String u = show_url + "?page=" + count;
-                            fetchtransaction(nextpage);
-                        }
-                    } else {
+                        fetchtransaction(nextpage);
+                    }else {
                         Toast.makeText(Dashboard.this, "No more Transactions found in your list!", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -418,16 +405,14 @@ public class Dashboard extends AppCompatActivity
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
         nextpage = response.optString("next");
-        // debitHistorieslist = new ArrayList<>();
-       debitHistorieslist.clear();
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
-            debitHistorieslist.add(debitDetails);
+            Trans_HistoryList.add(debitDetails);
         }
-        int count = debitT_recyclerView.getItemCount();
-        debitT_recyclerView.reloadData(debitHistorieslist);
-        // debitT_recyclerView.notifyDataSetChanged();
+        int count = Trans_recyclerView.getItemCount();
+        // Trans_recyclerView.reloadData(Trans_HistoryList);
+        Trans_recyclerView.notifyDataSetChanged();
 
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
@@ -479,7 +464,7 @@ public class Dashboard extends AppCompatActivity
     public void verifyupdatestatus(JSONObject response) throws  JSONException{
         progressDialog.dismiss();
         Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
-        debitHistorieslist.clear();
+        Trans_HistoryList.clear();
         fetchtransaction(show_url);
     }
 
@@ -741,10 +726,13 @@ public class Dashboard extends AppCompatActivity
         }
     }
 
+    @Override
     public void onResume(){
         super.onResume();
-        android.widget.Toast.makeText(this, "dash onresume", Toast.LENGTH_SHORT).show();
-        fetchtransaction(show_url);
+        Toast.makeText(this, "dash onresume()", Toast.LENGTH_SHORT).show();
+        Trans_HistoryList.clear();
+        // fetchtransaction(show_url);
+        Trans_recyclerView.reloadData(Trans_HistoryList);
     }
 
 }

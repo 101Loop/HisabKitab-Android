@@ -18,14 +18,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
-import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
+import com.vitartha.hisabkitab.Adapters.Transactions_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
@@ -40,16 +37,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.vitartha.hisabkitab.R.*;
 
 public class TransactionHistory extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    DebitT_RecyclerView debitT_recyclerView;
-    private ArrayList<DebitDetails> debitHistorieslist = new ArrayList<>();
+    Transactions_RecyclerView Trans_recyclerView;
+    private ArrayList<DebitDetails> Trans_HistoryList = new ArrayList<>();
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
@@ -89,10 +84,10 @@ public class TransactionHistory extends AppCompatActivity {
         alpha_ascend = findViewById(id.Alphasort_ascending);
         alpha_descend = findViewById(id.Alphasort_descending);
         noTransMsg = findViewById(id.notransaction);
-        debitT_recyclerView = new DebitT_RecyclerView(debitHistorieslist, TransactionHistory.this);
+        Trans_recyclerView = new Transactions_RecyclerView(Trans_HistoryList, TransactionHistory.this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
-        recyclerView.setAdapter(debitT_recyclerView);
+        recyclerView.setAdapter(Trans_recyclerView);
         progressDialog = new ProgressDialog(this);
         recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
 
@@ -127,7 +122,7 @@ public class TransactionHistory extends AppCompatActivity {
 
                 sorturl = url + "&ordering=-amount";
                 url = sorturl;
-                debitHistorieslist.clear();
+                Trans_HistoryList.clear();
                 fetchtransaction(url);
             }
         });
@@ -142,7 +137,7 @@ public class TransactionHistory extends AppCompatActivity {
 
                 sorturl = url +"&ordering=+amount";
                 url = sorturl;
-                debitHistorieslist.clear();
+                Trans_HistoryList.clear();
                 fetchtransaction(url );
             }
         });
@@ -156,7 +151,7 @@ public class TransactionHistory extends AppCompatActivity {
 
                 sorturl = url + "&ordering=-contact_name";
                 url = sorturl;
-                debitHistorieslist.clear();
+                Trans_HistoryList.clear();
                 fetchtransaction(url);
             }
         });
@@ -170,7 +165,7 @@ public class TransactionHistory extends AppCompatActivity {
 
                 sorturl = url +"&ordering=+contact__name";
                 url = sorturl;
-                debitHistorieslist.clear();
+                Trans_HistoryList.clear();
                 fetchtransaction(url);
 
             }
@@ -216,8 +211,8 @@ public class TransactionHistory extends AppCompatActivity {
 
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setAdapter(debitT_recyclerView);
-        debitT_recyclerView.notifyDataSetChanged();
+        recyclerView.setAdapter(Trans_recyclerView);
+        Trans_recyclerView.notifyDataSetChanged();
 
 
 
@@ -253,20 +248,26 @@ public class TransactionHistory extends AppCompatActivity {
 
         /*Recyclerview onscroll listener*/
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if(dy > 0) {
-                    VisibleItemCount = linearLayoutManager.getChildCount();
-                    TotalItemCount = linearLayoutManager.getItemCount();
-                    PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
-                    if(!nextpage.equals("null")) {
-                        if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                            fetchtransaction(nextpage);
-                       }
-                    } else
+              //  if(dy > 0) {
+                VisibleItemCount = linearLayoutManager.getChildCount();
+                TotalItemCount = linearLayoutManager.getItemCount();
+                PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
+                    if (!nextpage.equals("null")) {
+                        fetchtransaction(nextpage);
+                    }else
                         Toast.makeText(TransactionHistory.this, "No more transactions in this list!", Toast.LENGTH_SHORT).show();
                 }
+                //}
             }
         });
 
@@ -313,21 +314,20 @@ public class TransactionHistory extends AppCompatActivity {
         progressDialog.dismiss();
 
         if(!filtered_url.equals("")) {
-            debitHistorieslist.clear();
+            Trans_HistoryList.clear();
         }
-        //debitHistorieslist.clear();
+      //  Trans_HistoryList.clear();
         nextpage = response.optString("next");
         JSONArray array = response.optJSONArray("results");
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
-            debitHistorieslist.add(debitDetails);
-
+            Trans_HistoryList.add(debitDetails);
         }
-        debitT_recyclerView.notifyDataSetChanged();
-        int count = debitT_recyclerView.getItemCount();
+        Trans_recyclerView.notifyDataSetChanged();
+        int count = Trans_recyclerView.getItemCount();
 
-      // debitT_recyclerView.reloadData(debitHistorieslist);
+    //   Trans_recyclerView.reloadData(Trans_HistoryList);
 
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
@@ -368,7 +368,7 @@ public class TransactionHistory extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 pd.dismiss();
-              //  debitHistorieslist.clear();
+              //  Trans_HistoryList.clear();
             }
         }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
         requestQueue.add(jsonObjectRequest);
@@ -396,13 +396,17 @@ public class TransactionHistory extends AppCompatActivity {
     public void verifyupdatestatus(JSONObject response) throws  JSONException{
         progressDialog.dismiss();
         Toast.makeText(this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
-        debitHistorieslist.clear();
+        Trans_HistoryList.clear();
         fetchtransaction(url);
     }
 
-   /* public void onResume(){
+    @Override
+    public void onResume(){
         super.onResume();
-        debitT_recyclerView.notifyDataSetChanged();
-        android.widget.Toast.makeText(this, "onresume", Toast.LENGTH_SHORT).show();
-    }*/
+        Toast.makeText(this, "Trans onresume()", Toast.LENGTH_SHORT).show();
+        Trans_HistoryList.clear();
+        // fetchtransaction(show_url);
+        Trans_recyclerView.reloadData(Trans_HistoryList);
+    }
+
 }

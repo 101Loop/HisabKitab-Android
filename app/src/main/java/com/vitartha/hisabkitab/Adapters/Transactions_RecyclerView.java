@@ -4,17 +4,15 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
+
 import java.util.Calendar;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,15 +20,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.vitartha.hisabkitab.API.key;
 import com.vitartha.hisabkitab.Activities.Dashboard;
-import com.vitartha.hisabkitab.Activities.FilterActivity;
 import com.vitartha.hisabkitab.Activities.TransactionHistory;
 import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
@@ -38,11 +29,9 @@ import com.vitartha.hisabkitab.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerView.MyViewHolder> implements View.OnClickListener {
+public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions_RecyclerView.MyViewHolder> implements View.OnClickListener {
     private static List<DebitDetails> debitDetailsList;
     private Context mcontext;
     private ProgressDialog progressDialog;
@@ -83,22 +72,22 @@ public class DebitT_RecyclerView extends RecyclerView.Adapter<DebitT_RecyclerVie
 
     }
 
-    public DebitT_RecyclerView(List<DebitDetails> Debitdetails, Context context) {
+    public Transactions_RecyclerView(List<DebitDetails> Debitdetails, Context context) {
         debitDetailsList = Debitdetails;
         this.mcontext = context;
     }
 
     @Override
-    public DebitT_RecyclerView.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Transactions_RecyclerView.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_debitt_recyclerview, parent, false);
 
-        return new DebitT_RecyclerView.MyViewHolder(itemView);
+        return new Transactions_RecyclerView.MyViewHolder(itemView);
 
     }
 
     @Override
-    public void onBindViewHolder(DebitT_RecyclerView.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(Transactions_RecyclerView.MyViewHolder holder, final int position) {
         DebitDetails details = debitDetailsList.get(position);
         progressDialog = new ProgressDialog(mcontext);
         holder.uname.setText(details.getName());

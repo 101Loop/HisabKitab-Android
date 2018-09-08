@@ -175,7 +175,7 @@ public class AddDebit extends AppCompatActivity {
                 if(!ismode){
                     Toast.makeText(AddDebit.this, "Select Transaction Mode", Toast.LENGTH_SHORT).show();
                 }
-                 else if (isname && isdate && isamt && ismode) {
+                else if (isname && isdate && isamt) {
                     JSONObject object = new JSONObject();
                     try {
                         object.put(key.transactions.key_category, spAdap.getString("category"));
@@ -221,9 +221,9 @@ public class AddDebit extends AppCompatActivity {
     public void verifytransactiondata(JSONObject resp) throws Exception {
         progressDialog.dismiss();
         Toast.makeText(this, "Transaction Added Successfully", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(AddDebit.this, TransactionHistory.class);
+     /*   Intent i = new Intent(AddDebit.this, TransactionHistory.class);
         i.putExtra("filter_url", "");
-        startActivity(i);
+        startActivity(i);*/
         finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
