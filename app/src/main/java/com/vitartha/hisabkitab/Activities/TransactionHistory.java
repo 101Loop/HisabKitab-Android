@@ -184,12 +184,6 @@ public class TransactionHistory extends AppCompatActivity {
             }
         });
 
-        try {
-            fetchtransaction(url);
-        } catch (Exception e){
-            Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
-        }
-
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
@@ -345,8 +339,6 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
-        startActivity(i);
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
     }
@@ -354,8 +346,6 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        Intent i = new Intent(TransactionHistory.this, Dashboard.class);
-        startActivity(i);
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
         return true;
@@ -368,7 +358,6 @@ public class TransactionHistory extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 pd.dismiss();
-              //  Trans_HistoryList.clear();
             }
         }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
         requestQueue.add(jsonObjectRequest);
@@ -405,8 +394,12 @@ public class TransactionHistory extends AppCompatActivity {
         super.onResume();
         Toast.makeText(this, "Trans onresume()", Toast.LENGTH_SHORT).show();
         Trans_HistoryList.clear();
-        // fetchtransaction(show_url);
-        Trans_recyclerView.reloadData(Trans_HistoryList);
+        try {
+            fetchtransaction(url);
+        } catch (Exception e){
+            Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
+        }
+        //Trans_recyclerView.reloadData(Trans_HistoryList);
     }
 
 }

@@ -129,7 +129,6 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                             String curr = (String) keys.next();
                             try {
                                 if ( jObj.get(curr) instanceof JSONObject ) {
-
                                     JSONObject obj = new JSONObject(jObj.get(curr).toString());
                                     String errorkey = obj.keys().next();
                                     errorkey = obj.getJSONArray(errorkey).getString(0);

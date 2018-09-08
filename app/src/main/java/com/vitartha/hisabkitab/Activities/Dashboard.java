@@ -185,11 +185,6 @@ public class Dashboard extends AppCompatActivity
         jwtEmail = claimEmail.asString();
         jwtContact = claimContact.asString();
 
-        try {
-            fetchtransaction(show_url);
-        } catch (Exception e){
-            Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
-        }
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -731,7 +726,11 @@ public class Dashboard extends AppCompatActivity
         super.onResume();
         Toast.makeText(this, "dash onresume()", Toast.LENGTH_SHORT).show();
         Trans_HistoryList.clear();
-        // fetchtransaction(show_url);
+        try {
+            fetchtransaction(show_url);
+        } catch (Exception e){
+            Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
+        }
         Trans_recyclerView.reloadData(Trans_HistoryList);
     }
 

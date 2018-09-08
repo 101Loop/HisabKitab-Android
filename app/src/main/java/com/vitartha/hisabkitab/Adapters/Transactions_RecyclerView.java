@@ -251,7 +251,7 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
 
     @Override
     public int getItemCount() {
-        return this.debitDetailsList.size();
+        return debitDetailsList.size();
     }
 
     @Override
@@ -260,17 +260,17 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
     }
 
     public void removeAt(int position, int Trans_ID, View view) {
-        debitDetailsList.remove(position);
+     /*   debitDetailsList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, debitDetailsList.size());
+        notifyItemRangeChanged(position, debitDetailsList.size());*/
         String urlobj = key.transactions.transaction_url + Trans_ID + "/delete/";
         if(mcontext instanceof  TransactionHistory){
             ((TransactionHistory)mcontext).deletefromAPI(urlobj, progressDialog);
-            ((TransactionHistory)mcontext).fetchtransaction(key.transactions.show_url + "?&category=" + spAdap.getString("category"));
+            // ((TransactionHistory)mcontext).fetchtransaction(key.transactions.show_url + "?&category=" + spAdap.getString("category"));
         }
          else  if(mcontext instanceof Dashboard) {
             ((Dashboard) mcontext).deletefromAPI(urlobj, progressDialog);
-            ((Dashboard)mcontext).fetchtransaction(key.transactions.show_url);
+           // ((Dashboard)mcontext).fetchtransaction(key.transactions.show_url);
         }
         progressDialog.dismiss();
         Toast.makeText(view.getContext(), "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
