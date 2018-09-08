@@ -414,8 +414,7 @@ public class Dashboard extends AppCompatActivity
     }
 
     /**Getting list of transactions from server and setting it to Recyclerview **/
-    public void checkingstatus(JSONObject response) throws Exception
-    {
+    public void checkingstatus(JSONObject response) throws Exception {
         progressDialog.dismiss();
         JSONArray array = response.optJSONArray("results");
         nextpage = response.optString("next");
@@ -744,6 +743,7 @@ public class Dashboard extends AppCompatActivity
 
     public void onResume(){
         super.onResume();
+        android.widget.Toast.makeText(this, "dash onresume", Toast.LENGTH_SHORT).show();
         fetchtransaction(show_url);
     }
 

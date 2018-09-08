@@ -221,6 +221,9 @@ public class AddDebit extends AppCompatActivity {
     public void verifytransactiondata(JSONObject resp) throws Exception {
         progressDialog.dismiss();
         Toast.makeText(this, "Transaction Added Successfully", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(AddDebit.this, TransactionHistory.class);
+        i.putExtra("filter_url", "");
+        startActivity(i);
         finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }

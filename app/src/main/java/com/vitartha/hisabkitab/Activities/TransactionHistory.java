@@ -29,6 +29,7 @@ import com.vitartha.hisabkitab.Adapters.DebitT_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.Divider_RecyclerView;
 import com.vitartha.hisabkitab.Adapters.HisabKitabErrorListener;
 import com.vitartha.hisabkitab.Adapters.HisabKitabJSONRequest;
+import com.vitartha.hisabkitab.Adapters.HisabKitabDeleteRequest;
 import com.vitartha.hisabkitab.Adapters.SharedPreference;
 import com.vitartha.hisabkitab.Adapters.VolleySingleton;
 import com.vitartha.hisabkitab.Class.DebitDetails;
@@ -314,19 +315,19 @@ public class TransactionHistory extends AppCompatActivity {
         if(!filtered_url.equals("")) {
             debitHistorieslist.clear();
         }
+        //debitHistorieslist.clear();
         nextpage = response.optString("next");
         JSONArray array = response.optJSONArray("results");
         for(int i=0; i<array.length(); i++) {
             JSONObject obj = array.optJSONObject(i);
             DebitDetails debitDetails = new DebitDetails(obj);
             debitHistorieslist.add(debitDetails);
-            debitT_recyclerView.notifyDataSetChanged();
 
         }
-
+        debitT_recyclerView.notifyDataSetChanged();
         int count = debitT_recyclerView.getItemCount();
 
-        // debitT_recyclerView.reloadData(debitHistorieslist);
+      // debitT_recyclerView.reloadData(debitHistorieslist);
 
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
@@ -349,6 +350,7 @@ public class TransactionHistory extends AppCompatActivity {
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
@@ -361,10 +363,12 @@ public class TransactionHistory extends AppCompatActivity {
 
     /** to delete transactions **/
     public void deletefromAPI(final String urlobj, final ProgressDialog pd) {
-        HisabKitabJSONRequest jsonObjectRequest = new HisabKitabJSONRequest(Request.Method.DELETE,
-                urlobj, null, new Response.Listener<JSONObject>() {
+        HisabKitabDeleteRequest jsonObjectRequest = new  HisabKitabDeleteRequest(urlobj, null,
+                new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(String response) {
+                pd.dismiss();
+              //  debitHistorieslist.clear();
             }
         }, new HisabKitabErrorListener(progressDialog, TransactionHistory.this), this);
         requestQueue.add(jsonObjectRequest);
@@ -395,4 +399,10 @@ public class TransactionHistory extends AppCompatActivity {
         debitHistorieslist.clear();
         fetchtransaction(url);
     }
+
+   /* public void onResume(){
+        super.onResume();
+        debitT_recyclerView.notifyDataSetChanged();
+        android.widget.Toast.makeText(this, "onresume", Toast.LENGTH_SHORT).show();
+    }*/
 }
