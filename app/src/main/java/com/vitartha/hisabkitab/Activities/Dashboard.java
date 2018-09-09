@@ -209,19 +209,14 @@ public class Dashboard extends AppCompatActivity
 
         recyclerView.setAdapter(Trans_recyclerView);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        //When recycler reached at bottom call to get next page data**
+        Trans_recyclerView.setOnBottomReachListener(new Transactions_RecyclerView.OnBottomReachListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                VisibleItemCount = linearLayoutManager.getChildCount();
-                TotalItemCount = linearLayoutManager.getItemCount();
-                PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
-                if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                    if(!nextpage.equals("null")) {
-                        fetchtransaction(nextpage);
-                    }else {
-                        Toast.makeText(Dashboard.this, "No more Transactions found in your list!", Toast.LENGTH_SHORT).show();
-                    }
+            public void loadMoreData(int position) {
+                if(!nextpage.equals("null")){
+                    fetchtransaction(nextpage);
+                }else{
+                    Toast.makeText(Dashboard.this, "No more transactions in this list!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

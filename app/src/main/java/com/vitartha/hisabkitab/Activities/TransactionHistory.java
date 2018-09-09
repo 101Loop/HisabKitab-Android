@@ -65,9 +65,9 @@ public class TransactionHistory extends AppCompatActivity {
         spAdap = new SharedPreference(TransactionHistory.this);
 
         Toolbar toolbar = findViewById(id.toolbar);
-        if(spAdap.getString("category").equals("C"))
+        if (spAdap.getString("category").equals("C"))
             toolbar.setTitle("Credit Transactions");
-        else if(spAdap.getString("category").equals("D"))
+        else if (spAdap.getString("category").equals("D"))
             toolbar.setTitle("Debit Transactions");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
@@ -108,7 +108,7 @@ public class TransactionHistory extends AppCompatActivity {
         }
         url = key.transactions.show_url + "?&category=" + spAdap.getString("category");
 
-        if(!filtered_url.equals(""))
+        if (!filtered_url.equals(""))
             url = filtered_url;
 
         price_descend.setOnClickListener(new View.OnClickListener() {
@@ -135,10 +135,10 @@ public class TransactionHistory extends AppCompatActivity {
                 alpha_descend.setTextColor(Color.parseColor("#1295c9"));
                 alpha_ascend.setTextColor(Color.parseColor("#1295c9"));
 
-                sorturl = url +"&ordering=+amount";
+                sorturl = url + "&ordering=+amount";
                 url = sorturl;
                 Trans_HistoryList.clear();
-                fetchtransaction(url );
+                fetchtransaction(url);
             }
         });
         alpha_descend.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +163,7 @@ public class TransactionHistory extends AppCompatActivity {
                 price_ascend.setBackgroundResource(drawable.ic_outgoing);
                 alpha_descend.setTextColor(Color.parseColor("#1295c9"));
 
-                sorturl = url +"&ordering=+contact__name";
+                sorturl = url + "&ordering=+contact__name";
                 url = sorturl;
                 Trans_HistoryList.clear();
                 fetchtransaction(url);
@@ -172,9 +172,7 @@ public class TransactionHistory extends AppCompatActivity {
         });
 
 
-
-
-        FloatingActionButton fab = (FloatingActionButton)findViewById(id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,14 +207,13 @@ public class TransactionHistory extends AppCompatActivity {
         Trans_recyclerView.notifyDataSetChanged();
 
 
-
         /***
          * To make Filter options visible and invisible
          */
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(filterscreenvisible){
+                if (filterscreenvisible) {
                     filter_layout.setVisibility(View.GONE);
                     filterscreenvisible = false;
                     overridePendingTransition(anim.slide_in_down, anim.stay_anim);
@@ -239,32 +236,17 @@ public class TransactionHistory extends AppCompatActivity {
             }
         });
 
-
-        /*Recyclerview onscroll listener*/
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
+        //When recycler reached at bottom call to get next page data**
+        Trans_recyclerView.setOnBottomReachListener(new Transactions_RecyclerView.OnBottomReachListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-              //  if(dy > 0) {
-                VisibleItemCount = linearLayoutManager.getChildCount();
-                TotalItemCount = linearLayoutManager.getItemCount();
-                PastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
-                if ((VisibleItemCount + PastVisibleItems) >= TotalItemCount) {
-                    if (!nextpage.equals("null")) {
-                        fetchtransaction(nextpage);
-                    }else
-                        Toast.makeText(TransactionHistory.this, "No more transactions in this list!", Toast.LENGTH_SHORT).show();
+            public void loadMoreData(int position) {
+                if (!nextpage.equals("null")) {
+                    fetchtransaction(nextpage);
+                } else {
+                    Toast.makeText(TransactionHistory.this, "No more transactions in this list!", Toast.LENGTH_SHORT).show();
                 }
-                //}
             }
         });
-
     }
 
     /** to show transactions url**/
@@ -399,7 +381,6 @@ public class TransactionHistory extends AppCompatActivity {
         } catch (Exception e){
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
-        //Trans_recyclerView.reloadData(Trans_HistoryList);
+        Trans_recyclerView.reloadData(Trans_HistoryList);
     }
-
 }

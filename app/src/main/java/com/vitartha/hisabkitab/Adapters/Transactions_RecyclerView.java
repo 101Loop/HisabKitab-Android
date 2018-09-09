@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,7 @@ import com.vitartha.hisabkitab.Activities.TransactionHistory;
 import com.vitartha.hisabkitab.Class.DebitDetails;
 import com.vitartha.hisabkitab.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +40,15 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
     public int TransactionId;
     SharedPreference spAdap;
     private int Year, Month, Day, mode;
+    Transactions_RecyclerView transactions_recyclerView;
+    private ArrayList<DebitDetails> Trans_HistoryList = new ArrayList<>();
+    private OnBottomReachListener onBottomReachListener;
+
+
+    // on bottom reach listener*
+    public void setOnBottomReachListener(OnBottomReachListener onBottomReachListener){
+        this.onBottomReachListener =onBottomReachListener;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView uname, amnt, pmode, pdate, pcomment, nameHint;
@@ -51,13 +62,11 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
             pdate = (TextView) view.findViewById(R.id.transactiondetail);
             pcomment = (TextView) view.findViewById(R.id.commentdetail);
             trans_icon = view.findViewById(R.id.namehint);
-           // nameHint = view.findViewById(R.id.namehint);
             delbtn = view.findViewById(R.id.delbtn);
 
             view.setOnClickListener(this);
 
         }
-
 
         @Override
         public void onClick(View v) {
@@ -242,6 +251,10 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
                 alertdialog.show();
             }
         });
+
+        if(position==debitDetailsList.size()-1){
+            onBottomReachListener.loadMoreData(position);
+        }
     }
 
     public void reloadData(List<DebitDetails> ddetails) {
@@ -260,22 +273,27 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
     }
 
     public void removeAt(int position, int Trans_ID, View view) {
-     /*   debitDetailsList.remove(position);
+        debitDetailsList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, debitDetailsList.size());*/
+        notifyItemRangeChanged(position, debitDetailsList.size());
         String urlobj = key.transactions.transaction_url + Trans_ID + "/delete/";
         if(mcontext instanceof  TransactionHistory){
             ((TransactionHistory)mcontext).deletefromAPI(urlobj, progressDialog);
             // ((TransactionHistory)mcontext).fetchtransaction(key.transactions.show_url + "?&category=" + spAdap.getString("category"));
+            ((TransactionHistory)mcontext).onResume();
         }
          else  if(mcontext instanceof Dashboard) {
             ((Dashboard) mcontext).deletefromAPI(urlobj, progressDialog);
            // ((Dashboard)mcontext).fetchtransaction(key.transactions.show_url);
+            ((Dashboard)mcontext).onResume();
         }
         progressDialog.dismiss();
         Toast.makeText(view.getContext(), "Transaction deleted successfully!", Toast.LENGTH_SHORT).show();
 
     }
 
-
+    //bottom reach listener interface
+    public interface OnBottomReachListener{
+        void loadMoreData(int position);
+    }
 }
