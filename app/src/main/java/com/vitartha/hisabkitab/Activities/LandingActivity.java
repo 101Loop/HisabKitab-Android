@@ -16,7 +16,7 @@ import com.vitartha.hisabkitab.R;
 public class LandingActivity extends AppCompatActivity {
 
     ImageView fb, twitter, gplus;
-    TextView privacy;
+    TextView privacy, call;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class LandingActivity extends AppCompatActivity {
         twitter = findViewById(R.id.twitID);
         gplus = findViewById(R.id.GPLusID);
         privacy = findViewById(R.id.privacy);
+        call = findViewById(R.id.call);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,14 @@ public class LandingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://hisabkitab.in/policy"));
                 startActivity(browserIntent);
+            }
+        });
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:01204545647"));
+                startActivity(intent);
             }
         });
 

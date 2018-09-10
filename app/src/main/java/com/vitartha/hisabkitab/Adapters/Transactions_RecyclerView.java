@@ -199,8 +199,6 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
                     public void onClick(DialogInterface dialog, int which) {
                         JSONObject object = new JSONObject();
                         try {
-                            Toast.makeText(mcontext, "id:" + TransactionId, Toast.LENGTH_SHORT).show();
-                           // object.put(key.transactions.key_category, spAdap.getString("category"));
                             object.put(key.transactions.Key_contact, name.getText().toString());
                             object.put(key.transactions.key_amount, amt.getText().toString());
                             object.put(key.transactions.key_comments, comment.getText().toString());

@@ -336,6 +336,7 @@ public class Dashboard extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent i = new Intent(Dashboard.this, LoginActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     spAdap.clearData();

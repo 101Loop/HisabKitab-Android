@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.vitartha.hisabkitab.API.key;
+import com.vitartha.hisabkitab.Activities.Dashboard;
 import com.vitartha.hisabkitab.Activities.LoginActivity;
 import com.vitartha.hisabkitab.R;
 
@@ -73,6 +74,10 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Toast.makeText(act, "Authorization Error!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(act, LoginActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    act.startActivity(i);
+                    spAdap.clearData();
                     dialog.dismiss();
                 }
             });
@@ -94,6 +99,10 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(act, "Authorization Error!", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(act, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            act.startActivity(i);
+                            spAdap.clearData();
                             dialog.dismiss();
                         }
                     });
@@ -108,6 +117,7 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent i = new Intent(act, LoginActivity.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             act.startActivity(i);
                             spAdap.clearData();
                         }

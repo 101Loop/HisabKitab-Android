@@ -14,17 +14,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
             android:background="@color/landingblue">
-            <!-- <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:background="@drawable/ic_share"
-                 android:layout_gravity="end"
-             />-->
-            <!-- <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/loginPerson"
-                 android:background="@drawable/ic_person"/>-->
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -429,6 +418,7 @@
 
             </RelativeLayout>
 
+            <!--Footer Layout-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_below="@+id/layout4"
@@ -439,7 +429,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/call"
                     android:layout_centerHorizontal="true"
-                    android:text="Call Us: +91 1204545647"
+                    android:text="Call Us: +91-1204545647"
                     style="@style/Base.TextAppearance.AppCompat.Body2"
                     android:textSize="20dp"
                     />
@@ -461,31 +451,32 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/privacy"
                     android:text="Follow us on:"/>
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
                     android:layout_below="@+id/follow"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/fbID"
-                    android:background="@drawable/facebook"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/follow"
-                    android:layout_marginLeft="210dp"
-                    android:id="@+id/twitID"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/twitter"
-                    />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/follow"
-                    android:layout_marginLeft="130dp"
-                    android:id="@+id/GPLusID"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/google_plus"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fbID"
+                        android:background="@drawable/facebook"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/twitID"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/twitter"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/GPLusID"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/google_plus"/>
+                </LinearLayout>
             </RelativeLayout>
 
         </RelativeLayout>

@@ -148,6 +148,7 @@ public class UpdateProfile extends AppCompatActivity {
                     startActivity(i);
                     overridePendingTransition(R.anim.back_in, R.anim.back_out);
                     spAdap.clearData();
+                    finish();
                 }
             });
 

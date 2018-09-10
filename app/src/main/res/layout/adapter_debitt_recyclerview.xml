@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:backgroundTintMode="screen"
-        android:layout_height="140dp">
+        android:layout_height="160dp">
 
         <RelativeLayout
             android:layout_width="60dp"
@@ -52,7 +52,8 @@
                 android:textStyle="bold"
                 android:id="@+id/nameid"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                app:fontFamily="serif"/>
 
             <!--User's name detail-->
             <TextView
@@ -74,6 +75,7 @@
                 android:layout_below="@+id/nameid"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:id="@+id/amount"
+                app:fontFamily="serif"
                 />
 
             <!--Amount detail-->
@@ -94,6 +96,7 @@
                 android:layout_below="@+id/amount"
                 android:paddingLeft="10dp"
                 android:id="@+id/mode"
+                app:fontFamily="serif"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:text="Mode: "/>
 
@@ -110,13 +113,15 @@
 
             <!--Comment view-->
             <TextView
+                android:id="@+id/comment"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mode"
                 android:paddingLeft="10dp"
-                android:id="@+id/comment"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:text="Comment(s): "/>
+                android:text="Comment(s): "
+                android:textAllCaps="false"
+                app:fontFamily="serif" />
 
             <!--Comment detail-->
             <TextView
@@ -130,14 +135,16 @@
 
             <!--Transaction date view-->
             <TextView
+                android:id="@+id/transaction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:layout_below="@+id/comment"
+                android:layout_marginTop="10dp"
+                android:fontFamily=""
+                android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
-                android:id="@+id/transaction"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:text="Transaction Date: "/>
+                android:text="Transaction Date: "
+                app:fontFamily="casual" />
 
             <!--Transaction date detail-->
             <TextView
@@ -145,9 +152,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/transaction"
                 android:layout_below="@id/comment"
+                android:layout_marginTop="10dp"
                 android:id="@+id/transactiondetail"
-                android:textStyle="italic"
-                style="@style/Base.TextAppearance.AppCompat.Body1"
+                app:fontFamily="monospace"
                />
 
             <!--Delete button-->
