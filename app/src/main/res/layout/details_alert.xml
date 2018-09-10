@@ -17,8 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/appbar">
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:hint="Name"
                 android:id="@+id/contactname"
                 android:paddingLeft="10dp"
@@ -27,10 +29,11 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/edittextbackground"
                 />
-
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_below="@+id/contactname"
                 android:layout_centerHorizontal="true"
                 android:inputType="numberDecimal"
@@ -43,8 +46,10 @@
                 android:hint="Amount"
                 />
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:hint="Comment(s)"
                 android:paddingLeft="10dp"
                 android:id="@+id/comment"
@@ -53,8 +58,10 @@
                 android:layout_below="@+id/amount"
                 android:layout_centerHorizontal="true"/>
             <TextView
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_below="@+id/comment"
                 android:hint="Date"
                 android:textSize="17dp"
@@ -78,6 +85,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_below="@+id/date"
                 android:layout_marginTop="20dp"/>
+
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

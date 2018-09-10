@@ -38,154 +38,164 @@
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/edittextbackground"
-            android:hint="Search by Name"
-            android:id="@+id/searchName"
-            android:singleLine="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:drawablePadding="15dp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:paddingRight="10dp"
-            android:drawableRight="@drawable/ic_search"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:background="@drawable/edittextbackground"
-            android:hint="Search by Amount"
-            android:gravity="center"
-            android:paddingLeft="10dp"
-            android:drawableLeft="@drawable/rupee_indian"
-            android:inputType="numberDecimal"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/searchAmount"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/searchName" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_marginTop="10dp"
-            android:drawableRight="@drawable/ic_calendar"
-            android:background="@drawable/edittextbackground"
-            android:layout_below="@+id/searchAmount"
-            android:hint="Search by Date"
-            android:textSize="17dp"
-            android:id="@+id/searchDate"
-            android:layout_centerHorizontal="true"
-            android:paddingRight="10dp"
-            android:gravity="center"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter by Range"
-            android:id="@+id/searchRangetxt"
-            android:layout_below="@+id/searchDate"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
-            style="@style/Base.TextAppearance.AppCompat.Body1"
-            />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/searchRangetxt"
-            android:layout_marginTop="10dp"
-            android:id="@+id/linearlayout"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/minRange"
-                android:gravity="center"
-                android:paddingStart="10dp"
-                android:drawableLeft="@drawable/rupee_indian"
-                android:paddingEnd="10dp"
                 android:background="@drawable/edittextbackground"
-                android:hint="Minimum"
+                android:hint="Search by Name"
+                android:id="@+id/searchName"
+                android:singleLine="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:drawablePadding="15dp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/ic_search"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edittextbackground"
+                android:hint="Search by Amount"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:drawableLeft="@drawable/rupee_indian"
                 android:inputType="numberDecimal"
-                android:layout_marginLeft="40dp" />
+                android:layout_centerHorizontal="true"
+                android:id="@+id/searchAmount"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/searchName" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:drawableRight="@drawable/ic_calendar"
+                android:background="@drawable/edittextbackground"
+                android:layout_below="@+id/searchAmount"
+                android:hint="Search by Date"
+                android:textSize="17dp"
+                android:id="@+id/searchDate"
+                android:layout_centerHorizontal="true"
+                android:paddingRight="10dp"
+                android:gravity="center"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:layout_toRightOf="@+id/minRange"/>
+                android:text="Filter by Range"
+                android:id="@+id/searchRangetxt"
+                android:layout_below="@+id/searchDate"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:inputType="numberDecimal"
-                android:gravity="center"
-                android:paddingStart="10dp"
-                android:drawableLeft="@drawable/rupee_indian"
-                android:paddingEnd="10dp"
-                android:id="@+id/maxRange"
-                android:layout_toRightOf="@+id/minRange"
-                android:background="@drawable/edittextbackground"
                 android:layout_below="@+id/searchRangetxt"
-                android:hint="Maximum"/>
+                android:layout_marginTop="10dp"
+                android:id="@+id/linearlayout"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/minRange"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:drawableLeft="@drawable/rupee_indian"
+                    android:paddingEnd="10dp"
+                    android:background="@drawable/edittextbackground"
+                    android:hint="Minimum"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="40dp" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:layout_toRightOf="@+id/minRange"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/linearlayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:id="@+id/checkbox"
-            android:layout_height="wrap_content">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkcash"
-            android:text="Cash"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkcheque"
-            android:text="Cheque"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkacct"
-            android:text="Account Transfer"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkcard"
-            android:text="Card"/>
-        </LinearLayout>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:inputType="numberDecimal"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:drawableLeft="@drawable/rupee_indian"
+                    android:paddingEnd="10dp"
+                    android:id="@+id/maxRange"
+                    android:layout_toRightOf="@+id/minRange"
+                    android:background="@drawable/edittextbackground"
+                    android:layout_below="@+id/searchRangetxt"
+                    android:hint="Maximum"/>
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:layout_below="@+id/checkbox"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:id="@+id/filterbtn"
-            android:background="@drawable/button"
-            />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/linearlayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:id="@+id/checkbox"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkcash"
+                        android:text="Cash"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkcheque"
+                        android:text="Cheque"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkacct"
+                        android:text="Account Transfer"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkcard"
+                        android:text="Card"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:layout_below="@+id/checkbox"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:id="@+id/filterbtn"
+                android:background="@drawable/button"
+                />
         </RelativeLayout>
 
     </RelativeLayout>

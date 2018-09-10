@@ -40,8 +40,6 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
     public int TransactionId;
     SharedPreference spAdap;
     private int Year, Month, Day, mode;
-    Transactions_RecyclerView transactions_recyclerView;
-    private ArrayList<DebitDetails> Trans_HistoryList = new ArrayList<>();
     private OnBottomReachListener onBottomReachListener;
 
 

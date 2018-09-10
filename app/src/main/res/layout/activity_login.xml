@@ -54,8 +54,10 @@
                     android:layout_centerHorizontal="true">
 
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:hint="Email-ID/Mobile"
                         android:background="@color/opaquelightblue"
                         android:layout_centerHorizontal="true"
@@ -70,11 +72,13 @@
                         android:drawableTint="@color/white"
                         />
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@+id/emailID"
                         android:hint="Password"
                         android:singleLine="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
                         android:textColorHint="@color/white"
                         android:backgroundTint="@color/white"
                         android:textColor="@color/white"

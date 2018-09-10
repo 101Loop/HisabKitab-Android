@@ -54,9 +54,7 @@ public class TransactionHistory extends AppCompatActivity {
     ImageView filter, price_ascend, price_descend;
     LinearLayout filter_layout;
     RelativeLayout trasactiondetails;
-    Boolean loading_url = true;
-    public int VisibleItemCount, TotalItemCount, PastVisibleItems, count=1;
-    private boolean loading = true, filterscreenvisible = false;
+    private boolean filterscreenvisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -374,7 +372,6 @@ public class TransactionHistory extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Toast.makeText(this, "Trans onresume()", Toast.LENGTH_SHORT).show();
         Trans_HistoryList.clear();
         try {
             fetchtransaction(url);

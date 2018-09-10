@@ -41,12 +41,14 @@
                 android:gravity="center">
 
                 <RelativeLayout
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/relativelayout">
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_height="50dp"
                         android:layout_centerHorizontal="true"
                         android:hint="Enter Name"
@@ -63,8 +65,10 @@
                         />
 
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/nameID"
                         android:id="@+id/emailID"
                         android:drawablePadding="15dp"
@@ -81,8 +85,10 @@
                         android:hint="Enter Email"/>
 
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/emailID"
                         android:hint="Mobile Number"
                         android:drawablePadding="15dp"
@@ -99,8 +105,10 @@
                         android:id="@+id/mobileID"/>
 
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/mobileID"
                         android:hint="Enter Password"
                         android:drawablePadding="15dp"
@@ -117,8 +125,10 @@
                         android:inputType="textPassword" />
 
                     <EditText
-                        android:layout_width="300dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:hint="Enter Confirm Password"
                         android:background="@color/opaquelightblue"
                         android:textColor="@color/white"

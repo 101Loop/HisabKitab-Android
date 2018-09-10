@@ -719,7 +719,6 @@ public class Dashboard extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
-        Toast.makeText(this, "dash onresume()", Toast.LENGTH_SHORT).show();
         Trans_HistoryList.clear();
         try {
             fetchtransaction(show_url);
