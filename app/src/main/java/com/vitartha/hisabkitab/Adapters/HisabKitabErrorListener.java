@@ -142,7 +142,22 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                                     JSONObject obj = new JSONObject(jObj.get(curr).toString());
                                     String errorkey = obj.keys().next();
                                     errorkey = obj.getJSONArray(errorkey).getString(0);
+
+                                    AlertDialog.Builder alert = new AlertDialog.Builder(act);
+                                    alert.setTitle("Error!");
+                                    alert.setMessage(errorkey);
+                                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            progressDialog.dismiss();
+                                        }
+                                    });
+
+                                    alert.show();
+
                                     Toast.makeText(act, errorkey, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(act, "Some error has occurred! Try again!", Toast.LENGTH_SHORT).show();
                                 }
                             }catch (Exception e) {
                                 e.printStackTrace();

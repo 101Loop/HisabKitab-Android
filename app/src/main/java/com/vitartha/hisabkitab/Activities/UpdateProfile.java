@@ -117,7 +117,8 @@ public class UpdateProfile extends AppCompatActivity {
                     Toast.makeText(UpdateProfile.this, "Error while updating data!", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new HisabKitabErrorListener(progressDialog, UpdateProfile.this), this);/* new Response.ErrorListener() {
+        }, new HisabKitabErrorListener(progressDialog, UpdateProfile.this), this);
+        /* new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();

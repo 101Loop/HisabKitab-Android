@@ -63,15 +63,15 @@
                         android:layout_centerHorizontal="true"
                         android:singleLine="true"
                         android:textColor="@color/white"
-                        android:backgroundTint="@color/white"
+                        app:backgroundTint="@color/white"
                         android:textColorHint="@color/white"
                         android:drawableLeft="@drawable/ic_person_blue"
                         android:drawablePadding="20dp"
                         android:paddingLeft="15dp"
                         android:id="@+id/emailID"
-                        android:drawableTint="@color/white"
                         />
-                    <EditText
+
+                   <!-- <EditText
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@+id/emailID"
@@ -80,17 +80,49 @@
                         android:layout_marginLeft="45dp"
                         android:layout_marginRight="45dp"
                         android:textColorHint="@color/white"
-                        android:backgroundTint="@color/white"
+                        app:backgroundTint="@color/white"
                         android:textColor="@color/white"
                         android:inputType="textPassword"
                         android:background="@color/opaquelightblue"
                         android:drawableLeft="@drawable/ic_lock"
+                        android:drawableRight="@drawable/ic_pwdvisibile"
                         android:drawablePadding="20dp"
                         android:drawableTint="@color/white"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="15dp"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/password"/>
+                        android:id="@+id/password"/>-->
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/emailID"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginRight="45dp"
+                        app:hintEnabled="false"
+                        android:layout_centerHorizontal="true"
+                        app:passwordToggleDrawable="@drawable/password_visibility"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/white">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/password"
+                            app:backgroundTint="@color/white"
+                            android:textColor="@color/white"
+                            android:hint="Password"
+                            android:textColorHint="@color/white"
+                            android:singleLine="true"
+                            android:drawablePadding="20dp"
+                            android:background="@color/opaquelightblue"
+                            android:inputType="textPassword"
+                            android:paddingLeft="15dp"
+                            android:drawableStart="@drawable/ic_lock"
+                            android:drawableLeft="@drawable/ic_lock" />
+                    </android.support.design.widget.TextInputLayout>
                 </RelativeLayout>
 
                 <Button

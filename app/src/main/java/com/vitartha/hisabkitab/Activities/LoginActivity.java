@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -39,7 +41,8 @@ import java.lang.reflect.Method;
 public class LoginActivity extends SampleClass{
 
     TextView signup, forgotpwd;
-    EditText email, pwd;
+    EditText email;
+    TextInputEditText pwd;
     Button loginbtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String user_Email, user_pwd;

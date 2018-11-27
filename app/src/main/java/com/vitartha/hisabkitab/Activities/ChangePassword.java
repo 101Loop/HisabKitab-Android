@@ -98,7 +98,8 @@ public class ChangePassword extends AppCompatActivity {
                     Toast.makeText(ChangePassword.this, "Error while updating password!", Toast.LENGTH_SHORT).show();
                 }
             }
-        },new HisabKitabErrorListener(progressDialog, ChangePassword.this), this);/* new Response.ErrorListener() {
+        },new HisabKitabErrorListener(progressDialog, ChangePassword.this), this);
+        /* new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();

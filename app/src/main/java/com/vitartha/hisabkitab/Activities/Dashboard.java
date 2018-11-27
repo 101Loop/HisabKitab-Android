@@ -59,7 +59,7 @@ public class Dashboard extends AppCompatActivity
 
     SharedPreference spAdap;
     TextView one, two, three, four, five, one_selected, two_selected, three_selected, four_selected, five_selected, noTransMsg,
-            TotalTransaction, TotalAmount;
+            TotalTransaction, TotalAmount, NavHeaderSubTitle, NavHeaderTitle;
     EditText feedbackmsg;
     Button feedbacksbmt;
     String show_url;
@@ -165,7 +165,8 @@ public class Dashboard extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         //onNavigationItemSelected(navigationView.getMenu().getItem(0));
         // navigationView.getMenu().getItem(0).setChecked(false);
-
+        NavHeaderSubTitle = header.findViewById(R.id.NavHeader_Subtitle);
+        NavHeaderTitle = header.findViewById(R.id.NavHeader_title);
 
         header.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +186,9 @@ public class Dashboard extends AppCompatActivity
         jwtEmail = claimEmail.asString();
         jwtContact = claimContact.asString();
 
+
+        NavHeaderTitle.setText(jwtName);
+        NavHeaderSubTitle.setText(jwtEmail);
 
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
