@@ -162,7 +162,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="It is easy to manage budget"
+                    android:text="@string/budget_mgnt"
                     android:layout_below="@+id/moneymanageID"
                     android:paddingTop="25dp"
                     android:id="@+id/budgetcontentid"
@@ -189,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="It is easy to control your expenditure"
+                    android:text="@string/ctrl_expenditure"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/expendID"
                     android:paddingTop="25dp"/>
@@ -249,7 +249,7 @@
                     android:layout_below="@+id/calcimg2"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="30dp"
-                    android:text="@string/calc_content"
+                    android:text="@string/indiv_easy_to_use"
                     />
 
                 <ImageView
@@ -273,7 +273,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="It is easy to manage your pocket money"
+                    android:text="@string/indiv_pocket_mgmt"
                     android:layout_below="@+id/pocketmanageID"
                     android:paddingTop="25dp"
                     android:id="@+id/pocketcontentid"
@@ -299,7 +299,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="It is easy to save money"
+                    android:text="@string/indiv_save_mny"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/savemoney"
                     android:paddingTop="25dp"
@@ -360,7 +360,7 @@
                     android:layout_below="@+id/trackimg"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="30dp"
-                    android:text="It is easy to track your transaction"
+                    android:text="@string/businesss_track_mny"
                     />
 
                 <ImageView
@@ -384,7 +384,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="It is easy to manage money"
+                    android:text="@string/business_money_mgmt"
                     android:layout_below="@+id/manageID"
                     android:paddingTop="25dp"
                     android:id="@+id/Managecontentid"
@@ -410,7 +410,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="It is easy to grow your business"
+                    android:text="@string/business_grow"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/grow"
                     android:layout_marginBottom="20dp"

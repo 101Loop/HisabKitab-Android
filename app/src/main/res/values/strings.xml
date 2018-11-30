@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">HisabKitab</string>
     <string name="landingpage_title">The easiest way to track your money flow</string>
-    <string name="calc_content">It is easy to use, any member can use</string>
+    <string name="calc_content">Easy to use, Any member can use</string>
+    <string name="budget_mgnt">Easy to manage budget</string>
+    <string name="ctrl_expenditure">Easy to control your expenditure</string>
+    <string name="indiv_easy_to_use">Easy to use, Anyone can use</string>
+    <string name="indiv_pocket_mgmt">Easy to manage your personal finance and daily expenses</string>
+    <string name="indiv_save_mny">Easy to save money</string>
+    <string name="businesss_track_mny">Easy to track your transactions and balance your finances</string>
+    <string name="business_money_mgmt">Easy to manage incoming and outgoing cash flow</string>
+    <string name="business_grow">Easy to grow your business</string>
     <string name="title_activity_dashboard2">Dashboard2</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

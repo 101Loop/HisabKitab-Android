@@ -131,7 +131,6 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                 }
                 case 422: {
                     try {
-
                         JSONObject jObj = new JSONObject(errorResponse);
                         Iterator keys = jObj.keys();
                         JSONObject objError;
