@@ -42,7 +42,7 @@ public class AddDebit extends AppCompatActivity {
     EditText name, amt, comment;
     TextView date;
     private int Year, Month, Day;
-    Button submit;
+    MaterialButton submit;
     RadioGroup radioGroupmode;
     Boolean isname =false, isamt = false, isdate = false, ismode = false;
     int mode;

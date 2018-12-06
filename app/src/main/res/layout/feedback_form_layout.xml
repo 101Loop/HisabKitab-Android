@@ -150,7 +150,7 @@
         android:background="@drawable/edittextbackground"
         />
 
-    <Button
+    <android.support.design.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
@@ -158,6 +158,6 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:background="@color/lightblue"
+        android:backgroundTint="@color/landingblue"
         />
 </RelativeLayout>

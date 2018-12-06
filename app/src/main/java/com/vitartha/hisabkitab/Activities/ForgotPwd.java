@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.NetworkError;
@@ -29,9 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ForgotPwd extends SampleClass {
-
+    LinearLayout ll_mobile, ll_otp;
     EditText otp, mail;
-    Button verify, getOTP;
+    MaterialButton verify, getOTP;
     ProgressDialog progressDialog;
     Boolean isOTP;
     SharedPreference spAdap;
@@ -48,13 +50,18 @@ public class ForgotPwd extends SampleClass {
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("");
-        toolbar.setTitleTextColor(Color.WHITE);
+        //For back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         otp = findViewById(R.id.otp);
         mail = findViewById(R.id.emailID);
         verify = findViewById(R.id.verify);
         getOTP = findViewById(R.id.getOtp);
+        ll_mobile = findViewById(R.id.ll_mobile);
+        ll_otp = findViewById(R.id.ll_otp);
         spAdap = new SharedPreference(this);
         progressDialog = new ProgressDialog(this);
 
@@ -174,9 +181,8 @@ public class ForgotPwd extends SampleClass {
     public void checkstatusOTP(JSONObject jsonObject) throws JSONException {
         progressDialog.dismiss();
         if(jsonObject.optInt(key.server.key_status) == 201){
-            otp.setVisibility(View.VISIBLE);
-            verify.setVisibility(View.VISIBLE);
-            getOTP.setVisibility(View.INVISIBLE);
+            ll_otp.setVisibility(View.VISIBLE);
+            ll_mobile.setVisibility(View.INVISIBLE);
             mail.setEnabled(false);
             Toast.makeText(this, "OTP has been sent successfully to your mail ID!", Toast.LENGTH_SHORT).show();
         } else
@@ -193,6 +199,7 @@ public class ForgotPwd extends SampleClass {
             spAdap.saveData(key.server.key_token, jsonObject.getJSONObject(key.server.key_data).optString(key.server.key_token));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             Toast.makeText(this, "Logged In Successfully!", Toast.LENGTH_SHORT).show();
+            finish();
         } else if(jsonObject.optInt(key.server.key_status)==401){
             otp.setError("Enter valid OTP");
             Toast.makeText(this, "OTP Validation Failed!", Toast.LENGTH_SHORT).show();
@@ -204,14 +211,14 @@ public class ForgotPwd extends SampleClass {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }

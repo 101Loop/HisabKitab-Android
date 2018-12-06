@@ -4,125 +4,139 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkblue"
     tools:context=".Activities.ForgotPwd">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="@color/darkblue">
+        android:background="@color/landingblue"
+        android:backgroundTint="@color/landingblue">
     </android.support.v7.widget.Toolbar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/headbar"
-        android:layout_below="@id/toolbar">
-        <TextView
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Login with OTP"
-            android:layout_marginTop="20dp"
-            android:textSize="30dp"
-            android:textColor="@color/white"
-            android:id="@+id/appname"
-            app:fontFamily="cursive" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_below="@+id/appname"
-            android:src="@drawable/hk512"
-            android:layout_centerHorizontal="true"/>
-
-    </RelativeLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/headbar"
-        >
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:background="@color/landingblue"
+            android:layout_weight=".35"
+            android:gravity="bottom">
+            <TextView
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_height="wrap_content"
+                android:text="Hisab-Kitab"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                app:fontFamily="cursive"/>
 
-
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:hint="Email/Mobile"
-                    android:singleLine="true"
-                    android:id="@+id/emailID"
-                    android:background="@color/opaquelightblue"
-                    android:drawablePadding="15dp"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
-                    android:textColorHint="@color/white"
-                    android:paddingLeft="10dp"
-                    android:drawableTint="@color/white"
-                    android:layout_centerHorizontal="true"
-                    android:drawableLeft="@drawable/ic_person_blue"
-                    android:layout_marginTop="40dp"
-                    />
-
-                <EditText
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:hint="OTP"
-                    android:layout_below="@+id/emailID"
-                    android:id="@+id/otp"
-                    android:drawablePadding="15dp"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
-                    android:textColorHint="@color/white"
-                    android:drawableTint="@color/white"
-                    android:paddingLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:visibility="invisible"
-                    android:drawableLeft="@drawable/ic_lock"
-                    android:background="@color/opaquelightblue"                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
-
-                <Button
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:text="Get OTP"
-                    android:id="@+id/getOtp"
-                    android:textColor="@color/white"
-                    android:layout_below="@+id/otp"
-                    android:layout_centerHorizontal="true"
-                    android:backgroundTint="@color/white"
-                    android:layout_marginTop="30dp"
-                    android:textStyle="italic"
-                    android:background="@drawable/opaquebutton"/>
-
-                <Button
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/opaquebutton"
-                    android:text="Verify"
-                    android:visibility="invisible"
-                    android:backgroundTint="@color/white"
-                    android:id="@+id/verify"
-                    android:textColor="@color/white"
-                    android:layout_below="@+id/otp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="10dp"/>
-            </RelativeLayout>
+            <TextView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Make It Easy"
+                android:textColor="@color/white"
+                app:fontFamily="cursive"
+                android:textSize="@dimen/dp20"/>
 
         </LinearLayout>
-    </ScrollView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".65">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Login With Otp"
+                    android:textColor="@color/landingblue"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp30"
+                    android:layout_marginRight="@dimen/dp30">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/ll_mobile">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="Email/Mobile"
+                            android:singleLine="true"
+                            android:id="@+id/emailID"
+                            android:background="@color/lightblue"
+                            android:drawablePadding="15dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:paddingLeft="10dp"
+                            android:drawableTint="@color/white"
+                            android:drawableLeft="@drawable/ic_person_blue"/>
+
+                        <android.support.design.button.MaterialButton
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:text="Get OTP"
+                            android:id="@+id/getOtp"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/landingblue"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:id="@+id/ll_otp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:hint="OTP"
+                            android:id="@+id/otp"
+                            android:drawablePadding="15dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:background="@color/lightblue"
+                            android:paddingLeft="10dp"
+                            android:inputType="number"
+                            android:singleLine="true"
+                            android:drawableLeft="@drawable/ic_lock"/>
+
+                        <android.support.design.button.MaterialButton
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="@dimen/dp20"
+                            android:text="Verify"
+                            android:id="@+id/verify"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/landingblue"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
 
 </RelativeLayout>

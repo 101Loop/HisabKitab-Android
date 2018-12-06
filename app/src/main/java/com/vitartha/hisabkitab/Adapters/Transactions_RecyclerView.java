@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -220,7 +221,10 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
                         }
                     }
                 });
-                alertdialog.show();
+                AlertDialog dialog = alertdialog.create();
+                dialog.show();
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+
             }
         });
 

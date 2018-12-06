@@ -1,15 +1,17 @@
 package com.vitartha.hisabkitab.Activities;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 
+import android.support.design.button.MaterialButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +38,7 @@ import static com.vitartha.hisabkitab.Activities.Dashboard.jwtName;
 public class UpdateProfile extends AppCompatActivity {
 
     EditText name, mob, mail, add;
-    Button update, back;
+    MaterialButton update;
     TextView pwd;
     ProgressDialog progressDialog;
     SharedPreference spAdap;
@@ -49,13 +51,17 @@ public class UpdateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+        /* For back button */
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         update = findViewById(R.id.updatebtn);
         name = findViewById(R.id.txtname);
         mob = findViewById(R.id.txtnumber);
         mail = findViewById(R.id.txtmail);
         add = findViewById(R.id.txtaddress);
-        back = findViewById(R.id.backbutton);
         pwd = findViewById(R.id.changepwd);
         spAdap = new SharedPreference(UpdateProfile.this);
 
@@ -91,17 +97,6 @@ public class UpdateProfile extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(UpdateProfile.this, Dashboard.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.back_in, R.anim.back_out);
-                finish();
-            }
-        });
-
     }
 
     public void senddata(JSONObject object) {
@@ -152,16 +147,24 @@ public class UpdateProfile extends AppCompatActivity {
                     finish();
                 }
             });
-
-            alert.show();
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
         }
     }
 
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        return true;
     }
 
 }

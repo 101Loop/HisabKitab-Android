@@ -110,64 +110,59 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:checked="false"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:id="@+id/cash"
                     android:button="@null"
-                    android:drawableLeft="@drawable/cash"
-                    android:drawablePadding="5dp"
                     android:background="@drawable/radiobutton"
-                    android:text="Cash"/>
+                    android:text="Cash"
+                    android:layout_margin="1dp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:checked="false"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:button="@null"
                     android:id="@+id/cheque"
-                    android:drawableLeft="@drawable/cheque"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Cheque"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:checked="false"
                     android:id="@+id/acct"
                     android:button="@null"
-                    android:drawableLeft="@drawable/transfer"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Account Transfer"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:text="Card"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:button="@null"
-                    android:drawableLeft="@drawable/card"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:id="@+id/card"
                     android:checked="false"/>
             </RadioGroup>
 
 
-            <Button
+            <android.support.design.button.MaterialButton
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="Submit"
-                android:background="@drawable/button"
+                android:backgroundTint="@color/landingblue"
                 android:layout_below="@+id/radiogroup"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/submit"
                 android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
-                />
+                android:layout_centerHorizontal="true"/>
         </RelativeLayout>
 
         </LinearLayout>

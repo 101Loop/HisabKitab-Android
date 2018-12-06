@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,18 +41,15 @@ import java.lang.reflect.Method;
 
 public class LoginActivity extends SampleClass{
 
-    TextView signup, forgotpwd;
     EditText email;
     TextInputEditText pwd;
-    Button loginbtn;
+    MaterialButton loginbtn, signup, forgotpwd;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String user_Email, user_pwd;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     private ProgressDialog progressDialog;
     SharedPreference spAdap;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

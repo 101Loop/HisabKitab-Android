@@ -3,9 +3,11 @@ package com.vitartha.hisabkitab.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +29,7 @@ import org.json.JSONObject;
 
 public class ChangePassword extends AppCompatActivity {
 
-    Button back, updatepwd;
+    MaterialButton updatepwd;
     EditText newpwd, confpwd;
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
@@ -40,27 +42,17 @@ public class ChangePassword extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
-
-
-        back = findViewById(R.id.backbutton);
+        /* For back button */
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         updatepwd = findViewById(R.id.updatebtn);
         newpwd = findViewById(R.id.newpwdtxt);
         confpwd = findViewById(R.id.confirmpwdtxt);
         progressDialog = new ProgressDialog(this);
         spAdap = new SharedPreference(this);
-
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChangePassword.this, UpdateProfile.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.back_in, R.anim.back_out);
-                finish();
-            }
-        });
 
         updatepwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +119,14 @@ public class ChangePassword extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        return true;
     }
 }

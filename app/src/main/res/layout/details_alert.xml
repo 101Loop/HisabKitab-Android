@@ -99,12 +99,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:checked="false"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:id="@+id/cash"
                     android:button="@null"
-                    android:drawableLeft="@drawable/cash"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Cash"/>
                 <RadioButton
@@ -115,8 +114,7 @@
                     android:paddingRight="4dp"
                     android:button="@null"
                     android:id="@+id/cheque"
-                    android:drawableLeft="@drawable/cheque"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Cheque"/>
                 <RadioButton
@@ -127,8 +125,7 @@
                     android:checked="false"
                     android:id="@+id/acct"
                     android:button="@null"
-                    android:drawableLeft="@drawable/transfer"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Account Transfer"/>
                 <RadioButton
@@ -138,8 +135,7 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:button="@null"
-                    android:drawableLeft="@drawable/card"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:id="@+id/card"
                     android:checked="false"/>

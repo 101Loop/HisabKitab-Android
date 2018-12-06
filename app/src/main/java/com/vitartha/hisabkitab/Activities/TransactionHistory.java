@@ -316,21 +316,6 @@ public class TransactionHistory extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
-        finish();
-        return true;
-    }
-
     /** to delete transactions **/
     public void deletefromAPI(final String urlobj, final ProgressDialog pd) {
         HisabKitabDeleteRequest jsonObjectRequest = new  HisabKitabDeleteRequest(urlobj, null,
@@ -379,5 +364,19 @@ public class TransactionHistory extends AppCompatActivity {
             Toast.makeText(this, "Some error occured while fetching data...", Toast.LENGTH_SHORT).show();
         }
         Trans_recyclerView.reloadData(Trans_HistoryList);
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+        return true;
     }
 }

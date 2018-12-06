@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <!--Card View Layoout-->
-    <android.support.v7.widget.CardView
+    <android.support.design.card.MaterialCardView
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="match_parent"
@@ -19,22 +19,21 @@
             android:layout_height="60dp"
             android:layout_marginTop="30dp">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:id="@+id/namehint1"
-            android:background="@drawable/ic_circle"
-            android:backgroundTint="@color/opaquelightblue"
-     />
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:id="@+id/namehint"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/namehint1"
+                android:background="@drawable/ic_circle"
+                android:backgroundTint="@color/opaqueWhite" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:id="@+id/namehint"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -49,11 +48,12 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:text="Name:  "
                 android:textStyle="bold"
-                app:fontFamily="serif" />
+                app:fontFamily="serif"
+                android:textColor="@color/black"/>
 
             <!--User's name detail-->
             <TextView
@@ -62,7 +62,9 @@
                 android:textStyle="italic"
                 android:id="@+id/namedetail"
                 android:layout_toRightOf="@+id/nameid"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 />
             <!--Amount view-->
@@ -88,7 +90,7 @@
                 android:id="@+id/amountdetail"
                 android:layout_marginTop="5dp"/>
 
-           <!--Mode view-->
+            <!--Mode view-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +110,7 @@
                 android:textStyle="italic"
                 android:id="@+id/modedetail"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
-             />
+                />
 
             <!--Comment view-->
             <TextView
@@ -154,7 +156,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/transactiondetail"
                 app:fontFamily="monospace"
-               />
+                />
 
             <!--Delete button-->
             <ImageView
@@ -169,7 +171,7 @@
                 android:id="@+id/delbtn"
                 />
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </android.support.design.card.MaterialCardView>
 
 
 </RelativeLayout>

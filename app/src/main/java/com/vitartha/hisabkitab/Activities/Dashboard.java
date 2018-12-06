@@ -104,7 +104,6 @@ public class Dashboard extends AppCompatActivity
         TotalTransaction = findViewById(R.id.TotattransValue);
         trasactiondetails = findViewById(R.id.transactiondetaillayout);
 
-
         Trans_recyclerView = new Transactions_RecyclerView(Trans_HistoryList, Dashboard.this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
@@ -142,7 +141,6 @@ public class Dashboard extends AppCompatActivity
             }
         });
 
-
         debitfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,12 +169,15 @@ public class Dashboard extends AppCompatActivity
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
                 Intent i = new Intent(Dashboard.this, UpdateProfile.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             }
         });
-
 
         JWT jwt = new JWT(spAdap.getString("token"));
         Claim claimEmail = jwt.getClaim("email");
@@ -186,7 +187,6 @@ public class Dashboard extends AppCompatActivity
         jwtEmail = claimEmail.asString();
         jwtContact = claimContact.asString();
 
-
         NavHeaderTitle.setText(jwtName);
         NavHeaderSubTitle.setText(jwtEmail);
 
@@ -195,14 +195,11 @@ public class Dashboard extends AppCompatActivity
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 return false;
             }
-
             @Override
             public void onTouchEvent(RecyclerView rv, MotionEvent e) {
             }
-
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
             }
         });
 
@@ -252,7 +249,6 @@ public class Dashboard extends AppCompatActivity
             Toast.makeText(this, "Press Again to Exit", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -347,7 +343,10 @@ public class Dashboard extends AppCompatActivity
                     dialog.dismiss();
                 }
             });
-            alertdialog.show();
+            AlertDialog dialog = alertdialog.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#1295c9"));
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

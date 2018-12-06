@@ -1,12 +1,13 @@
 package com.vitartha.hisabkitab.Adapters;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -65,7 +66,10 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                 }
             });
 
-            alert.show();
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+
         } else if( error instanceof AuthFailureError) {
             AlertDialog.Builder alert = new AlertDialog.Builder(act);
             alert.setTitle("Authentication Error");
@@ -81,11 +85,12 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                     dialog.dismiss();
                 }
             });
+            AlertDialog dialog = alert.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
 
-            alert.show();
         }
         else {
-            String errorResponse = new String(error.networkResponse.data);
 
             int errorStatusCode = error.networkResponse.statusCode;
 
@@ -106,7 +111,10 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                             dialog.dismiss();
                         }
                     });
-                    alert.show();
+                    AlertDialog dialog = alert.create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+
                     break;
                 }
                 case 403: {
@@ -122,8 +130,10 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                             spAdap.clearData();
                         }
                     });
+                    AlertDialog dialog = alert.create();
+                    dialog.show();
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
 
-                    alert.show();
                     break;
                 }
                 case 404: {
@@ -131,37 +141,41 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                 }
                 case 422: {
                     try {
-                        JSONObject jObj = new JSONObject(errorResponse);
-                        Iterator keys = jObj.keys();
-                        JSONObject objError;
-                        while (keys.hasNext()) {
-                            String curr = (String) keys.next();
-                            try {
-                                if ( jObj.get(curr) instanceof JSONObject ) {
-                                    JSONObject obj = new JSONObject(jObj.get(curr).toString());
-                                    String errorkey = obj.keys().next();
-                                    errorkey = obj.getJSONArray(errorkey).getString(0);
+                        if(error != null){
+                            String errorResponse = new String(error.networkResponse.data);
+                            JSONObject jObj = new JSONObject(errorResponse);
+                            Iterator keys = jObj.keys();
+                            JSONObject objError;
+                            while (keys.hasNext()) {
+                                String curr = (String) keys.next();
+                                try {
+                                    if ( jObj.get(curr) instanceof JSONObject ) {
+                                        JSONObject obj = new JSONObject(jObj.get(curr).toString());
+                                        String errorkey = obj.keys().next();
+                                        errorkey = obj.getJSONArray(errorkey).getString(0);
 
-                                    AlertDialog.Builder alert = new AlertDialog.Builder(act);
-                                    alert.setTitle("Error!");
-                                    alert.setMessage(errorkey);
-                                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            progressDialog.dismiss();
-                                        }
-                                    });
+                                        AlertDialog.Builder alert = new AlertDialog.Builder(act);
+                                        alert.setTitle("Error!");
+                                        alert.setMessage(errorkey);
+                                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                progressDialog.dismiss();
+                                            }
+                                        });
+                                        AlertDialog dialog = alert.create();
+                                        dialog.show();
+                                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
 
-                                    alert.show();
-
-                                    Toast.makeText(act, errorkey, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(act, "Some error has occurred! Try again!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(act, errorkey, Toast.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(act, "Some error occured while fetching key pair data!", Toast.LENGTH_SHORT).show();
                                 }
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(act, "Some error occured while fetching key pair data!", Toast.LENGTH_SHORT).show();
                             }
+                        }else {
+                            Toast.makeText(act, "Some error has occurred! Please try again!", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (JSONException e) {
@@ -180,7 +194,6 @@ public class HisabKitabErrorListener implements Response.ErrorListener{
                 default:
                     Toast.makeText(act, "Error", Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 }

@@ -5,13 +5,13 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +33,9 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     EditText Uname, email, mobile, pwd, c_pwd;
-    TextView  loginhere;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String pass, confirm_pass, user_Name;
-    Button registerbtn;
+    MaterialButton registerbtn, loginhere;
     Boolean isemail = false, isname = false, ismobile = false, ispass = false, isconfpass = false;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
@@ -48,9 +47,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Signup");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        //For back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         Uname = findViewById(R.id.nameID);
         email = findViewById(R.id.emailID);
@@ -182,8 +185,9 @@ public class MainActivity extends AppCompatActivity {
         loginhere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(i);
+                finish();
                 overridePendingTransition(R.anim.back_in, R.anim.back_out);
             }
         });
@@ -293,14 +297,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }
