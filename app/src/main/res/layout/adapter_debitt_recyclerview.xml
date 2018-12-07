@@ -7,12 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <!--Card View Layoout-->
-    <android.support.design.card.MaterialCardView
+    <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:backgroundTintMode="screen"
-        android:layout_height="160dp">
+        android:layout_height="160dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <RelativeLayout
             android:layout_width="60dp"
@@ -25,8 +29,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:id="@+id/namehint1"
-                android:background="@drawable/ic_circle"
-                android:backgroundTint="@color/opaqueWhite" />
+                android:background="@drawable/ic_circle" />
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="30dp"
@@ -63,7 +66,6 @@
                 android:id="@+id/namedetail"
                 android:layout_toRightOf="@+id/nameid"
                 android:layout_marginTop="20dp"
-                android:text="@string/app_name"
                 android:textColor="@color/black"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 />
@@ -140,9 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/comment"
-                android:layout_marginTop="10dp"
-                android:fontFamily=""
-                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
                 android:text="Transaction Date: "
                 app:fontFamily="casual" />
@@ -153,7 +153,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/transaction"
                 android:layout_below="@id/comment"
-                android:layout_marginTop="10dp"
                 android:id="@+id/transactiondetail"
                 app:fontFamily="monospace"
                 />
@@ -171,7 +170,6 @@
                 android:id="@+id/delbtn"
                 />
         </RelativeLayout>
-    </android.support.design.card.MaterialCardView>
-
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>

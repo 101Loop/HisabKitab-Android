@@ -150,7 +150,7 @@
         android:background="@drawable/edittextbackground"
         />
 
-    <android.support.design.button.MaterialButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"

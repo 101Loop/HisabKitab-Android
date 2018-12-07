@@ -134,7 +134,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Enter Confirm Password"
+                    android:hint="Confirm Password"
                     android:background="@color/lightblue"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -149,25 +149,25 @@
                     android:layout_centerHorizontal="true"
                     android:id="@+id/confirm_pass"/>
 
-                <android.support.design.button.MaterialButton
+                <Button
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="20dp"
                     android:text="Register Now"
                     android:id="@+id/registerbtn"
                     android:textColor="@color/white"
-                    android:layout_below="@+id/relativelayout"
-                    android:backgroundTint="@color/landingblue"/>
+                    android:backgroundTint="@color/landingblue"
+                    android:background="@color/landingblue"/>
 
-                <android.support.design.button.MaterialButton
+                <TextView
                     android:id="@+id/loginHere"
                     android:text="Already a member? Login Here!"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/landingblue"
-                    android:textAllCaps="false"
-                    app:rippleColor="@color/opaqueWhite"/>
+                    android:textAllCaps="false"/>
 
             </LinearLayout>
         </ScrollView>

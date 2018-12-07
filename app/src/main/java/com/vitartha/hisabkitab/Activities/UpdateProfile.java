@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,7 +39,7 @@ import static com.vitartha.hisabkitab.Activities.Dashboard.jwtName;
 public class UpdateProfile extends AppCompatActivity {
 
     EditText name, mob, mail, add;
-    MaterialButton update;
+    Button update;
     TextView pwd;
     ProgressDialog progressDialog;
     SharedPreference spAdap;
@@ -128,6 +129,8 @@ public class UpdateProfile extends AppCompatActivity {
                 }
             }
         })*/
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -149,7 +152,7 @@ public class UpdateProfile extends AppCompatActivity {
             });
             AlertDialog dialog = alert.create();
             dialog.show();
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
         }
     }
 
@@ -166,5 +169,4 @@ public class UpdateProfile extends AppCompatActivity {
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
-
 }

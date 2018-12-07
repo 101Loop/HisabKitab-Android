@@ -4,15 +4,14 @@ apply plugin: 'com.google.firebase.firebase-perf'
 // for firebase crashlytics
 apply plugin: 'io.fabric'
 
-
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.vitartha.hisabkitab"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 28
-        versionCode 10
-        versionName "1.9"
+        versionCode 12
+        versionName "1.10"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

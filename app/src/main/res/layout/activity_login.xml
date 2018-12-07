@@ -21,11 +21,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="Hisab-Kitab"
             android:textColor="@color/white"
             android:textSize="30dp"
-            app:fontFamily="@font/bad_script" />
+            app:fontFamily="cursive"/>
 
         <TextView
             style="@style/Widget.AppCompat.Button.Borderless"
@@ -41,13 +40,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:layout_marginTop="@dimen/dp20">
+        android:layout_weight="1.2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center"
             android:layout_marginLeft="@dimen/dp30"
             android:layout_marginRight="@dimen/dp30">
 
@@ -91,40 +90,43 @@
                     android:textColorHint="@color/white"
                     android:singleLine="true"
                     android:drawablePadding="20dp"
-                    android:background="@color/opaquelightblue"
+                    android:background="@color/lightblue"
                     android:inputType="textPassword"
                     android:paddingLeft="15dp"
-                    android:drawableStart="@drawable/ic_lock"/>
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawableLeft="@drawable/ic_lock" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.button.MaterialButton
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="@dimen/dp20"
                 android:text="Login"
+                android:textStyle="bold"
                 android:id="@+id/loginId"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/landingblue"/>
+                android:background="@color/landingblue"
+                />
 
-            <android.support.design.button.MaterialButton
+            <TextView
                 android:id="@+id/forgot"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp20"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:text="Forgot Password? Login with OTP"
                 android:textColor="@color/landingblue"
-                android:textAllCaps="false"
-                app:rippleColor="@color/opaqueWhite"/>
+                android:textAllCaps="false"/>
 
-            <android.support.design.button.MaterialButton
+            <TextView
                 android:id="@+id/signUPId"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp20"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:text="New Member? SignUp Here!"
                 android:textColor="@color/landingblue"
-                android:textAllCaps="false"
-                app:rippleColor="@color/opaqueWhite"/>
+                android:textAllCaps="false"/>
 
         </LinearLayout>
     </ScrollView>

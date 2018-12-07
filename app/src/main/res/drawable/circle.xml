@@ -4,9 +4,11 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="@color/lightblue"></solid>
-            <stroke android:color="@color/lightblue"
-                android:width="40dp">
+            <stroke android:color="@color/white"
+                android:width="2dp">
             </stroke>
+            <size android:height="50dp"/>
+            <size android:width="50dp"/>
         </shape>
     </item>
 </selector>

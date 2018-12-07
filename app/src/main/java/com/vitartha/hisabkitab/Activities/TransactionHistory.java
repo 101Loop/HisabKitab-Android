@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -53,7 +54,7 @@ public class TransactionHistory extends AppCompatActivity {
     String  filtered_url, url, sorturl, nextpage;
     ImageView filter, price_ascend, price_descend;
     LinearLayout filter_layout;
-    RelativeLayout trasactiondetails;
+    LinearLayout trasactiondetails;
     private boolean filterscreenvisible = false;
 
     @Override
@@ -87,7 +88,7 @@ public class TransactionHistory extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setAdapter(Trans_recyclerView);
         progressDialog = new ProgressDialog(this);
-        recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
+       // recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
 
         filter = toolbar.findViewById(id.filterid);
 
@@ -279,7 +280,7 @@ public class TransactionHistory extends AppCompatActivity {
                 }
             }
         })*/
-
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -309,8 +310,8 @@ public class TransactionHistory extends AppCompatActivity {
         }
         else {
             noTransMsg.setVisibility(View.INVISIBLE);
-            String amt = response.optString("total_amount");
-            TotalAmount.setText(amt);
+            double amt = response.optDouble("total_amount");
+            TotalAmount.setText("₹ "+Math.round(amt*100)/100d);
             TotalTransaction.setText(response.optString("count"));
             trasactiondetails.setVisibility(View.VISIBLE);
         }

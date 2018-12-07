@@ -3,6 +3,7 @@ package com.vitartha.hisabkitab.Class;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 
 public class SampleClass extends AppCompatActivity {
@@ -21,5 +22,6 @@ public class SampleClass extends AppCompatActivity {
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
     }
 }

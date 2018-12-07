@@ -91,14 +91,16 @@
                             android:drawableTint="@color/white"
                             android:drawableLeft="@drawable/ic_person_blue"/>
 
-                        <android.support.design.button.MaterialButton
+                        <Button
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="50dp"
                             android:layout_marginTop="@dimen/dp20"
                             android:text="Get OTP"
+                            android:textStyle="bold"
                             android:id="@+id/getOtp"
                             android:textColor="@color/white"
-                            android:backgroundTint="@color/landingblue"/>
+                            android:backgroundTint="@color/landingblue"
+                            android:background="@color/landingblue"/>
 
                     </LinearLayout>
 
@@ -123,14 +125,16 @@
                             android:singleLine="true"
                             android:drawableLeft="@drawable/ic_lock"/>
 
-                        <android.support.design.button.MaterialButton
+                        <Button
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="50dp"
                             android:layout_marginTop="@dimen/dp20"
                             android:text="Verify"
+                            android:textStyle="bold"
                             android:id="@+id/verify"
                             android:textColor="@color/white"
-                            android:backgroundTint="@color/landingblue"/>
+                            android:backgroundTint="@color/landingblue"
+                            android:background="@color/landingblue"/>
                     </LinearLayout>
 
                 </RelativeLayout>

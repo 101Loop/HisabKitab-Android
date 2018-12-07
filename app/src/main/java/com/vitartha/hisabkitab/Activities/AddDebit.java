@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,7 +43,7 @@ public class AddDebit extends AppCompatActivity {
     EditText name, amt, comment;
     TextView date;
     private int Year, Month, Day;
-    MaterialButton submit;
+    Button submit;
     RadioGroup radioGroupmode;
     Boolean isname =false, isamt = false, isdate = false, ismode = false;
     int mode;
@@ -215,6 +216,7 @@ public class AddDebit extends AppCompatActivity {
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, AddDebit.this), this);
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(request);
     }
 
@@ -260,8 +262,8 @@ public class AddDebit extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }

@@ -15,4 +15,5 @@
     <color name="whitishblue">#b3e5fc</color>
     <color name="opaquelightblue">#3A738F</color>
     <color name="opaqueWhite">#DCEAEF</color>
+    <color name="opaquered">#1Af44336</color>
 </resources>

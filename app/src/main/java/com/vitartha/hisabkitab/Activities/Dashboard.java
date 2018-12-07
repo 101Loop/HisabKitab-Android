@@ -27,11 +27,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -63,7 +65,7 @@ public class Dashboard extends AppCompatActivity
     EditText feedbackmsg;
     Button feedbacksbmt;
     String show_url;
-    RelativeLayout trasactiondetails;
+    LinearLayout trasactiondetails;
     FloatingActionButton addfab, creditfab, debitfab;
     private Boolean isFabOpen = false;
     private Animation show_fab1, hide_fab1;
@@ -108,7 +110,7 @@ public class Dashboard extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setAdapter(Trans_recyclerView);
-        recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
+        // recyclerView.addItemDecoration(new Divider_RecyclerView(this, LinearLayoutManager.VERTICAL));
 
         /* Feed back API is not working, so, commenting Feedback FAB icon **/
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -332,9 +334,9 @@ public class Dashboard extends AppCompatActivity
                     Intent i = new Intent(Dashboard.this, LoginActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                    spAdap.clearData();
                     finish();
+                    overridePendingTransition(R.anim.back_in, R.anim.back_out);
+                    spAdap.clearData();
                 }
             });
             alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -345,8 +347,8 @@ public class Dashboard extends AppCompatActivity
             });
             AlertDialog dialog = alertdialog.create();
             dialog.show();
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#1295c9"));
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#f44336"));
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -385,6 +387,8 @@ public class Dashboard extends AppCompatActivity
                 }
             }
         })*/
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -409,8 +413,8 @@ public class Dashboard extends AppCompatActivity
         }
         else {
             noTransMsg.setVisibility(View.INVISIBLE);
-            String amt = response.optString("total_amount");
-            TotalAmount.setText(amt);
+            Double amt = response.optDouble("total_amount");
+            TotalAmount.setText("₹ "+Math.round(amt*100)/100d);
             TotalTransaction.setText(response.optString("count"));
             trasactiondetails.setVisibility(View.VISIBLE);
         }
@@ -445,6 +449,7 @@ public class Dashboard extends AppCompatActivity
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, Dashboard.this), this);
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -725,5 +730,4 @@ public class Dashboard extends AppCompatActivity
         }
         Trans_recyclerView.reloadData(Trans_HistoryList);
     }
-
 }

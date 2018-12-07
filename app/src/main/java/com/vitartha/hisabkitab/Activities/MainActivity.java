@@ -12,10 +12,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,9 +35,10 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     EditText Uname, email, mobile, pwd, c_pwd;
+    TextView loginhere;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String pass, confirm_pass, user_Name;
-    MaterialButton registerbtn, loginhere;
+    Button registerbtn;
     Boolean isemail = false, isname = false, ismobile = false, ispass = false, isconfpass = false;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
@@ -254,7 +257,9 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-                    alert.show();
+                    AlertDialog dialog = alert.create();
+                    dialog.show();
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
                 } else {
                     String errorStr = new String(error.networkResponse.data);
                     try {
@@ -277,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(request);
     }
 

@@ -134,24 +134,24 @@
                         android:paddingLeft="10dp" />
                 </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.button.MaterialButton
+                <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Update Profile"
                     android:textColor="@color/white"
                     android:id="@+id/updatebtn"
-                    android:backgroundTint="@color/landingblue"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:background="@color/landingblue"/>
 
-                <android.support.design.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:text="Change Password?"
                     android:layout_marginBottom="10dp"
                     android:id="@+id/changepwd"
+                    android:layout_marginTop="@dimen/dp20"
+                    android:gravity="center"
                     android:textColor="@color/landingblue"
-                    app:rippleColor="@color/opaqueWhite"
                     android:textAllCaps="false"
                     />
 

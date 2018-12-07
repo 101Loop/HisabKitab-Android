@@ -1,137 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_transaction">
+    tools:showIn="@layout/activity_transaction"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/filterlayout"
-        android:visibility="gone"
-        android:layout_marginTop="70dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/filterlayout"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort by Price: "
+                        android:textColor="@color/black"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Pricesort_descending"
+                        android:background="@drawable/ic_incoming"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/Pricesort_ascending"
+                        android:background="@drawable/ic_outgoing"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sort by Alphabets: "
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A-Z"
+                        android:id="@+id/Alphasort_ascending"
+                        android:textColor="@color/landingblue"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Z-A"
+                        android:id="@+id/Alphasort_descending"
+                        android:layout_marginLeft="25px"
+                        android:textColor="@color/landingblue"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sort by Price: "
-                android:textColor="@color/black"
-                />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Pricesort_descending"
-                android:background="@drawable/ic_incoming"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Pricesort_ascending"
-                android:background="@drawable/ic_outgoing"/>
+                android:textColor="@color/white"
+                android:layout_marginTop="10px"
+                android:id="@+id/morefilter"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="@color/lightblue"
+                android:text="More Filter Options"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/transactiondetaillayout"
+            android:background="@color/lightblue"
+            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/TotattransValue"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dp20"
+                    android:text="20"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Transaction(s)"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:id="@+id/Totattrans"/>
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="45dp"
+                android:background="@color/landingblue"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sort by Alphabets: "
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="A-Z"
-                android:id="@+id/Alphasort_ascending"
-                android:textColor="@color/landingblue"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Z-A"
-                android:id="@+id/Alphasort_descending"
-                android:layout_marginLeft="25px"
-                android:textColor="@color/landingblue"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TotalamtValue"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:text="1000"
+                    android:textSize="@dimen/dp20"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Totalamt"
+                    android:text=" Total Amount"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="2dp"/>
+            </LinearLayout>
+
         </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_marginTop="10px"
-            android:id="@+id/morefilter"
-            android:text="More Filter Options"/>
-
+            android:text="No Transactions Found!"
+            android:textSize="20dp"
+            android:id="@+id/notransaction"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No Transactions Found!"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:id="@+id/notransaction"
-        android:visibility="invisible"/>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:visibility="visible"
-        android:id="@+id/transactiondetaillayout"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/filterlayout">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Transaction(s): "
-            android:id="@+id/Totattrans"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/TotattransValue"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/Totattrans"
-            />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_toRightOf="@+id/TotattransValue"
-            android:background="@color/black" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Totalamt"
-            android:layout_toRightOf="@+id/TotattransValue"
-            android:text=" Total Amount: ₹"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/Totalamt"
-            android:id="@+id/TotalamtValue"/>
-
-
-    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_below="@+id/filterlayout"
-        android:layout_marginTop="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerView">
 
     </android.support.v7.widget.RecyclerView>
 
-</RelativeLayout>
+</LinearLayout>

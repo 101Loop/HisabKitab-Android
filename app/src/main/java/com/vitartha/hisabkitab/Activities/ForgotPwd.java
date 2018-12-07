@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,7 +34,7 @@ import org.json.JSONObject;
 public class ForgotPwd extends SampleClass {
     LinearLayout ll_mobile, ll_otp;
     EditText otp, mail;
-    MaterialButton verify, getOTP;
+    Button verify, getOTP;
     ProgressDialog progressDialog;
     Boolean isOTP;
     SharedPreference spAdap;
@@ -153,8 +154,9 @@ public class ForgotPwd extends SampleClass {
                             dialog.dismiss();
                         }
                     });
-
-                    alert.show();
+                    AlertDialog dialog = alert.create();
+                    dialog.show();
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
                 } else {
                     String erroobj = new String(error.networkResponse.data);
                     try {
@@ -173,6 +175,8 @@ public class ForgotPwd extends SampleClass {
                 }
             }
         });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -214,6 +218,7 @@ public class ForgotPwd extends SampleClass {
         finish();
         overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);

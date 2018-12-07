@@ -1,8 +1,6 @@
 package com.vitartha.hisabkitab.Activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +28,7 @@ import org.json.JSONObject;
 
 public class ChangePassword extends AppCompatActivity {
 
-    MaterialButton updatepwd;
+    Button updatepwd;
     EditText newpwd, confpwd;
     ProgressDialog progressDialog;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
@@ -106,7 +105,9 @@ public class ChangePassword extends AppCompatActivity {
                 }
             }
         })*/
-                requestQueue.add(jsonObjectRequest);
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
+        requestQueue.add(jsonObjectRequest);
     }
 
     public  void verifystatus(JSONObject response) throws JSONException{

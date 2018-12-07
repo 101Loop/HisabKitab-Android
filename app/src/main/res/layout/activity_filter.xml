@@ -191,7 +191,7 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <android.support.design.button.MaterialButton
+                    <Button
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:text="Filter"
@@ -200,7 +200,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="30dp"
                         android:id="@+id/filterbtn"
-                        android:backgroundTint="@color/landingblue"/>
+                        android:background="@color/landingblue"/>
                 </RelativeLayout>
 
             </RelativeLayout>

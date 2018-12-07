@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,8 +43,9 @@ import java.lang.reflect.Method;
 public class LoginActivity extends SampleClass{
 
     EditText email;
+    TextView signup, forgotpwd;
     TextInputEditText pwd;
-    MaterialButton loginbtn, signup, forgotpwd;
+    Button loginbtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String user_Email, user_pwd;
     private VolleySingleton volleySingleton = VolleySingleton.getsInstance();
@@ -129,6 +131,8 @@ public class LoginActivity extends SampleClass{
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, LoginActivity.this), this);
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
         requestQueue.add(request);
     }
 
