@@ -409,7 +409,6 @@ public class Dashboard extends AppCompatActivity
         if(count <= 0) {
             noTransMsg.setVisibility(View.VISIBLE);
             trasactiondetails.setVisibility(View.INVISIBLE);
-
         }
         else {
             noTransMsg.setVisibility(View.INVISIBLE);
@@ -418,7 +417,6 @@ public class Dashboard extends AppCompatActivity
             TotalTransaction.setText(response.optString("count"));
             trasactiondetails.setVisibility(View.VISIBLE);
         }
-
     }
 
     /** to delete transactions **/
@@ -515,7 +513,6 @@ public class Dashboard extends AppCompatActivity
                 }
             }
         });
-
     }
 
     /**Sending feedback data using POST Method**/
