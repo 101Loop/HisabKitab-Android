@@ -32,7 +32,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hisab-Kitab"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="30dp"
                 app:fontFamily="cursive"/>
@@ -41,7 +41,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Make It Easy"
+                android:text="@string/sub_title"
                 android:textColor="@color/white"
                 app:fontFamily="cursive"
                 android:textSize="@dimen/dp20"/>
@@ -62,7 +62,7 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Login With Otp"
+                    android:text="@string/login_otp"
                     android:textColor="@color/landingblue"/>
 
                 <RelativeLayout
@@ -80,7 +80,7 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="Email/Mobile"
+                            android:hint="@string/email_mobile"
                             android:singleLine="true"
                             android:id="@+id/emailID"
                             android:background="@color/lightblue"
@@ -95,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="@dimen/dp20"
-                            android:text="Get OTP"
+                            android:text="@string/get_otp"
                             android:textStyle="bold"
                             android:id="@+id/getOtp"
                             android:textColor="@color/white"
@@ -114,7 +114,7 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:hint="OTP"
+                            android:hint="@string/enter_otp"
                             android:id="@+id/otp"
                             android:drawablePadding="15dp"
                             android:textColor="@color/white"
@@ -129,7 +129,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="@dimen/dp20"
-                            android:text="Verify"
+                            android:text="@string/verify_otp"
                             android:textStyle="bold"
                             android:id="@+id/verify"
                             android:textColor="@color/white"

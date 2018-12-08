@@ -7,23 +7,23 @@
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_dashboard"
-            android:title="Dashboard" />
+            android:title="@string/dashboard" />
         <item
             android:id="@+id/nav_credit"
             android:icon="@drawable/credit_history"
-            android:title="Credit History" />
+            android:title="@string/credit_history" />
         <item
             android:id="@+id/nav_debit"
             android:icon="@drawable/debit_history"
-            android:title="Debit History" />
+            android:title="@string/debit_history" />
         <item
             android:id="@+id/nav_call"
             android:icon="@drawable/ic_call"
-            android:title="Contact us" />
+            android:title="@string/contact_us" />
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="About Us" />
+            android:title="@string/about_us" />
     </group>
 
     <item android:title="Communicate">
@@ -31,11 +31,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
-                android:title="Logout" />
+                android:title="@string/logout" />
         </menu>
     </item>
 

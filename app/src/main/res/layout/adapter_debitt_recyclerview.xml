@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
-                android:text="Name:  "
+                android:text="@string/name"
                 android:textStyle="bold"
                 app:fontFamily="serif"
                 android:textColor="@color/black"/>
@@ -78,7 +78,7 @@
                 android:layout_below="@+id/nameid"
                 android:layout_marginTop="5dp"
                 android:paddingLeft="10dp"
-                android:text="Amount: ₹"
+                android:text="@string/amount"
                 app:fontFamily="serif" />
 
             <!--Amount detail-->
@@ -101,7 +101,7 @@
                 android:id="@+id/mode"
                 app:fontFamily="serif"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
-                android:text="Mode: "/>
+                android:text="@string/mode"/>
 
             <!--Mode detail-->
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/mode"
                 android:paddingLeft="10dp"
-                android:text="Comment(s): "
+                android:text="@string/comment"
                 android:textAllCaps="false"
                 app:fontFamily="serif" />
 
@@ -144,7 +144,7 @@
                 android:layout_below="@+id/comment"
                 android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
-                android:text="Transaction Date: "
+                android:text="@string/date"
                 app:fontFamily="casual" />
 
             <!--Transaction date detail-->

@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Transactions Found!"
+        android:text="@string/no_transaction_found"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
@@ -38,13 +38,12 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/TotattransValue"
                 android:layout_height="wrap_content"
-                android:text="20"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp20"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Transaction(s)"
+                android:text="@string/total_transaction"
                 android:textColor="@color/white"
                 android:id="@+id/Totattrans" />
 
@@ -65,7 +64,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/TotalamtValue"
-                android:text="1000"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dp20"/>
 
@@ -74,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/Totalamt"
                 android:textColor="@color/white"
-                android:text=" Total Amount"
+                android:text="@string/total_amount"
                 android:layout_marginLeft="2dp"/>
 
         </LinearLayout>

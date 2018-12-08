@@ -1,5 +1,17 @@
 <resources>
-    <string name="app_name">HisabKitab</string>
+    <string name="app_name">Hisab-Kitab</string>
+    <string name="sub_title">Make It Easy</string>
+    <string name="family_home">Family/Homes</string>
+    <string name="individual">Individual</string>
+    <string name="business_corp">Business/Corporates</string>
+    <string name="easy_use">Easy To Use</string>
+    <string name="budget_mang">Budget Managements</string>
+    <string name="control_expd">Control Expenditure</string>
+    <string name="pocket_mang">Pocket Managements</string>
+    <string name="save_money">Save Money</string>
+    <string name="money_mang">Money Management</string>
+    <string name="grow_business">Grow Business</string>
+    <string name="track_money">Track Money Flow</string>
     <string name="landingpage_title">The easiest way to track your money flow</string>
     <string name="calc_content">Easy to use, Any member can use</string>
     <string name="budget_mgnt">Easy to manage budget</string>
@@ -17,4 +29,55 @@
     <string name="nav_header_subtitle">info@vitartha.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="login">Login</string>
+    <string name="registration">Registration</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_mobile">Enter Mobile</string>
+    <string name="email_mobile">Email/Mobile</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password? Login with OTP</string>
+    <string name="new_signup">New Member? SignUp Here!</string>
+    <string name="already_member">Already a member? Login Here!</string>
+    <string name="login_otp">Login with OTP</string>
+    <string name="get_otp">Get OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_address">Address</string>
+    <string name="update_profile">Update Profile</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="credit_history">Credit History</string>
+    <string name="debit_history">Debit History</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_us">About Us</string>
+    <string name="share">Share</string>
+    <string name="logout">Logout</string>
+
+    <string name="total_transaction">Total Transaction</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="no_transaction_found">No Transaction Found!</string>
+
+    <string name="happy_to_help">We are happy to help you!</string>
+    <string name="call_us">Call Us</string>
+    <string name="email_us">Email Us</string>
+
+    <string name="name">Name: </string>
+    <string name="amount">Amount: ₹</string>
+    <string name="mode">Mode: </string>
+    <string name="comment">Comment: </string>
+    <string name="date">Transaction Date: </string>
+
+    <string name="pay_mode">Mode Of Payment</string>
+    <string name="cash">Cash</string>
+    <string name="cheque">Chaque</string>
+    <string name="acc_transfer">Bank Transfer</string>
+    <string name="card">Card</string>
+
+    <string name="submit">Submit</string>
+
 </resources>

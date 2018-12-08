@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ਹਿਸਾਬ-ਕਿਤਾਬ</string>
+    <string name="sub_title">ਆਸਾਨੀ ਸੇ ਕਰੇ</string>
+    <string name="family_home">ਘਰ-ਪਰਿਵਾਰ</string>
+    <string name="individual">ਵ੍ਯਕਤਿਗਤ</string>
+    <string name="business_corp">वਵ੍ਯਾਪਾਰ/ਉਧਯੋਗ</string>
+    <string name="easy_use">ਇਸਤੇਮਾਲ ਮੈ ਅਸਾਂ</string>
+    <string name="budget_mang">ਬਜਟ ਪ੍ਰਬੰਧਨ</string>
+    <string name="control_expd">ਖਰਚ ਪ੍ਰਬੰਧਨ</string>
+    <string name="pocket_mang">ਜੇਬ ਖਰਚ ਪ੍ਰਬੰਧਨ</string>
+    <string name="save_money">ਪੈਸੇ ਬਚਾਏ</string>
+    <string name="money_mang">ਧਨ ਪ੍ਰਬੰਧਨ</string>
+    <string name="grow_business">ਵ੍ਯਾਪਾਰ ਬਧਾਏ</string>
+    <string name="track_money">ਲੈਣ ਦੇਣ ਕਾ ਹਿਸਾਬ</string>
+    <string name="landingpage_title">ਆਸਾਨੀ ਸੇ ਆਪਣੇ ਪੈਸੇ ਕੇ ਲੈਣ ਦੇਣ ਕਾ ਹਿਸਾਬ ਰੱਖੇ</string>
+    <string name="calc_content">ਕੋਈ ਭੀ ਇਸਤੇਮਾਲ ਕਰ ਸਾਕਤ ਹੈ</string>
+    <string name="budget_mgnt">ਆਸਾਨੀ ਸੇ ਘਰ ਕੇ ਖਰਚ ਕਾ ਹਿਸਾਬ ਰੱਖੇ</string>
+    <string name="ctrl_expenditure">ਆਸਾਨੀ ਸੇ ਆਪਣੇ ਖਰਚ ਕੋ ਕਾਮ ਕਰੇ</string>
+    <string name="indiv_easy_to_use">ਇਸਤੇਮਾਲ ਮੈ ਅਸਾਂ, ਕੋਈ ਭੀ ਇਸਤੇਮਾਲ ਕਰ ਸਾਕਤ ਹੈ</string>
+    <string name="indiv_pocket_mgmt">ਆਸਾਨੀ ਸੇ ਆਪਣੇ ਪ੍ਰਤੀਦਿਨ ਕੇ ਪੈਸੇ/ਖਰਚ ਕਾ ਹਿਸਾਬ ਰੱਖੇ</string>
+    <string name="indiv_save_mny">ਆਸਾਨੀ ਸੇ ਪੈਸੇ ਬਚਾਏ</string>
+    <string name="businesss_track_mny">ਆਸਾਨੀ ਸੇ ਆਪਣੇ ਪੈਸੇ ਕੇ ਲੈਣ ਦੇਣ ਕਾ ਹਿਸਾਬ ਰੱਖੇ, ਖਰਚ ਕੋ ਵ੍ਯਾਵਸਤਿਤ ਕਰੇ</string>
+    <string name="business_money_mgmt">ਆਸਾਨੀ ਸੇ ਪੈਸੇ ਕੇ ਆਨੇ ਓਰ ਜਾਣੇ ਕਾ ਹਿਸਾਬ ਰੱਖੇ</string>
+    <string name="business_grow">ਆਸਾਨੀ ਸੇ ਆਪਣੇ ਵ੍ਯਾਪਾਰ ਕੋ ਬਧਾਏ</string>
+    <string name="title_activity_dashboard2">Dashboard2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">ਹਿਸਾਬ-ਕਿਤਾਬ</string>
+    <string name="nav_header_subtitle">info@vitartha.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="login">ਲੋਂ ਇਨ ਕਰੇ</string>
+    <string name="email_mobile">ਈ-ਮੇਲ/ਫੋਨ</string>
+    <string name="enter_name">ਨਾਮ ਡਾਲੇ</string>
+    <string name="enter_email">ਈ-ਮੇਲ ਡਾਲੇ</string>
+    <string name="enter_mobile">ਫੋਨ ਡਾਲੇ</string>
+    <string name="password">ਪਾਸਵਰਡ ਡਾਲੇ</string>
+    <string name="forgot_password">ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ? OTP ਸੇ ਲੋਗ ਇਨ ਕਰੇ!</string>
+    <string name="new_signup">ਨਾਏ ਹੈ? ਖਾਤਾ ਖੋਲ੍ਹੇ!</string>
+    <string name="already_member">ਸਦਾਸੀ ਹੈ? ਲੋਂ ਇਨ ਕਰੇ!</string>
+    <string name="login_otp">OTP ਸੇ ਲੋਂ ਇਨ ਕਰੇ</string>
+    <string name="get_otp">OTP ਪ੍ਰਾਪਤ ਕਰੇ</string>
+    <string name="enter_otp">OTP ਡਾਲੇ</string>
+    <string name="verify_otp">OTP ਜਾਚੇ</string>
+    <string name="registration">ਖਾਤਾ ਖੋਲ੍ਹੇ</string>
+    <string name="change_password">ਪਾਸਵਰਡ ਬਦਲੇ</string>
+    <string name="new_password">ਨਯਾ ਪਾਸਵਰਡ ਡਾਲੇ</string>
+    <string name="confirm_password">ਦੋਬਾਰਾ ਪਾਸਵਰਡ ਡਾਲੇ</string>
+    <string name="enter_address">ਪਤਾ ਡਾਲੇ</string>
+    <string name="update_profile">ਪ੍ਰੋਫਾਈਲ ਬਦਲੇ</string>
+
+    <string name="dashboard">ਨਿਯੰਤਰਣ ਪੈਟ</string>
+    <string name="credit_history">शਸਹੁਰੇ ਵਰਤੰਤ</string>
+    <string name="debit_history">ਉਧਾਰ ਵਰਤੰਤ</string>
+    <string name="contact_us">ਹਮਸੇ ਸੰਪਰਕ ਕਰੇ</string>
+    <string name="about_us">ਹਮਾਰੇ ਬਾਰੇ ਮੈ</string>
+    <string name="share">ਦੂਸਰੋ ਕੋ ਬਤਾਏ</string>
+    <string name="logout">ਲਾਗਆਉਟ ਕਰੇे</string>
+
+    <string name="total_transaction">ਕੁਲ ਲੈਣ ਦੇਣ</string>
+    <string name="total_amount">ਕੁਲ ਧਨਰਾਸ਼ਿ</string>
+    <string name="no_transaction_found">ਕੋਈ ਲੈਣ ਦੇਣ ਨਹੀਂ ਮਿਲਾ!</string>
+
+    <string name="happy_to_help">ਹਾਮੀ ਅਪਕੀ ਸਹਾਇਤਾ ਕਰਕੇ ਖੁਸ਼ੀ ਹੋਗੀ!</string>
+    <string name="call_us">ਫੋਨ ਕਰੇ</string>
+    <string name="email_us">ਈ-ਮੇਲ ਕਰੇ</string>
+
+    <string name="name">ਨਾਮ: </string>
+    <string name="amount">ਧਨਰਾਸ਼ਿ: ₹</string>
+    <string name="mode">ਮਾਧਿਅਮ: </string>
+    <string name="comment">ਟਿੱਪਣੀ: </string>
+    <string name="date">ਤਾਰੀਖ: </string>
+
+    <string name="pay_mode">ਲੈਣ ਦੇਣ ਕਾ ਮਾਧਿਅਮ</string>
+    <string name="cash">ਨਕਦ</string>
+    <string name="cheque">ਛੇਕ</string>
+    <string name="acc_transfer">ਬੈਂਕ ਟਰਾਂਸਫਰ</string>
+    <string name="card">ਕਾਰਡ</string>
+
+    <string name="submit">ਕਰੇ</string>
+</resources>

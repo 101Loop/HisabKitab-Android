@@ -31,7 +31,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hisab-Kitab"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="30dp"
                 app:fontFamily="cursive"/>
@@ -40,7 +40,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Make It Easy"
+                android:text="@string/sub_title"
                 android:textColor="@color/white"
                 app:fontFamily="cursive"
                 android:textSize="@dimen/dp20"/>
@@ -64,7 +64,7 @@
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update Profile"
+                    android:text="@string/update_profile"
                     android:textColor="@color/landingblue" />
 
 
@@ -75,7 +75,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:hint="Name"
+                        android:hint="@string/enter_name"
                         android:singleLine="true"
                         android:paddingStart="10dp"
                         android:paddingLeft="10dp"
@@ -93,7 +93,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:hint="Mobile"
+                        android:hint="@string/enter_mobile"
                         android:id="@+id/txtnumber"
                         android:singleLine="true"
                         android:paddingStart="10dp"
@@ -113,7 +113,7 @@
                         android:paddingStart="10dp"
                         android:paddingLeft="10dp"
                         android:singleLine="true"
-                        android:hint="Email-ID"
+                        android:hint="@string/enter_email"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -127,7 +127,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:hint="Address"
+                        android:hint="@string/enter_address"
                         android:id="@+id/txtaddress"
                         android:maxLines="2"
                         android:paddingStart="10dp"
@@ -137,7 +137,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Update Profile"
+                    android:text="@string/update_profile"
                     android:textColor="@color/white"
                     android:id="@+id/updatebtn"
                     android:layout_marginTop="20dp"
@@ -146,7 +146,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="Change Password?"
+                    android:text="@string/change_password"
                     android:layout_marginBottom="10dp"
                     android:id="@+id/changepwd"
                     android:layout_marginTop="@dimen/dp20"

@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="Family/Homes"
+                    android:text="@string/family_home"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:layout_marginTop="20dp"
@@ -56,7 +56,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="Individual"
+                    android:text="@string/individual"
                     android:gravity="center"
                     android:id="@+id/txtb2"
                     android:textColor="@color/white"
@@ -68,7 +68,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:text="Business/Corporate"
+                    android:text="@string/business_corp"
                     android:gravity="center"
                     android:id="@+id/txtb3"
                     android:textColor="@color/white"
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="Family/Homes"
+                    android:text="@string/family_home"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -123,7 +123,7 @@
                     android:layout_below="@+id/calcimg"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="10dp"
-                    android:text="Easy to Use"
+                    android:text="@string/easy_use"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/moneymanageID"
-                    android:text="Budget Management"
+                    android:text="@string/budget_mang"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/expendID"
-                    android:text="Control Expenditure"
+                    android:text="@string/control_expd"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"/>
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="Individual"
+                    android:text="@string/individual"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -234,7 +234,7 @@
                     android:layout_below="@+id/calcimg2"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="10dp"
-                    android:text="Easy to Use"
+                    android:text="@string/easy_use"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -261,7 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/pocketmanageID"
-                    android:text="Pocket Management"
+                    android:text="@string/pocket_mang"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
@@ -289,7 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/savemoney"
-                    android:text="Save Money"
+                    android:text="@string/save_money"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"/>
@@ -319,7 +319,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="Business/Corporate"
+                    android:text="@string/business_corp"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -346,7 +346,7 @@
                     android:layout_below="@+id/trackimg"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="10dp"
-                    android:text="Track Money Flow"
+                    android:text="@string/track_money"
                     android:textSize="15dp"
                     android:textStyle="bold" />
 
@@ -374,7 +374,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/manageID"
-                    android:text="Money Management"
+                    android:text="@string/money_mang"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"
@@ -401,7 +401,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/grow"
-                    android:text="Grow Business"
+                    android:text="@string/grow_business"
                     android:textSize="15dp"
                     android:layout_centerHorizontal="true"
                     android:textStyle="bold"/>

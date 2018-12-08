@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">હિસાબ-કિતાબ</string>
+    <string name="sub_title">આસાની સે કરે</string>
+    <string name="family_home">ઘર-પરિવાર</string>
+    <string name="individual">વ્યક્તિગત</string>
+    <string name="business_corp">વ્યાપાર/ઉદ્યોગ</string>
+    <string name="easy_use">ઇસ્તેમાલ મેં આસાન</string>
+    <string name="budget_mang">બજેટ પ્રબંધન</string>
+    <string name="control_expd">ખર્ચ પ્રબંધન</string>
+    <string name="pocket_mang">જેબ ખર્ચ પ્રબંધન</string>
+    <string name="save_money">પૈસા બચાયે</string>
+    <string name="money_mang">ધન પ્રબંધન</string>
+    <string name="grow_business">વ્યાપાર બધાયે</string>
+    <string name="track_money">લેન દેન કે હિસાબ</string>
+    <string name="landingpage_title">આસાની સે અપને પૈસે કે લેન દેન કા હિસાબ રખે</string>
+    <string name="calc_content">કોઈ ભી ઇસ્તેમાલ કર સકતા હ</string>
+    <string name="budget_mgnt">આસાની સે ઘર કે ખર્ચ કે હિસાબ રખે</string>
+    <string name="ctrl_expenditure">આસાની સે અપને ખર્ચ કો કમ કરે</string>
+    <string name="indiv_easy_to_use">ઇસ્તેમાલ મેં આસાન, ોઈ ભી ઇસ્તેમાલ કર સકતા હ</string>
+    <string name="indiv_pocket_mgmt">આસાની સે અપને પ્રતિદિન કે પૈસે/ખર્ચ કા હિસાબ રખે</string>
+    <string name="indiv_save_mny">આસાની સે પૈસે બચાયે</string>
+    <string name="businesss_track_mny">આસાની સે અપને પૈસે કે લેન દેન કા હિસાબ રખે, ખર્ચ કો વ્યવસ્થિત કરે</string>
+    <string name="business_money_mgmt">આસાની સે અપને પૈસે કે આને ઓર જાને કા હિસાબ રખે</string>
+    <string name="business_grow">આસાની સે અપને વ્યાપાર કો બધાયે</string>
+    <string name="title_activity_dashboard2">Dashboard2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">હિસાબ-કિતાબ</string>
+    <string name="nav_header_subtitle">info@vitartha.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="login">લોગીન કરે</string>
+    <string name="email_mobile">મેલ/ફોન</string>
+    <string name="enter_name">નામ ડાળે</string>
+    <string name="enter_email">મેલ ડાળે</string>
+    <string name="enter_mobile">ફોન ડાળે</string>
+    <string name="password">પાસવર્ડ ડાળે</string>
+    <string name="forgot_password">પાસવર્ડ ભૂલ ગયે? OTP સે લોગીન કરે!</string>
+    <string name="new_signup">નયે હ? ખાતા ખોલે!</string>
+    <string name="already_member">સદસ્ય હ? લોગીન કરે!</string>
+    <string name="login_otp">OTP સે લોગીન કરે</string>
+    <string name="get_otp">OTP પ્રાપ્ત કરે</string>
+    <string name="enter_otp">OTP ડાળે</string>
+    <string name="verify_otp">OTP જાઁચે</string>
+    <string name="registration">ખાતા ખોલે</string>
+    <string name="change_password">પાસવર્ડ બદલે</string>
+    <string name="new_password">ન્યાં પાસવર્ડ ડાળે</string>
+    <string name="confirm_password">દોબારા પાસવર્ડ ડાળે</string>
+    <string name="enter_address">પતા ડાળે</string>
+    <string name="update_profile">પ્રોફાઈલ બદલે</string>
+
+    <string name="dashboard">નિયંત્રણપટ</string>
+    <string name="credit_history">શ્રેય વ્રતાન્ત </string>
+    <string name="debit_history">ઉધાર વ્રતાન્ત</string>
+    <string name="contact_us">હમસે સંપર્ક કરે</string>
+    <string name="about_us">હમારે બારે મેં</string>
+    <string name="share">દુસરો કો બતાયે</string>
+    <string name="logout">લોગઆઉટ કરેे</string>
+
+    <string name="total_transaction">કુલ લેન દેન</string>
+    <string name="total_amount">કૂન ધનરાશિ</string>
+    <string name="no_transaction_found">કોઈ લેન દેન નહીં મિલા!</string>
+
+
+    <string name="happy_to_help">હમે આપકી સહાયતા કરકે ખુશી હોગી!</string>
+    <string name="call_us">ફોન કરે</string>
+    <string name="email_us">મેલ કરે</string>
+
+    <string name="name">નામ: </string>
+    <string name="amount">ધનરાશિ: ₹</string>
+    <string name="mode">માધ્યમ: </string>
+    <string name="comment">ટિપ્પણી: </string>
+    <string name="date">તારીખ: </string>
+
+    <string name="pay_mode">લેન દેન કે માધ્યમ</string>
+    <string name="cash">નકદ</string>
+    <string name="cheque">ચેક</string>
+    <string name="acc_transfer">બેંક ટ્રાન્સફર</string>
+    <string name="card">કાર્ડ</string>
+
+    <string name="submit">કરે</string>
+</resources>

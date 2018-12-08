@@ -107,12 +107,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/dp20"
-                    android:text="20"/>
+                    android:textSize="@dimen/dp20"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Transaction(s)"
+                    android:text="@string/total_transaction"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
                     android:id="@+id/Totattrans"/>
@@ -133,14 +132,13 @@
                     android:id="@+id/TotalamtValue"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
-                    android:text="1000"
                     android:textSize="@dimen/dp20"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/Totalamt"
-                    android:text=" Total Amount"
+                    android:text="@string/total_amount"
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:layout_marginLeft="2dp"/>
@@ -150,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Transactions Found!"
+            android:text="@string/no_transaction_found"
             android:textSize="20dp"
             android:id="@+id/notransaction"
             android:visibility="gone"

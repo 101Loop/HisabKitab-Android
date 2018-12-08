@@ -40,7 +40,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:singleLine="true"
                 android:background="@drawable/edittextbackground"
                 android:id="@+id/contactname"
@@ -59,14 +59,13 @@
                 android:id="@+id/amount"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittextbackground"
-                android:drawableLeft="@drawable/rupee_indian"
                 android:drawablePadding="5dp"
-                android:hint="Amount"
+                android:hint="@string/amount"
                 />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:hint="Comment(s)"
+                android:hint="@string/comment"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittextbackground"
                 android:id="@+id/comment"
@@ -77,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/comment"
-                android:hint="Date"
+                android:hint="@string/date"
                 android:textSize="17dp"
                 android:gravity="start"
                 android:paddingLeft="10dp"
@@ -93,7 +92,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mode of Payment"
+                android:text="@string/pay_mode"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/modetxt"
                 style="@style/Base.TextAppearance.AppCompat.Body2"
@@ -117,7 +116,7 @@
                     android:id="@+id/cash"
                     android:button="@null"
                     android:background="@drawable/radiobutton"
-                    android:text="Cash"
+                    android:text="@string/cash"
                     android:layout_margin="1dp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -129,7 +128,7 @@
                     android:id="@+id/cheque"
                     android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
-                    android:text="Cheque"/>
+                    android:text="@string/cheque"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -140,11 +139,11 @@
                     android:button="@null"
                     android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
-                    android:text="Account Transfer"/>
+                    android:text="@string/acc_transfer"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Card"
+                    android:text="@string/card"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:button="@null"
@@ -166,6 +165,6 @@
         android:layout_height="wrap_content"
         android:background="@color/landingblue"
         android:layout_alignParentBottom="true"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textColor="@color/white" />
 </RelativeLayout>
