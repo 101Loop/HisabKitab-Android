@@ -122,10 +122,16 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }

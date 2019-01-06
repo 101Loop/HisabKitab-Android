@@ -8,12 +8,16 @@ import android.content.DialogInterface;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.graphics.Color;
+import android.support.design.card.MaterialCardView;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,6 +55,7 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView uname, amnt, pmode, pdate, pcomment, nameHint;
         ImageView delbtn, trans_icon;
+        CardView cardView;
 
         public MyViewHolder(View view) {
             super(view);
@@ -61,6 +66,7 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
             pcomment = (TextView) view.findViewById(R.id.commentdetail);
             trans_icon = view.findViewById(R.id.namehint);
             delbtn = view.findViewById(R.id.delbtn);
+            cardView = view.findViewById(R.id.card_view);
 
             view.setOnClickListener(this);
 
@@ -103,11 +109,14 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
         holder.pmode.setText(details.getMode());
        // holder.nameHint.setText(details.getName().substring(0,1));
         holder.amnt.setText(details.getAmount());
-        if(details.getCategory().equals("C"))
+        if(details.getCategory().equals("C")) {
             holder.trans_icon.setImageResource(R.drawable.money_credit);
-        else
+            holder.cardView.setBackgroundColor(Color.parseColor("#DCEAEF"));
+        }
+        else {
             holder.trans_icon.setImageResource(R.drawable.money_debit);
-
+            holder.cardView.setBackgroundColor(Color.parseColor("#1Af44336"));
+        }
 
         spAdap = new SharedPreference(mcontext);
 
@@ -220,7 +229,10 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
                         }
                     }
                 });
-                alertdialog.show();
+                AlertDialog dialog = alertdialog.create();
+                dialog.show();
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+
             }
         });
 
@@ -244,7 +256,10 @@ public class Transactions_RecyclerView extends RecyclerView.Adapter<Transactions
                         dialog.dismiss();
                     }
                 });
-                alertdialog.show();
+                AlertDialog dialog = alertdialog.create();
+                dialog.show();
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#f44336"));
             }
         });
 

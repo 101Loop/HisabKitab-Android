@@ -158,6 +158,6 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:background="@color/lightblue"
+        android:backgroundTint="@color/landingblue"
         />
 </RelativeLayout>

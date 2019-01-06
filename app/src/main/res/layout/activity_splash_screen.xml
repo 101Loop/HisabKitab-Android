@@ -4,14 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.SplashScreen">
+    tools:context=".Activities.SplashScreen"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/hisabkitab512"
-        android:layout_gravity="center"
-        />
+        android:layout_height="0dp"
+        android:background="@color/landingblue"
+        android:layout_weight=".4"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <TextView
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Hisab-Kitab"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            app:fontFamily="cursive"/>
+        <TextView
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make It Easy"
+            android:textColor="@color/white"
+            app:fontFamily="cursive"
+            android:textSize="@dimen/dp20"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".6">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/hisabkitab512"/>
+
+    </LinearLayout>
 
 </LinearLayout>

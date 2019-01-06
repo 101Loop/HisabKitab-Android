@@ -5,17 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.LandingActivity">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
             android:background="@color/landingblue">
         </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
 
     <!--Scroll View-->
     <ScrollView
@@ -27,7 +22,8 @@
         <!--Parent Relative layout for scrollview-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <!--First layer Layout - Money Flow-->
             <RelativeLayout
@@ -276,6 +272,7 @@
                     android:text="@string/indiv_pocket_mgmt"
                     android:layout_below="@+id/pocketmanageID"
                     android:paddingTop="25dp"
+                    android:gravity="center"
                     android:id="@+id/pocketcontentid"
                     android:layout_centerHorizontal="true"/>
 
@@ -360,6 +357,7 @@
                     android:layout_below="@+id/trackimg"
                     android:layout_centerHorizontal="true"
                     android:paddingTop="30dp"
+                    android:gravity="center"
                     android:text="@string/businesss_track_mny"
                     />
 
@@ -478,9 +476,6 @@
                         android:background="@drawable/google_plus"/>
                 </LinearLayout>
             </RelativeLayout>
-
         </RelativeLayout>
-
     </ScrollView>
-
 </RelativeLayout>

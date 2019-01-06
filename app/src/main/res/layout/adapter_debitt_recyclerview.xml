@@ -11,30 +11,32 @@
         android:id="@+id/card_view"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:backgroundTintMode="screen"
-        android:layout_height="160dp">
+        android:layout_height="160dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
 
         <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="30dp">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:id="@+id/namehint1"
-            android:background="@drawable/ic_circle"
-            android:backgroundTint="@color/opaquelightblue"
-     />
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:id="@+id/namehint"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"/>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/namehint1"
+                android:background="@drawable/ic_circle" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:id="@+id/namehint"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -49,11 +51,12 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:text="Name:  "
                 android:textStyle="bold"
-                app:fontFamily="serif" />
+                app:fontFamily="serif"
+                android:textColor="@color/black"/>
 
             <!--User's name detail-->
             <TextView
@@ -62,7 +65,8 @@
                 android:textStyle="italic"
                 android:id="@+id/namedetail"
                 android:layout_toRightOf="@+id/nameid"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/black"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 />
             <!--Amount view-->
@@ -88,7 +92,7 @@
                 android:id="@+id/amountdetail"
                 android:layout_marginTop="5dp"/>
 
-           <!--Mode view-->
+            <!--Mode view-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,7 +112,7 @@
                 android:textStyle="italic"
                 android:id="@+id/modedetail"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
-             />
+                />
 
             <!--Comment view-->
             <TextView
@@ -138,9 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/comment"
-                android:layout_marginTop="10dp"
-                android:fontFamily=""
-                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
                 android:text="Transaction Date: "
                 app:fontFamily="casual" />
@@ -151,10 +153,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/transaction"
                 android:layout_below="@id/comment"
-                android:layout_marginTop="10dp"
                 android:id="@+id/transactiondetail"
                 app:fontFamily="monospace"
-               />
+                />
 
             <!--Delete button-->
             <ImageView
@@ -170,6 +171,5 @@
                 />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import java.util.Calendar;
+
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -215,6 +218,7 @@ public class AddDebit extends AppCompatActivity {
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, AddDebit.this), this);
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(request);
     }
 
@@ -256,12 +260,18 @@ public class AddDebit extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }

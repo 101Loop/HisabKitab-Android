@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,8 +42,8 @@ import java.lang.reflect.Method;
 
 public class LoginActivity extends SampleClass{
 
-    TextView signup, forgotpwd;
     EditText email;
+    TextView signup, forgotpwd;
     TextInputEditText pwd;
     Button loginbtn;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -50,8 +52,6 @@ public class LoginActivity extends SampleClass{
     private RequestQueue requestQueue = volleySingleton.getRequestQueue();
     private ProgressDialog progressDialog;
     SharedPreference spAdap;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +131,8 @@ public class LoginActivity extends SampleClass{
                 }
             }
         }, new HisabKitabErrorListener(progressDialog, LoginActivity.this), this);
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
+
         requestQueue.add(request);
     }
 

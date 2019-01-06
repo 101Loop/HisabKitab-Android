@@ -1,168 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/blurlayout1"
-    android:background="@color/darkblue"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activities.NewLoginscreen">
+    tools:context=".Activities.LoginActivity"
+    android:weightSum="2"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/headbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/headbar">
+        android:layout_height="0dp"
+        android:background="@color/landingblue"
+        android:orientation="vertical"
+        android:layout_weight=".8"
+        android:gravity="bottom">
 
         <TextView
-            android:id="@+id/appname"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:text="Hisab-Kitab"
             android:textColor="@color/white"
             android:textSize="30dp"
-            app:fontFamily="cursive" />
+            app:fontFamily="cursive"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_below="@+id/appname"
-            android:src="@drawable/hk512"
-            android:layout_centerHorizontal="true"/>
+        <TextView
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make It Easy"
+            android:textColor="@color/white"
+            app:fontFamily="cursive"
+            android:textSize="@dimen/dp20"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/headbar">
+        android:layout_height="0dp"
+        android:layout_weight="1.2">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30">
+
+            <TextView
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="@color/landingblue"/>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/relativelayout"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
-                        android:hint="Email-ID/Mobile"
-                        android:background="@color/opaquelightblue"
-                        android:layout_centerHorizontal="true"
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        app:backgroundTint="@color/white"
-                        android:textColorHint="@color/white"
-                        android:drawableLeft="@drawable/ic_person_blue"
-                        android:drawablePadding="20dp"
-                        android:paddingLeft="15dp"
-                        android:id="@+id/emailID"
-                        />
-
-                   <!-- <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/emailID"
-                        android:hint="Password"
-                        android:singleLine="true"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
-                        android:textColorHint="@color/white"
-                        app:backgroundTint="@color/white"
-                        android:textColor="@color/white"
-                        android:inputType="textPassword"
-                        android:background="@color/opaquelightblue"
-                        android:drawableLeft="@drawable/ic_lock"
-                        android:drawableRight="@drawable/ic_pwdvisibile"
-                        android:drawablePadding="20dp"
-                        android:drawableTint="@color/white"
-                        android:layout_marginTop="10dp"
-                        android:paddingLeft="15dp"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/password"/>-->
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/emailID"
-                        android:layout_marginLeft="45dp"
-                        android:layout_marginRight="45dp"
-                        app:hintEnabled="false"
-                        android:layout_centerHorizontal="true"
-                        app:passwordToggleDrawable="@drawable/password_visibility"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/white">
-
-                        <android.support.design.widget.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/password"
-                            app:backgroundTint="@color/white"
-                            android:textColor="@color/white"
-                            android:hint="Password"
-                            android:textColorHint="@color/white"
-                            android:singleLine="true"
-                            android:drawablePadding="20dp"
-                            android:background="@color/opaquelightblue"
-                            android:inputType="textPassword"
-                            android:paddingLeft="15dp"
-                            android:drawableStart="@drawable/ic_lock"
-                            android:drawableLeft="@drawable/ic_lock" />
-                    </android.support.design.widget.TextInputLayout>
-                </RelativeLayout>
-
-                <Button
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Login"
-                    android:id="@+id/loginId"
-                    android:textColor="@color/white"
-                    android:backgroundTint="@color/white"
-                    android:layout_below="@id/relativelayout"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:textStyle="italic"
-                    android:background="@drawable/opaquebutton"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Forgot Password? Login with OTP"
-                    android:layout_below="@id/loginId"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="14dp"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="30dp"
-                    android:paddingBottom="10dp"
-                    android:id="@+id/forgot"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/forgot"
-                    android:text="New Member? SignUp Here!"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/signUPId"
-                    android:textColor="@color/white"
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Email-ID/Mobile"
                     android:singleLine="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="5dp"/>
-            </RelativeLayout>
+                    android:textColor="@color/white"
+                    android:background="@color/lightblue"
+                    android:textColorHint="@color/white"
+                    android:drawableLeft="@drawable/ic_person_blue"
+                    android:drawablePadding="20dp"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/emailID"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/emailID"
+                app:hintEnabled="false"
+                app:passwordToggleDrawable="@drawable/password_visibility"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/white">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/password"
+                    app:backgroundTint="@color/lightblue"
+                    android:textColor="@color/white"
+                    android:hint="Password"
+                    android:textColorHint="@color/white"
+                    android:singleLine="true"
+                    android:drawablePadding="20dp"
+                    android:background="@color/lightblue"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawableLeft="@drawable/ic_lock" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/dp20"
+                android:text="Login"
+                android:textStyle="bold"
+                android:id="@+id/loginId"
+                android:textColor="@color/white"
+                android:background="@color/landingblue"
+                />
+
+            <TextView
+                android:id="@+id/forgot"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password? Login with OTP"
+                android:textColor="@color/landingblue"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/signUPId"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Member? SignUp Here!"
+                android:textColor="@color/landingblue"
+                android:textAllCaps="false"/>
+
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

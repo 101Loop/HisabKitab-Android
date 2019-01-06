@@ -23,20 +23,19 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
-        android:layout_marginTop="40dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="50dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/appbar">
+            android:layout_marginLeft="@dimen/dp30"
+            android:layout_marginRight="@dimen/dp30">
+
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Name"
                 android:singleLine="true"
@@ -48,7 +47,7 @@
                 android:layout_centerHorizontal="true"/>
 
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/contactname"
                 android:layout_centerHorizontal="true"
@@ -61,8 +60,9 @@
                 android:drawablePadding="5dp"
                 android:hint="Amount"
                 />
+
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Comment(s)"
                 android:paddingLeft="10dp"
@@ -71,8 +71,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/amount"
                 android:layout_centerHorizontal="true"/>
+
             <TextView
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_below="@+id/comment"
                 android:hint="Date"
@@ -97,6 +98,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_below="@+id/date"
                 android:layout_marginTop="20dp"/>
+
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,68 +112,58 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:checked="false"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:id="@+id/cash"
                     android:button="@null"
-                    android:drawableLeft="@drawable/cash"
-                    android:drawablePadding="5dp"
                     android:background="@drawable/radiobutton"
-                    android:text="Cash"/>
+                    android:text="Cash"
+                    android:layout_margin="1dp"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:checked="false"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:button="@null"
                     android:id="@+id/cheque"
-                    android:drawableLeft="@drawable/cheque"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Cheque"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:checked="false"
                     android:id="@+id/acct"
                     android:button="@null"
-                    android:drawableLeft="@drawable/transfer"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:text="Account Transfer"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:text="Card"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
                     android:button="@null"
-                    android:drawableLeft="@drawable/card"
-                    android:drawablePadding="5dp"
+                    android:layout_margin="1dp"
                     android:background="@drawable/radiobutton"
                     android:id="@+id/card"
                     android:checked="false"/>
             </RadioGroup>
 
-
-            <Button
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:background="@drawable/button"
-                android:layout_below="@+id/radiogroup"
-                android:layout_marginTop="50dp"
-                android:id="@+id/submit"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
-                />
         </RelativeLayout>
-
-        </LinearLayout>
 
     </ScrollView>
 
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/landingblue"
+        android:layout_alignParentBottom="true"
+        android:text="Submit"
+        android:textColor="@color/white" />
 </RelativeLayout>

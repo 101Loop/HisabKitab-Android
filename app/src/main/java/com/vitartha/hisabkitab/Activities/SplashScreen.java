@@ -35,10 +35,12 @@ public class SplashScreen extends AppCompatActivity {
                 if (spAdap.getString(key.server.key_token) == null) {
                     Intent i = new Intent(SplashScreen.this, LoginActivity.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     finish();
                 } else {
                     Intent i = new Intent(SplashScreen.this, Dashboard.class);
                     startActivity(i);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     finish();
                 }
             }

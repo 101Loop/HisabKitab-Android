@@ -20,46 +20,66 @@
         android:visibility="invisible"/>
 
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         android:id="@+id/transactiondetaillayout"
-        android:layout_centerHorizontal="true"
-        >
+        android:weightSum="2"
+        android:background="@color/lightblue">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Total Transaction(s): "
-            android:id="@+id/Totattrans"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/TotattransValue"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/Totattrans"
-            />
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/TotattransValue"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp20"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Transaction(s)"
+                android:textColor="@color/white"
+                android:id="@+id/Totattrans" />
+
+        </LinearLayout>
+
         <View
             android:layout_width="1dp"
-            android:layout_height="20dp"
-            android:layout_toRightOf="@+id/TotattransValue"
-            android:background="@color/black" />
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@color/landingblue"/>
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/Totalamt"
-            android:layout_toRightOf="@+id/TotattransValue"
-            android:text=" Total Amount: ₹"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/Totalamt"
-            android:id="@+id/TotalamtValue"/>
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/TotalamtValue"
+                android:text="1000"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dp20"/>
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Totalamt"
+                android:textColor="@color/white"
+                android:text=" Total Amount"
+                android:layout_marginLeft="2dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

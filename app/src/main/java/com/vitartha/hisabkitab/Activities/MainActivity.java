@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.button.MaterialButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,7 +35,7 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
 
     EditText Uname, email, mobile, pwd, c_pwd;
-    TextView  loginhere;
+    TextView loginhere;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String pass, confirm_pass, user_Name;
     Button registerbtn;
@@ -48,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Signup");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        //For back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         Uname = findViewById(R.id.nameID);
         email = findViewById(R.id.emailID);
@@ -182,8 +188,9 @@ public class MainActivity extends AppCompatActivity {
         loginhere.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(i);
+                finish();
                 overridePendingTransition(R.anim.back_in, R.anim.back_out);
             }
         });
@@ -250,7 +257,9 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-                    alert.show();
+                    AlertDialog dialog = alert.create();
+                    dialog.show();
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor("#1295c9"));
                 } else {
                     String errorStr = new String(error.networkResponse.data);
                     try {
@@ -273,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,0,1f));
         requestQueue.add(request);
     }
 
@@ -293,14 +303,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         finish();
+        overridePendingTransition(R.anim.back_in, R.anim.back_out);
         return true;
     }
 }
